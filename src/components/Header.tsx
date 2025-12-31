@@ -39,7 +39,7 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex flex-col items-start group">
+        <Link href="/" className="flex flex-col items-center group">
           <span className="text-2xl font-bold text-white tracking-tight group-hover:text-blue-400 transition-colors leading-none">
             Proscom
           </span>
