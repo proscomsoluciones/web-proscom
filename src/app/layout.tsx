@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import NewFooter from "@/components/NewFooter";
+import NewNav from "@/components/NewNav";
 import Script from "next/script";
 import { ModalProvider } from "@/context/ModalContext";
 import DemoModal from "@/components/DemoModal";
-
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,53 +19,35 @@ const outfit = Outfit({
   display: "swap",
 });
 
-// 🔹 Metadata SEO profesional optimizada para la Quinta Región
 export const metadata: Metadata = {
-  title: "Proscom | Soluciones de gestión y control para organizaciones",
+  title: "Proscom | Software Regional con Impacto en Latam",
   description:
-    "Plataformas digitales de gestión administrativa, financiera y documental para organizaciones e industrias productivas. Conoce Proscom.",
+    "Desarrollo de software en la Quinta Región con experiencia en Colombia, México, Argentina y Perú. Sistemas a medida desde el Aconcagua hasta Valparaíso.",
   keywords: [
-    // Core
-    "soluciones de gestión",
-    "control y gestión",
-    "plataformas de gestión",
-    "sistemas de gestión",
-    "gestión administrativa",
-    "gestión financiera",
-    "control administrativo",
-    "digitalización de procesos",
-    // Secondary
-    "gestión organizacional",
-    "control de procesos",
-    "automatización administrativa",
-    "software de gestión",
-    "plataformas digitales de gestión",
+    "software internacional chile",
+    "sistemas gestion quinta region",
+    "desarrollador san felipe",
+    "tecnologia viña del mar",
+    "consultoria software mexico colombia argentina peru",
     "Proscom",
   ],
   authors: [{ name: "Proscom" }],
   openGraph: {
-    title: "Proscom | Soluciones de gestión y control para organizaciones",
+    title: "Proscom | Software Regional con Impacto en Latam",
     description:
-      "Plataformas digitales de gestión administrativa, financiera y documental para organizaciones e industrias productivas. Conoce Proscom.",
+      "Desarrollo de software en la Quinta Región con experiencia en Colombia, México, Argentina y Perú.",
     url: "https://www.proscom.cl",
     siteName: "Proscom",
     images: [
       {
-        url: "https://www.proscom.cl/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Proscom Soluciones de Gestión",
+        alt: "Proscom Software Regional & Latam",
       },
     ],
     locale: "es_CL",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Proscom | Soluciones de gestión y control para organizaciones",
-    description:
-      "Plataformas digitales de gestión administrativa, financiera y documental para organizaciones e industrias productivas.",
-    images: ["https://www.proscom.cl/og-image.jpg"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -79,21 +60,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased bg-[#0a0a0a] text-white selection:bg-blue-500/30`}
+        className={`${inter.variable} ${outfit.variable} antialiased bg-[#020202] text-white selection:bg-blue-500/30`}
       >
         <ModalProvider>
-          {/* Header global */}
-          <Header />
+          {/* Header global renovado */}
+          <NewNav />
           
           {/* Contenido principal */}
-          <main>{children}</main>
+          <main className="overflow-hidden">{children}</main>
 
-          {/* Footer global */}
-          <Footer />
+          {/* Footer global renovado */}
+          <NewFooter />
 
-          {/* Global Modal */}
+          {/* Global Modal para Demos */}
           <DemoModal />
         </ModalProvider>
 
@@ -120,23 +101,7 @@ export default function RootLayout({
                 "@type": "GeoCoordinates",
                 "latitude": -32.876125,
                 "longitude": -70.660629
-              },
-              "openingHoursSpecification": {
-  "@type": "OpeningHoursSpecification",
-  "dayOfWeek": [
-    "https://schema.org/Lunes",
-    "https://schema.org/Martes",
-    "https://schema.org/Miércoles",
-    "https://schema.org/Jueves",
-    "https://schema.org/Viernes"
-  ],
-  "opens": "09:00",
-  "closes": "18:00"
-},
-              "sameAs": [
-                "https://www.instagram.com/proscom_oficia",
-                "https://www.linkedin.com/company/proscom"
-              ]
+              }
             }
           `}
         </Script>

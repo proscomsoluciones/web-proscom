@@ -47,11 +47,13 @@
    if we want a dark-first site. For now, respecting media query 
    but setting a dark default base in body if needed. */
 
-body {
+html, body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
-  overflow-x: hidden; /* Prevent horizontal scroll from animations */
+  overflow-x: clip; /* Modern alternative to hidden for preventing horizontal scroll */
+  width: 100%;
+  position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
