@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
-import NewFooter from "@/components/NewFooter";
-import NewNav from "@/components/NewNav";
+import ModernNav from "@/components/ModernNav";
 import Script from "next/script";
 import { ModalProvider } from "@/context/ModalContext";
 import DemoModal from "@/components/DemoModal";
@@ -20,22 +19,30 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Proscom | Software Regional con Impacto en Latam",
+  title: "Diseño de Páginas Web en el Valle del Aconcagua | Proscom Software",
   description:
-    "Desarrollo de software en la Quinta Región con experiencia en Colombia, México, Argentina y Perú. Sistemas a medida desde el Aconcagua hasta Valparaíso.",
+    "Desarrollo de software y páginas web de alto impacto en todo el Valle del Aconcagua. Soluciones tecnológicas corporativas desde San Felipe y Los Andes para todo Chile y Latam.",
   keywords: [
-    "software internacional chile",
-    "sistemas gestion quinta region",
-    "desarrollador san felipe",
-    "tecnologia viña del mar",
-    "consultoria software mexico colombia argentina peru",
-    "Proscom",
+    "paginas web san felipe",
+    "diseño web los andes",
+    "creacion de paginas web aconcagua",
+    "desarrollo de software san felipe",
+    "programador de paginas web los andes",
+    "agencia digital san felipe",
+    "ecommerce san felipe los andes",
+    "software a medida san felipe",
+    "Proscom Juan  Ramon Cornejo",
   ],
   authors: [{ name: "Proscom" }],
+  publisher: "Proscom",
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://www.proscom.cl",
+  },
   openGraph: {
     title: "Proscom | Software Regional con Impacto en Latam",
     description:
-      "Desarrollo de software en la Quinta Región con experiencia en Colombia, México, Argentina y Perú.",
+      "Digitalizamos tu empresa con estándares internacionales. Líderes en desarrollo de software en San Felipe, Los Andes y todo el Valle de Aconcagua.",
     url: "https://www.proscom.cl",
     siteName: "Proscom",
     images: [
@@ -48,6 +55,12 @@ export const metadata: Metadata = {
     ],
     locale: "es_CL",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Proscom | Software Regional con Impacto en Latam",
+    description: "Expertos en desarrollo de software y transformación digital en la Quinta Región.",
+    images: ["/og-image.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -62,17 +75,13 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased bg-[#020202] text-white selection:bg-blue-500/30`}
+        className={`${inter.variable} ${outfit.variable} antialiased bg-white text-brand-navy selection:bg-brand-navy/10`}
       >
         <ModalProvider>
-          {/* Header global renovado */}
-          <NewNav />
+          <ModernNav />
           
           {/* Contenido principal */}
           <main className="overflow-hidden">{children}</main>
-
-          {/* Footer global renovado */}
-          <NewFooter />
 
           {/* Global Modal para Demos */}
           <DemoModal />
@@ -83,25 +92,32 @@ export default function RootLayout({
           {`
             {
               "@context": "https://schema.org",
-              "@type": "LocalBusiness",
+              "@type": "SoftwareApplication",
               "name": "Proscom",
-              "image": "https://www.proscom.cl/og-image.jpg",
-              "@id": "https://www.proscom.cl",
-              "url": "https://www.proscom.cl",
-              "telephone": "+56 9 75610245",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Ignacio Carrera Pinto",
-                "addressLocality": "Catemu",
-                "addressRegion": "Valparaíso",
-                "postalCode": "0000000",
-                "addressCountry": "CL"
+              "operatingSystem": "All",
+              "applicationCategory": "BusinessApplication",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5.0",
+                "reviewCount": "12"
               },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": -32.876125,
-                "longitude": -70.660629
-              }
+              "offers": {
+                "@type": "Offer",
+                "price": "0.00",
+                "priceCurrency": "CLP"
+              },
+              "author": {
+                "@type": "Organization",
+                "name": "Proscom",
+                "url": "https://www.proscom.cl",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Catemu",
+                  "addressRegion": "Valparaíso",
+                  "addressCountry": "CL"
+                }
+              },
+              "description": "Desarrollo de software a medida, e-commerce y apps en el Valle de Aconcagua."
             }
           `}
         </Script>
