@@ -32,6 +32,11 @@ const SuccessCases = () => {
        text: "Creamos una plataforma social de apoyo al comercio local en Catemu, Llay Llay y el valle, democratizando el acceso a herramientas digitales de forma gratuita.",
        entity: "QueBuenDato.cl",
        project: "Plataforma de Fomento al Comercio"
+    },
+    {
+       text: "La digitalización de nuestra asociación nos permitió organizar los torneos y registrar a los clubes de manera eficiente, moderna y transparente.",
+       entity: "Asociación de Fútbol de Catemu",
+       project: "Plataforma de Gestión Deportiva"
     }
   ];
   const logos = [
@@ -42,7 +47,8 @@ const SuccessCases = () => {
     { name: 'LyC', path: '/images/clientes/cliente-lyc.jpg' },
     { name: 'San Jose', path: '/images/clientes/cliente-san-jose.jpg' },
     { name: 'QueBuenDato', path: '/images/clientes/logo-quebuendato.png' },
-    { name: 'Proscom', path: '/images/clientes/cliente-fichalo.jpg' }, 
+    { name: 'Asociacion de Futbol de Catemu', path: '/images/clientes/logo.jpg' },
+    { name: 'Asociacion de Futbol de Catemu', path: '/images/clientes/icon-512x512.webp' }
   ];
 
   React.useEffect(() => {
