@@ -19,38 +19,38 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Diseño de Páginas Web en el Valle del Aconcagua | Proscom Software",
+  title: "PROSCOM SpA | Soluciones Tecnológicas Corporativas & Software Enterprise",
   description:
-    "Desarrollo de software y páginas web de alto impacto en todo el Valle del Aconcagua. Soluciones tecnológicas corporativas desde San Felipe y Los Andes para todo Chile y Latam.",
+    "PROSCOM SpA. Soluciones tecnológicas corporativas, ingeniería de software a medida, ciberseguridad avanzada y transformación digital para grandes empresas en Chile y Latam.",
   keywords: [
-    "paginas web san felipe",
-    "diseño web los andes",
-    "creacion de paginas web aconcagua",
-    "desarrollo de software san felipe",
-    "programador de paginas web los andes",
-    "agencia digital san felipe",
-    "ecommerce san felipe los andes",
-    "software a medida san felipe",
-    "Proscom Juan  Ramon Cornejo",
+    "PROSCOM SPA",
+    "proscom chile",
+    "software corporativo chile",
+    "desarrollo de software enterprise",
+    "ciberseguridad empresas chile",
+    "desarrollo web corporativo",
+    "consultoria tecnologica vitacura",
+    "software vitacura santiago",
+    "Proscom Juan Ramon Cornejo",
   ],
-  authors: [{ name: "Proscom" }],
-  publisher: "Proscom",
+  authors: [{ name: "PROSCOM SPA" }],
+  publisher: "PROSCOM SPA",
   robots: "index, follow",
   alternates: {
     canonical: "https://www.proscom.cl",
   },
   openGraph: {
-    title: "Proscom | Software Regional con Impacto en Latam",
+    title: "PROSCOM SpA | Soluciones Tecnológicas Corporativas & Software Enterprise",
     description:
-      "Digitalizamos tu empresa con estándares internacionales. Líderes en desarrollo de software en San Felipe, Los Andes y todo el Valle de Aconcagua.",
+      "Digitalizamos y potenciamos grandes empresas con ingeniería de software de clase mundial, ciberseguridad y arquitectura cloud escalable.",
     url: "https://www.proscom.cl",
-    siteName: "Proscom",
+    siteName: "PROSCOM SpA",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Proscom Software Regional & Latam",
+        alt: "PROSCOM SpA — Soluciones Tecnológicas Corporativas",
       },
     ],
     locale: "es_CL",
@@ -58,8 +58,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Proscom | Software Regional con Impacto en Latam",
-    description: "Expertos en desarrollo de software y transformación digital en la Quinta Región.",
+    title: "PROSCOM SpA | Soluciones Tecnológicas Corporativas",
+    description: "Ingeniería de software, ciberseguridad empresarial y transformación digital de alto impacto.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -92,32 +92,29 @@ export default function RootLayout({
           {`
             {
               "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "Proscom",
-              "operatingSystem": "All",
-              "applicationCategory": "BusinessApplication",
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "5.0",
-                "reviewCount": "12"
+              "@type": "Corporation",
+              "name": "PROSCOM SpA",
+              "legalName": "PROSCOM SPA",
+              "vatID": "78497846-K",
+              "taxID": "78.497.846-K",
+              "url": "https://www.proscom.cl",
+              "logo": "https://www.proscom.cl/og-image.png",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Avenida Presidente Kennedy 5600, Of. 507",
+                "addressLocality": "Vitacura",
+                "addressRegion": "Región Metropolitana",
+                "postalCode": "7630000",
+                "addressCountry": "CL"
               },
-              "offers": {
-                "@type": "Offer",
-                "price": "0.00",
-                "priceCurrency": "CLP"
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+56975610245",
+                "contactType": "customer service",
+                "areaServed": "CL",
+                "availableLanguage": ["Spanish", "English"]
               },
-              "author": {
-                "@type": "Organization",
-                "name": "Proscom",
-                "url": "https://www.proscom.cl",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Catemu",
-                  "addressRegion": "Valparaíso",
-                  "addressCountry": "CL"
-                }
-              },
-              "description": "Desarrollo de software a medida, e-commerce y apps en el Valle de Aconcagua."
+              "description": "Compañía de soluciones tecnológicas corporativas, ingeniería de software a medida, ciberseguridad y transformación digital."
             }
           `}
         </Script>

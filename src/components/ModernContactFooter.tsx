@@ -1,9 +1,9 @@
 "use client";
 
 import React from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
-
+import { MapPin, Building2 } from 'lucide-react';
 import { sendEmail } from '@/app/actions/sendEmail';
+import ProscomLogo from './ProscomLogo';
 
 const ContactFooter = () => {
   const [isSending, setIsSending] = React.useState(false);
@@ -28,56 +28,90 @@ const ContactFooter = () => {
   return (
     <footer id="contacto" className="pt-24 pb-12 bg-white relative">
       <div className="container mx-auto px-6">
+        {/* Header section in footer */}
+        <div className="mb-12 text-center lg:text-left max-w-3xl">
+          <span className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-3 block">Contacto Corporativo</span>
+          <h2 className="text-4xl md:text-5xl font-black text-[#002B5B]">Hablemos de su Próximo Proyecto Enterprise</h2>
+        </div>
+
         {/* Main Blue Box */}
-        <div className="bg-[#002B5B] rounded-[2rem] p-10 md:p-12 text-white shadow-2xl relative overflow-hidden">
+        <div className="bg-[#002B5B] rounded-[2rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 text-black">
             
             {/* Form Section */}
             <div className="lg:col-span-7">
               {isSuccess ? (
                 <div className="bg-green-500/10 border border-green-500 rounded-2xl p-10 text-center text-white h-full flex flex-col items-center justify-center">
-                  <h3 className="text-2xl font-bold mb-4">¡Mensaje Enviado!</h3>
-                  <p>Juan Ramón se pondrá en contacto contigo pronto.</p>
+                  <h3 className="text-2xl font-bold mb-4">¡Solicitud Enviada con Éxito!</h3>
+                  <p className="text-gray-200">Un consultor de PROSCOM SpA se pondrá en contacto a la brevedad.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input name="firstName" type="text" placeholder="Nombre" required className="bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm" />
-                  <input name="lastName" type="text" placeholder="Apellido" required className="bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm" />
-                  <input name="email" type="email" placeholder="Email" required className="bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm" />
-                  <input name="phone" type="tel" placeholder="Teléfono" required className="bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm" />
-                  <textarea name="message" placeholder="¿En qué podemos ayudarte?" required className="md:col-span-2 bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm h-32 resize-none"></textarea>
+                  <input name="firstName" type="text" placeholder="Nombre *" required className="bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm text-sm" />
+                  <input name="lastName" type="text" placeholder="Apellido *" required className="bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm text-sm" />
+                  <input name="email" type="email" placeholder="Email Corporativo *" required className="bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm text-sm" />
+                  <input name="phone" type="tel" placeholder="Teléfono *" required className="bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm text-sm" />
+                  <textarea name="message" placeholder="Describa los requerimientos de su empresa u organización *" required className="md:col-span-2 bg-white rounded-lg px-6 py-4 outline-none border-none shadow-sm h-32 resize-none text-sm"></textarea>
                   <button 
                     disabled={isSending}
                     type="submit" 
-                    className="md:col-span-2 bg-[#001D3D] text-white font-bold py-4 rounded-lg hover:bg-black transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="md:col-span-2 bg-[#001D3D] text-white font-bold py-4 rounded-xl hover:bg-black transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg text-sm"
                   >
-                    {isSending ? "Enviando..." : "Contactar"}
+                    {isSending ? "Enviando Solicitud..." : "Enviar Solicitud Corporativa"}
                   </button>
                 </form>
               )}
             </div>
 
-            {/* Map Section */}
-            <div className="lg:col-span-5 relative">
-               <div className="bg-white rounded-xl overflow-hidden h-full min-h-[300px] border border-gray-200 shadow-lg">
+            {/* Corporate Info & Map Section */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+               {/* Corporate Card Details */}
+               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 text-white space-y-4">
+                  <div className="pb-2 border-b border-white/10">
+                     <ProscomLogo variant="light" showTagline={true} showSpABadge={true} />
+                  </div>
+                  <div className="flex items-center gap-3">
+                     <Building2 className="w-5 h-5 text-blue-300 shrink-0" />
+                     <div>
+                        <p className="font-bold text-base text-white">PROSCOM SPA</p>
+                        <p className="text-xs text-blue-200">Soluciones Tecnológicas Corporativas</p>
+                     </div>
+                  </div>
+                  <div className="flex items-start gap-3 border-t border-white/10 pt-3">
+                     <MapPin className="w-5 h-5 text-blue-300 shrink-0 mt-0.5" />
+                     <div>
+                        <p className="text-xs font-semibold">Casa Matriz:</p>
+                        <p className="text-xs text-gray-200 leading-snug">
+                           Av. Presidente Kennedy N° 5.600, Of. 507<br />
+                           Vitacura, Región Metropolitana, Chile
+                        </p>
+                     </div>
+                  </div>
+               </div>
+
+               {/* Interactive Google Map of Vitacura */}
+               <div className="bg-white rounded-2xl overflow-hidden h-full min-h-[220px] border border-gray-200 shadow-lg relative">
                   <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107147.165248!2d-71.688849!3d-33.047238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689e0a027465107%3A0x13c7a0ec3f790!2sValpara%C3%ADso%2C%20Chile!5e0!3m2!1ses!2s!4v1650890000000!5m2!1ses!2s" 
-                    className="w-full h-full grayscale opacity-90"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.6868516766487!2d-70.57321492348557!3d-33.40532299516641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c93540a927a3%3A0xb30e71cbcfdfb78e!2sAv.%20Pres.%20Kennedy%205600%2C%20Vitacura%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1700000000000!5m2!1ses!2scl" 
+                    className="w-full h-full grayscale opacity-90 border-0"
                     loading="lazy" 
                   ></iframe>
-                  {/* Overlay Info like in image */}
-                  <div className="absolute top-4 left-4 right-4 p-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-gray-100">
-                     <p className="text-xs font-bold text-gray-800">Valparaiso</p>
-                     <p className="text-[10px] text-blue-600 font-semibold cursor-pointer">View Velparsiso</p>
+                  <div className="absolute top-3 left-3 right-3 p-3 bg-white/95 backdrop-blur-md rounded-xl shadow-md border border-gray-100 flex justify-between items-center">
+                     <div>
+                        <p className="text-xs font-bold text-gray-900">Oficinas Vitacura</p>
+                        <p className="text-[10px] text-gray-500">Av. Pres. Kennedy 5600, Of. 507</p>
+                     </div>
+                     <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">PROSCOM SpA</span>
                   </div>
                </div>
             </div>
           </div>
         </div>
-           {/* Bottom Socials & Links - Centered */}
-        <div className="mt-20 pt-8 border-t border-gray-100 flex flex-col items-center text-center gap-6">
-           <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-              © {new Date().getFullYear()} Proscom Software — Valle del Aconcagua. Todos los derechos reservados.
+
+        {/* Bottom Socials & Links - Centered */}
+        <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col items-center text-center gap-6">
+           <div className="text-xs font-bold text-gray-500 uppercase tracking-widest max-w-2xl">
+              © {new Date().getFullYear()} PROSCOM SPA — Av. Presidente Kennedy N° 5.600, Of. 507, Vitacura, Región Metropolitana. Todos los derechos reservados.
            </div>
            
            <div className="flex gap-8 items-center">

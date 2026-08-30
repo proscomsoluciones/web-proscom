@@ -1,7 +1,4 @@
-"use client";
-
 import React from 'react';
-import { motion } from 'framer-motion';
 
 const ModernAbout = () => {
   return (
@@ -26,25 +23,33 @@ const ModernAbout = () => {
 
           {/* Text Side */}
           <div className="w-full lg:w-1/2">
-            <span className="text-blue-600 font-bold uppercase tracking-widest text-sm mb-4 block">Confianza y Experiencia</span>
+            <span className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-3 block">Liderazgo & Gobierno Corporativo</span>
             <h2 className="text-4xl md:text-5xl font-black text-[#002B5B] mb-8 leading-tight">
-              Liderazgo local con <br /> impacto internacional.
+              PROSCOM SpA: <br /> Solidez Empresarial e Innovación
             </h2>
             <div className="space-y-6 text-gray-700 text-lg leading-relaxed mb-10">
               <p>
-                &quot;Haber asesorado proyectos en **Colombia, México, Argentina y Perú** me ha dado una perspectiva única sobre cómo la tecnología debe servir al negocio para generar resultados reales.&quot;
+                Bajo el liderazgo técnico de Juan Ramón Cornejo G.,PROSCOM SpA se posiciona como una firma de ingeniería de software corporativo, ciberseguridad y consultoría tecnológica avanzada.
+              </p>
+              <p className="text-base text-gray-600">
+                La experiencia de consultoría acumulada por Juan Ramón en proyectos internacionales clave para empresas en Colombia, México, Argentina y Perú constituye el respaldo técnico de excelencia que hoy canaliza a través de PROSCOM SpA desde nuestra sede central en Vitacura, Región Metropolitana.
               </p>
             </div>
             
             <div className="flex gap-8">
                <div className="flex flex-col">
                   <span className="text-3xl font-black text-[#002B5B]">15+</span>
-                  <span className="text-[10px] uppercase text-blue-600 font-bold tracking-widest">Años de Expertiz</span>
+                  <span className="text-[10px] uppercase text-blue-600 font-bold tracking-widest">Años de Trayectoria</span>
                </div>
-               <div className="w-px h-10 bg-gray-100" />
+               <div className="w-px h-10 bg-gray-200" />
                <div className="flex flex-col">
                   <span className="text-3xl font-black text-[#002B5B]">04</span>
                   <span className="text-[10px] uppercase text-blue-600 font-bold tracking-widest">Mercados Latam</span>
+               </div>
+               <div className="w-px h-10 bg-gray-200" />
+               <div className="flex flex-col">
+                  <span className="text-3xl font-black text-[#00529B]">Vitacura</span>
+                  <span className="text-[10px] uppercase text-blue-600 font-bold tracking-widest">Sede Central</span>
                </div>
             </div>
           </div>

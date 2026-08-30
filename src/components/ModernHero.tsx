@@ -27,12 +27,13 @@ const Hero = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block px-4 py-1.5 bg-blue-50 text-[#00529B] text-xs md:text-sm font-bold tracking-widest rounded-full mb-6 uppercase">
-              Diseño de Páginas Web en el Valle del Aconcagua
-            </span>
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-[#002B5B] leading-[1.1] tracking-tighter mb-10">
-              SOFTWARE LÍDER DE <br />
-              CORDILLERA A MAR.
+            <div className="inline-flex items-center gap-2 px-5 py-2 bg-blue-50/80 border border-blue-100 text-[#00529B] text-xs md:text-sm font-bold tracking-widest rounded-full mb-8 uppercase shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+              PROSCOM SPA • TECNOLOGÍA CORPORATIVA & SOFTWARE ENTERPRISE
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#002B5B] leading-[1.1] tracking-tighter mb-8 uppercase">
+              INGENIERÍA DE SOFTWARE CORPORATIVO <br className="hidden md:inline" />
+              Y PLATAFORMAS DE ALTO IMPACTO
             </h1>
           </motion.div>
 
@@ -40,20 +41,55 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base md:text-xl text-gray-800 font-medium leading-relaxed max-w-3xl mx-auto mb-16 px-4"
+            className="text-lg md:text-2xl text-gray-700 font-medium leading-relaxed max-w-4xl mx-auto mb-12 px-4"
           >
-            Asesoría experta con trayectoria en Colombia, México, Argentina y Perú. Traigo estándares internacionales al desarrollo de sistemas en el Aconcagua y la costa chilena.
+            Impulsamos la transformación digital de corporaciones y grandes empresas en Chile y Latinoamérica. 
+            Arquitecturas robustas, ciberseguridad avanzada y desarrollo de sistemas a medida con estándares internacionales.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex justify-center"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
-            <button className="px-10 py-5 bg-[#00529B] text-white font-bold rounded-xl shadow-xl shadow-blue-900/10 hover:bg-[#002B5B] transition-all flex items-center gap-3">
-              Agendar Consultoría Gratuita
-            </button>
+            <a 
+              href="#contacto"
+              className="w-full sm:w-auto px-10 py-5 bg-[#002B5B] text-white font-bold text-base rounded-xl shadow-xl shadow-blue-900/15 hover:bg-[#001D3D] transition-all flex items-center justify-center gap-3"
+            >
+              Solicitar Consultoría Corporativa
+            </a>
+            <a 
+              href="#servicios"
+              className="w-full sm:w-auto px-8 py-5 bg-gray-50 border border-gray-200 text-gray-800 font-bold text-base rounded-xl hover:bg-gray-100 transition-all flex items-center justify-center gap-2"
+            >
+              Ver Soluciones Enterprise
+            </a>
+          </motion.div>
+
+          {/* Corporate Trust Badges */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 border-t border-gray-100 max-w-4xl mx-auto text-left"
+          >
+            <div>
+              <p className="text-2xl font-black text-[#002B5B]">PROSCOM SpA</p>
+              <p className="text-xs text-gray-500 font-medium">Software & Tecnología</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black text-[#002B5B]">Vitacura</p>
+              <p className="text-xs text-gray-500 font-medium">Av. Pres. Kennedy 5600</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black text-[#002B5B]">Ley N° 21.719</p>
+              <p className="text-xs text-gray-500 font-medium">Ciberseguridad Corporativa</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black text-[#002B5B]">Latam Scope</p>
+              <p className="text-xs text-gray-500 font-medium">Proyectos Multi-mercado</p>
+            </div>
           </motion.div>
         </div>
       </div>
