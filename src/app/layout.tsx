@@ -1,123 +1,150 @@
-import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
-import ModernNav from "@/components/ModernNav";
-import Script from "next/script";
-import { ModalProvider } from "@/context/ModalContext";
-import DemoModal from "@/components/DemoModal";
+import { siteConfig } from "@/config/site";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { getOrganizationSchema } from "@/lib/schema";
+import { MotionProvider } from "@/components/motion/MotionProvider";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
 
 const inter = Inter({
-  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  display: "swap",
-});
+export const viewport: Viewport = {
+  themeColor: "#071A35",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
-  title: "PROSCOM SpA | Soluciones Tecnológicas Corporativas & Software Enterprise",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: "Proscom | Soluciones de Control, Gestión y Desarrollo de Software",
+    template: "%s | Proscom",
+  },
   description:
-    "PROSCOM SpA. Soluciones tecnológicas corporativas, ingeniería de software a medida, ciberseguridad avanzada y transformación digital para grandes empresas en Chile y Latam.",
+    "Desarrollamos software a medida, aplicaciones móviles, sitios web y plataformas de gestión que ayudan a empresas y organizaciones a optimizar sus procesos y crecer en toda la Región de Valparaíso y Chile.",
   keywords: [
-    "PROSCOM SPA",
-    "proscom chile",
-    "software corporativo chile",
-    "desarrollo de software enterprise",
-    "ciberseguridad empresas chile",
-    "desarrollo web corporativo",
-    "consultoria tecnologica vitacura",
-    "software vitacura santiago",
-    "Proscom Juan Ramon Cornejo",
+    "Desarrollo de software a medida Chile",
+    "Desarrollo web Región de Valparaíso",
+    "Empresas de desarrollo de software Chile",
+    "Sistemas de gestión para empresas",
+    "Desarrollo de aplicaciones móviles Chile",
+    "Desarrollo de software Valparaíso",
+    "Desarrollo de sistemas empresariales",
+    "Proscom Chile",
   ],
-  authors: [{ name: "PROSCOM SPA" }],
-  publisher: "PROSCOM SPA",
-  robots: "index, follow",
-  alternates: {
-    canonical: "https://www.proscom.cl",
+  authors: [{ name: "Proscom SpA", url: siteConfig.url }],
+  creator: "Proscom",
+  publisher: "Proscom",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
-    title: "PROSCOM SpA | Soluciones Tecnológicas Corporativas & Software Enterprise",
+    type: "website",
+    locale: "es_CL",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: "Proscom | Soluciones de Control y Gestión",
     description:
-      "Digitalizamos y potenciamos grandes empresas con ingeniería de software de clase mundial, ciberseguridad y arquitectura cloud escalable.",
-    url: "https://www.proscom.cl",
-    siteName: "PROSCOM SpA",
+      "Transformamos ideas en soluciones tecnológicas. Software a medida, plataformas de gestión y desarrollo web profesional en Chile.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/images/hero/header-hero.png",
         width: 1200,
         height: 630,
-        alt: "PROSCOM SpA — Soluciones Tecnológicas Corporativas",
+        alt: "Proscom - Transformamos ideas en soluciones tecnológicas",
       },
     ],
-    locale: "es_CL",
-    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PROSCOM SpA | Soluciones Tecnológicas Corporativas",
-    description: "Ingeniería de software, ciberseguridad empresarial y transformación digital de alto impacto.",
-    images: ["/og-image.png"],
+    title: "Proscom | Soluciones de Control y Gestión",
+    description:
+      "Desarrollo de software a medida, aplicaciones móviles y sistemas de gestión para empresas en Chile.",
+    images: ["/images/hero/header-hero.png"],
   },
-  icons: {
-    icon: "/favicon.ico",
+  alternates: {
+    canonical: siteConfig.url,
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="es" className="scroll-smooth">
-      <body
-        className={`${inter.variable} ${outfit.variable} antialiased bg-white text-brand-navy selection:bg-brand-navy/10`}
-      >
-        <ModalProvider>
-          <ModernNav />
-          
-          {/* Contenido principal */}
-          <main className="overflow-hidden">{children}</main>
+    <html
+      lang="es-CL"
+      className={`${montserrat.variable} ${inter.variable} scroll-smooth antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Activa el sistema de animaciones antes del primer pintado (evita parpadeos) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
+      <body className="min-h-screen flex flex-col bg-white text-[#071A35] selection:bg-[#1688F5] selection:text-white">
+        {/* Accessible skip link */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#1479D4] focus:text-white focus:rounded-md focus:shadow-lg focus:outline-none"
+        >
+          Saltar al contenido principal
+        </a>
 
-          {/* Global Modal para Demos */}
-          <DemoModal />
-        </ModalProvider>
+        {/* Barra de progreso de lectura */}
+        <ScrollProgress />
 
-        {/* JSON-LD Schema para Google */}
-        <Script id="proscom-jsonld" type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "Corporation",
-              "name": "PROSCOM SpA",
-              "legalName": "PROSCOM SPA",
-              "vatID": "78497846-K",
-              "taxID": "78.497.846-K",
-              "url": "https://www.proscom.cl",
-              "logo": "https://www.proscom.cl/og-image.png",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Avenida Presidente Kennedy 5600, Of. 507",
-                "addressLocality": "Vitacura",
-                "addressRegion": "Región Metropolitana",
-                "postalCode": "7630000",
-                "addressCountry": "CL"
-              },
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+56975610245",
-                "contactType": "customer service",
-                "areaServed": "CL",
-                "availableLanguage": ["Spanish", "English"]
-              },
-              "description": "Compañía de soluciones tecnológicas corporativas, ingeniería de software a medida, ciberseguridad y transformación digital."
-            }
-          `}
-        </Script>
+        {/* Global sticky header */}
+        <Header />
+
+        {/* Main content landmark */}
+        <main id="main-content" className="flex-1 pt-[73px]">
+          {children}
+        </main>
+
+        {/* Global corporate footer */}
+        <Footer />
+
+        {/* Motor global de animaciones (scroll reveal + spotlight) */}
+        <MotionProvider />
+
+        {/* Floating WhatsApp contact button */}
+        <WhatsAppButton />
+
+        {/* JSON-LD Organization Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getOrganizationSchema()),
+          }}
+        />
       </body>
     </html>
   );

@@ -1,41 +1,58 @@
-import React from 'react';
-import ModernHero from "@/components/ModernHero";
-import ModernTrustPillars from "@/components/ModernTrustPillars";
-import ModernSolutions from "@/components/ModernSolutions";
-import ModernCybersecurity from "@/components/ModernCybersecurity";
-import ModernLatamPresence from "@/components/ModernLatamPresence";
-import ModernSuccessCases from "@/components/ModernSuccessCases";
-import ModernAbout from "@/components/ModernAbout";
-import ModernContactFooter from "@/components/ModernContactFooter";
+import React from "react";
+import { Hero } from "@/components/home/Hero";
+import { ServicesSection } from "@/components/home/ServicesSection";
+import { ValuePropSection } from "@/components/home/ValuePropSection";
+import { MethodologySection } from "@/components/home/MethodologySection";
+import { SolutionsSection } from "@/components/home/SolutionsSection";
+import { ProjectsSection } from "@/components/home/ProjectsSection";
+import { MotionVideoSection } from "@/components/home/MotionVideoSection";
+import { MotionArchitecture } from "@/components/ui/MotionArchitecture";
+import { CtaSection } from "@/components/home/CtaSection";
+import { ClientsMarquee } from "@/components/home/ClientsMarquee";
+import { LearnTeaser } from "@/components/home/LearnTeaser";
+import { reveal } from "@/components/motion/reveal";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
-      <main>
-        {/* 1. Hero Principal Corporativo */}
-        <ModernHero />
+    <>
+      {/* 1. Hero with Real Composition, Blueprint Grid & Floating HUD */}
+      <Hero />
 
-        {/* 2. Pilares de Confianza Empresarial */}
-        <ModernTrustPillars />
+      {/* 1b. Cinta animada de clientes */}
+      <ClientsMarquee />
 
-        {/* 3. Soluciones de Software Enterprise */}
-        <ModernSolutions />
+      {/* 2. 6 Core Services with Engineering Grid & Spec Badges */}
+      <ServicesSection />
 
-        {/* 4. Ciberseguridad & Ley N° 21.719 */}
-        <ModernCybersecurity />
+      {/* 3. Real-Time Architecture Motion Graphic Interactive Simulation */}
+      <section className="py-20 bg-[#071A35] border-b border-white/10 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div {...reveal("up")}>
+            <MotionArchitecture />
+          </div>
+        </div>
+      </section>
 
-        {/* 5. Cobertura & Experiencia en Latam (Chile, Colombia, México, Argentina, Perú) */}
-        <ModernLatamPresence />
+      {/* 4. Value Proposition / Founder Experience with Tech Meters */}
+      <ValuePropSection />
 
-        {/* 6. Casos de Éxito y Confianza */}
-        <ModernSuccessCases />
+      {/* 5. Motion Graphic Video Reel Section (Reel Oficial Proscom) */}
+      <MotionVideoSection />
 
-        {/* 7. Liderazgo Corporativo & Dirección */}
-        <ModernAbout />
+      {/* 6. Engineering Pipeline Methodology (6 Stages) */}
+      <MethodologySection />
 
-        {/* 8. Contacto Corporativo & Sede Vitacura */}
-        <ModernContactFooter />
-      </main>
-    </div>
+      {/* 7. Proprietary Solutions Dark-Tech Cockpit (Proscom Org, QueBuenDato) */}
+      <SolutionsSection />
+
+      {/* 8. Real Client Projects (LegalFirma, WOWPOS, WOW Ticket, AFC, San José) */}
+      <ProjectsSection />
+
+      {/* 8b. Centro de aprendizaje: laboratorio 3D de APIs */}
+      <LearnTeaser />
+
+      {/* 9. Final High-Conversion Command Center CTA */}
+      <CtaSection />
+    </>
   );
 }

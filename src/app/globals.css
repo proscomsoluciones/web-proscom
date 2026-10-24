@@ -1,74 +1,586 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-navy: #071A35;
+  --color-brand-navy-dark: #040F22;
+  --color-brand-navy-light: #0C284E;
+  --color-brand-blue: #1479D4;
+  --color-brand-electric: #1688F5;
+  --color-brand-cyan: #19C6E6;
+  --color-brand-gray: #F3F6FA;
+  --color-brand-muted: #64748B;
+  --color-brand-card: #0D2240;
+  
+  --font-heading: var(--font-montserrat), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #002B5B;
-  
-  /* Brand Colors */
-  --brand-navy: #002B5B;
-  --brand-navy-light: #003d82;
-  --brand-gray-light: #f9fafb;
-  
-  --primary: var(--brand-navy);
-  --surface: var(--brand-gray-light);
+  --foreground: #071A35;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-brand-navy: var(--brand-navy);
-  --color-brand-navy-light: var(--brand-navy-light);
-  --color-brand-gray-light: var(--brand-gray-light);
-  
-  --font-sans: var(--font-inter);
-  --font-heading: var(--font-inter);
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
 }
 
-/* Force Dark Mode default for "Tech Premium" feel if desired, 
-   or just ensure the dark variables are applied to body by default 
-   if we want a dark-first site. For now, respecting media query 
-   but setting a dark default base in body if needed. */
+/* Pantallas grandes: todo el diseño (en rem) escala proporcionalmente */
+@media (min-width: 1920px) {
+  html { font-size: 112.5%; }
+}
+@media (min-width: 2400px) {
+  html { font-size: 125%; }
+}
 
-html, body {
-  background: var(--background);
+body {
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
-  overflow-x: clip; /* Modern alternative to hidden for preventing horizontal scroll */
-  width: 100%;
-  position: relative;
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), sans-serif;
+  font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
 }
 
-/* Glassmorphism Utilities */
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Accessible focus visible outlines */
+:focus-visible {
+  outline: 2px solid #1688F5;
+  outline-offset: 2px;
 }
 
-.glass-hover:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+/* Reduced motion preference respect */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
+/* Modern gradient text utility */
+.text-gradient-cyan {
+  background: linear-gradient(110deg, #1688F5 0%, #19C6E6 35%, #7FE7FF 50%, #19C6E6 65%, #1688F5 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-pan 6s ease-in-out infinite;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--background);
+.text-gradient-blue {
+  background: linear-gradient(135deg, #1479D4 0%, #1688F5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 5px;
+/* Tech Textures & Patterns */
+.bg-grid-pattern-dark {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+.bg-dots-pattern-dark {
+  background-image: radial-gradient(rgba(25, 198, 230, 0.18) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-grid-pattern-light {
+  background-image: 
+    linear-gradient(to right, rgba(20, 121, 212, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 121, 212, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-dots-pattern-light {
+  background-image: radial-gradient(rgba(20, 121, 212, 0.12) 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+
+/* Card glassmorphism and tech cards */
+.tech-card-light {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 2px 5px -1px rgba(7, 26, 53, 0.05), 0 1px 3px -1px rgba(7, 26, 53, 0.03);
+  position: relative;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-card-light:hover {
+  border-color: rgba(20, 121, 212, 0.45);
+  box-shadow: 0 18px 36px -12px rgba(20, 121, 212, 0.14), 0 2px 6px -1px rgba(7, 26, 53, 0.06);
+  transform: translateY(-4px);
+}
+
+.tech-card-dark {
+  background: linear-gradient(180deg, #0A1E3B 0%, #07172E 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-card-dark:hover {
+  border-color: rgba(25, 198, 230, 0.4);
+  box-shadow: 0 20px 42px -12px rgba(22, 136, 245, 0.28), 0 0 20px rgba(25, 198, 230, 0.1);
+  transform: translateY(-4px);
+}
+
+.border-glow-top {
+  position: relative;
+}
+
+.border-glow-top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #19C6E6, transparent);
+  opacity: 0.8;
+}
+
+.border-glow-blue-top {
+  position: relative;
+}
+
+.border-glow-blue-top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #1479D4, transparent);
+  opacity: 0.7;
+}
+
+/* Motion Graphics Keyframes & Animations */
+@keyframes circuit-flow {
+  0% { stroke-dashoffset: 120; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 0.1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.animate-circuit-flow {
+  stroke-dasharray: 10 14;
+  animation: circuit-flow 3.5s linear infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+
+/* ==========================================================================
+   MOTION SYSTEM — Proscom
+   ========================================================================== */
+
+/* ---------- 1. Scroll reveal (activado por MotionProvider) ---------- */
+/* Solo se ocultan si JS está activo (clase .js agregada en <head>), así el
+   contenido sigue visible para buscadores y navegadores sin JavaScript. */
+.js [data-reveal] {
+  opacity: 0;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.js [data-reveal="up"]    { transform: translate3d(0, 36px, 0); }
+.js [data-reveal="down"]  { transform: translate3d(0, -24px, 0); }
+.js [data-reveal="left"]  { transform: translate3d(-48px, 0, 0); }
+.js [data-reveal="right"] { transform: translate3d(48px, 0, 0); }
+.js [data-reveal="zoom"]  { transform: scale(0.92); }
+.js [data-reveal="blur"]  { transform: translate3d(0, 16px, 0); filter: blur(10px); }
+
+.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- 2. Spotlight que sigue al cursor en tarjetas ---------- */
+.tech-card-light::after,
+.tech-card-dark::after,
+[data-spotlight]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(25, 198, 230, 0.13),
+    transparent 45%
+  );
+  z-index: 0;
+}
+.tech-card-light::after,
+[data-spotlight="light"]::after {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(20, 121, 212, 0.08),
+    transparent 45%
+  );
+}
+.tech-card-light:hover::after,
+.tech-card-dark:hover::after,
+[data-spotlight]:hover::after {
+  opacity: 1;
+}
+
+/* ---------- 3. Keyframes ---------- */
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes packet-x {
+  0% { left: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+@keyframes packet-y {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes shine {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  60%, 100% { transform: translateX(260%) skewX(-20deg); }
+}
+@keyframes aurora {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(6%, -4%, 0) scale(1.08); }
+  66% { transform: translate3d(-5%, 5%, 0) scale(0.95); }
+}
+@keyframes border-spin {
+  to { --beam-angle: 360deg; }
+}
+@keyframes bar-grow {
+  from { transform: scaleY(0.15); }
+  to { transform: scaleY(1); }
+}
+@keyframes fill-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes ping-soft {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* ---------- 4. Utilidades ---------- */
+.animate-marquee { animation: marquee 38s linear infinite; }
+.marquee-track:hover .animate-marquee { animation-play-state: paused; }
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.animate-spin-slow { animation: spin-slow 40s linear infinite; }
+.animate-spin-medium { animation: spin-slow 24s linear infinite; }
+.animate-spin-reverse { animation: spin-reverse 30s linear infinite; }
+.animate-caret { animation: caret-blink 1s steps(1) infinite; }
+.animate-aurora { animation: aurora 18s ease-in-out infinite; }
+.animate-aurora-delayed { animation: aurora 22s ease-in-out -7s infinite; }
+.animate-ping-soft { animation: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+.data-packet {
+  position: absolute;
+  top: 50%;
+  width: 34px;
+  height: 2px;
+  margin-top: -1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #19C6E6, #ffffff);
+  box-shadow: 0 0 10px #19C6E6, 0 0 2px #fff;
+  animation: packet-x 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.data-packet-y {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 34px;
+  margin-left: -1px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, #19C6E6, #ffffff);
+  box-shadow: 0 0 10px #19C6E6;
+  animation: packet-y 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* Línea de escaneo dentro de imágenes al pasar el cursor por la tarjeta */
+.group:hover .scan-on-hover { animation: scanline 2.4s linear infinite; }
+
+/* Barra de progreso que se llena al revelarse */
+.js [data-reveal] .reveal-fill { transform: scaleX(0); transform-origin: left; }
+.js [data-reveal].is-revealed .reveal-fill {
+  animation: fill-x 1.4s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 350ms) both;
+}
+
+/* Brillo que cruza los botones principales */
+.btn-shine { position: relative; overflow: hidden; isolation: isolate; }
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: translateX(-120%) skewX(-20deg);
+  animation: shine 4.5s ease-in-out 1.5s infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Borde con haz de luz giratorio */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.border-beam { position: relative; isolation: isolate; }
+.border-beam::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--beam-angle), transparent 0deg, transparent 280deg, #19C6E6 330deg, #ffffff 350deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-spin 5s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------- 5. Ronda 2: tilt 3D, palabras, timeline, transición de página ---------- */
+
+/* Inclinación 3D (variables --rx / --ry las calcula MotionProvider) */
+[data-tilt] {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+[data-tilt]:hover {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px);
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Botones magnéticos */
+[data-magnetic] {
+  display: inline-flex;
+  transition: translate 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Titulares que entran palabra por palabra */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.split-word > span {
+  display: inline-block;
+}
+.js [data-reveal] .split-word > span {
+  transform: translateY(110%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--reveal-delay, 0ms) + var(--word-delay, 0ms));
+}
+.js [data-reveal].is-revealed .split-word > span {
+  transform: none;
+}
+
+/* Línea de tiempo que se llena con el scroll (--p la calcula MotionProvider) */
+.timeline-fill {
+  transform: scaleY(var(--p, 0));
+  transform-origin: top;
+}
+.timeline-dot {
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+.is-revealed .timeline-dot,
+.timeline-step:not([data-reveal]) .timeline-dot {
+  background: #19C6E6;
+  border-color: #7FE7FF;
+  box-shadow: 0 0 0 6px rgba(25, 198, 230, 0.15), 0 0 18px #19C6E6;
+}
+
+/* Transición de entrada entre páginas */
+@keyframes page-enter {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to { opacity: 1; transform: none; }
+}
+.page-enter { animation: page-enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+/* Igual, pero sin fijar el estado final (deja libres los hover con transform) */
+.card-enter { animation: page-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+
+/* Iconos flotantes decorativos */
+@keyframes float-rotate {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-14px) rotate(6deg); }
+}
+.animate-float-rotate { animation: float-rotate 7s ease-in-out infinite; }
+
+/* ---------- 6. Escenas del explorador de servicios ---------- */
+@keyframes svc-grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes svc-grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes svc-rise { from { opacity: 0; transform: translate3d(0, 14px, 0); } to { opacity: 1; transform: none; } }
+@keyframes svc-slide-in { from { opacity: 0; transform: translate3d(24px, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes svc-pop {
+  0% { opacity: 0; transform: scale(0.6); }
+  70% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes svc-draw { to { stroke-dashoffset: var(--to, 0); } }
+@keyframes svc-heartbeat {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -400; }
+}
+
+.anim-grow-x { transform-origin: left; animation: svc-grow-x 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both; }
+.anim-grow-y { transform-origin: bottom; animation: svc-grow-y 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both; }
+.anim-rise { animation: svc-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both; }
+.anim-slide-in { animation: svc-slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both; }
+.anim-pop { animation: svc-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0ms) both; }
+.anim-draw {
+  stroke-dasharray: var(--len, 200);
+  stroke-dashoffset: var(--len, 200);
+  animation: svc-draw 1.4s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0ms) forwards;
+}
+.anim-heartbeat {
+  stroke-dasharray: 200 200;
+  animation: svc-heartbeat 2.6s linear infinite;
+  filter: drop-shadow(0 0 4px #19C6E6);
+}
+
+/* ---------- 7. Escenario 3D de los laboratorios educativos ---------- */
+/* Marco de laboratorio: en escritorio ocupa exactamente el alto de la pantalla */
+.lab-frame { scroll-margin-top: 84px; }
+@media (min-width: 1024px) {
+  .lab-frame {
+    display: flex;
+    flex-direction: column;
+    height: calc(100svh - 100px);
+    min-height: 600px;
+    max-height: 940px;
+  }
+  .lab-frame > .lab-main {
+    flex: 1 1 0;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .lab-frame .lab-narration {
+    overflow-y: auto;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+  .lab-frame .lab-stage { min-height: 0; }
+  .lab-frame .lab-stage > .stage3d { height: 100%; }
+}
+/* Escena 3D de la propuesta de valor */
+@keyframes value-drop {
+  0% { transform: translateZ(260px); }
+  70% { transform: translateZ(-6px); }
+  100% { transform: translateZ(0); }
+}
+.value-drop { animation: value-drop 0.9s cubic-bezier(0.34, 1.3, 0.64, 1) both; }
+@keyframes value-scan {
+  from { transform: translate3d(0, 0, 3px); }
+  to { transform: translate3d(570px, 0, 3px); }
+}
+.value-scan {
+  background: linear-gradient(90deg, transparent, rgba(25, 198, 230, 0.9), transparent);
+  box-shadow: 0 0 30px 8px rgba(25, 198, 230, 0.45);
+  animation: value-scan 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes packet-move {
+  from { transform: translate3d(var(--x0), var(--y0), 0); }
+  to { transform: translate3d(var(--x1), var(--y1), 0); }
+}
+@keyframes packet-hop {
+  0% { transform: translateZ(10px); }
+  50% { transform: translateZ(80px); }
+  100% { transform: translateZ(10px); }
+}
+.packet3d {
+  animation-name: packet-move;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-fill-mode: both;
+}
+.packet3d-hop {
+  animation-name: packet-hop;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-fill-mode: both;
+}
+@keyframes led-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+.led-blink { animation: led-blink 1.1s steps(2) infinite; }
+@keyframes beacon {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.beacon { animation: beacon 1.8s ease-out infinite; }
+
+/* Las animaciones decorativas se detienen si el usuario pide menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .animate-marquee, .animate-spin-slow, .animate-spin-medium, .animate-spin-reverse,
+  .animate-aurora, .animate-aurora-delayed, .data-packet, .data-packet-y, .btn-shine::after,
+  .border-beam::before, .text-gradient-cyan, .page-enter, .card-enter, .animate-float-rotate { animation: none !important; }
+  .js [data-reveal] .split-word > span { transform: none !important; }
+  .anim-grow-x, .anim-grow-y, .anim-rise, .anim-slide-in, .anim-pop, .anim-heartbeat { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .anim-draw { animation: none !important; stroke-dashoffset: var(--to, 0) !important; }
+  .timeline-fill { transform: none !important; }
+  [data-tilt]:hover { transform: none !important; }
 }
