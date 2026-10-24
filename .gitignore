@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# respaldos personales (no forman parte del proyecto)
+respaldo*.zip
+*.respaldo.*
