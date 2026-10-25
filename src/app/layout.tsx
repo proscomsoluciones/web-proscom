@@ -8,6 +8,7 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { getOrganizationSchema } from "@/lib/schema";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
+import { Analytics } from "@vercel/analytics/next";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -137,6 +138,9 @@ export default function RootLayout({
 
         {/* Floating WhatsApp contact button */}
         <WhatsAppButton />
+
+        {/* Vercel Analytics: visitas y páginas vistas */}
+        <Analytics />
 
         {/* JSON-LD Organization Structured Data */}
         <script
