@@ -68,7 +68,8 @@ export const DataShieldVisual: React.FC<DataShieldVisualProps> = ({
     }));
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // En móvil se limita la resolución para no saturar la memoria gráfica
+      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.5 : 2);
       const rect = canvas.getBoundingClientRect();
       width = rect.width;
       height = rect.height;

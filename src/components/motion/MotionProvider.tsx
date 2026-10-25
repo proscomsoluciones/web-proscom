@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { whenPageHydrated } from "./HydrationSignal";
 
 /**
  * MotionProvider
@@ -55,8 +56,12 @@ export function MotionProvider() {
       elements.forEach((el) => observer?.observe(el));
     };
 
-    const timer = window.setTimeout(init, 120);
+    let timer = 0;
+    const cancelWait = whenPageHydrated(() => {
+      timer = window.setTimeout(init, 120);
+    });
     return () => {
+      cancelWait();
       window.clearTimeout(timer);
       observer?.disconnect();
     };
@@ -83,6 +88,8 @@ export function MotionProvider() {
     };
 
     const onMove = (e: PointerEvent) => {
+      // No se escriben estilos sobre HTML que React aún no hidrata
+      if (!window.__pageHydrated) return;
       const el = e.target as HTMLElement | null;
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
@@ -163,10 +170,12 @@ export function MotionProvider() {
         el.style.setProperty("--p", p.toFixed(4));
       }
     };
-    // Se activa con el primer scroll real del usuario: para entonces React ya
-    // hidrató la página y no hay desajustes entre servidor y cliente.
+    // Solo se escriben estilos cuando React ya hidrató la página: el navegador
+    // puede disparar "scroll" antes (p. ej. al restaurar la posición al recargar)
+    // y eso provocaba desajustes entre servidor y cliente.
     let collected = false;
     const onScroll = () => {
+      if (!window.__pageHydrated) return;
       if (!collected) {
         collect();
         collected = true;
@@ -177,7 +186,12 @@ export function MotionProvider() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    // Si la página cargó ya desplazada, se aplica la posición apenas termine la hidratación
+    const cancelWait = whenPageHydrated(() => {
+      if (window.scrollY > 0) onScroll();
+    });
     return () => {
+      cancelWait();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(frame);

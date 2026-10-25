@@ -584,3 +584,27 @@ h1, h2, h3, h4, h5, h6 {
   .timeline-fill { transform: none !important; }
   [data-tilt]:hover { transform: none !important; }
 }
+
+/* ---------- Móvil: aligerar la GPU (Safari iOS cierra la pestaña por exceso de memoria) ---------- */
+/* Solo afecta pantallas < 768px; en escritorio el look no cambia. */
+@media (max-width: 767px) {
+  /* Halos de luz: el blur gigante se reemplaza por una máscara radial (mismo brillo suave, sin filtro) */
+  [class*="blur-["]:not([class*="backdrop-blur"]),
+  .blur-3xl {
+    filter: none !important;
+    -webkit-mask-image: radial-gradient(closest-side, #000 15%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 15%, transparent 100%);
+  }
+  .blur-2xl { filter: blur(16px) !important; }
+  .animate-aurora, .animate-aurora-delayed { animation: none !important; }
+
+  /* Sin desenfoque de fondo: los paneles ya tienen fondos casi opacos */
+  [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* No reservar capas de GPU por adelantado en decenas de elementos */
+  .js [data-reveal], [data-tilt] { will-change: auto; }
+  .js [data-reveal="blur"] { filter: none; }
+}
