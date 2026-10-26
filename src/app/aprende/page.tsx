@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Clock, ArrowRight, MousePointerClick, Box, Trophy, GraduationCap, Globe2, Briefcase, ShieldHalf, Sparkles } from "lucide-react";
+import { Clock, ArrowRight, MousePointerClick, Box, Trophy, GraduationCap, Globe2, Briefcase, ShieldHalf, Sparkles, Clapperboard } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { learnTopics, LEARN_CATEGORIES } from "@/data/learn";
 import { Badge } from "@/components/ui/Badge";
@@ -116,6 +116,27 @@ export default function LearnIndexPage() {
               );
             })}
           </div>
+
+          {/* Herramientas gratuitas */}
+          <Link
+            href="/herramientas/creador-de-marcos"
+            {...reveal("up")}
+            className="group mt-16 flex flex-col sm:flex-row sm:items-center gap-5 rounded-3xl border border-slate-200 bg-white p-7 hover:border-[#1479D4]/40 hover:shadow-lg transition-all"
+          >
+            <span className="grid place-items-center w-14 h-14 rounded-2xl bg-[#071A35] text-[#19C6E6] shrink-0">
+              <Clapperboard className="w-7 h-7" />
+            </span>
+            <span className="flex-1">
+              <span className="block text-xs font-mono font-bold uppercase tracking-wider text-[#1479D4]">Herramienta gratuita</span>
+              <span className="block text-xl font-extrabold text-[#071A35] mt-1">Creador de marcos para videos de TikTok y Reels</span>
+              <span className="block text-sm text-slate-600 mt-1">
+                Pasa tus grabaciones horizontales a vertical con tu logo, colores y título. Sin registro.
+              </span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-sm font-bold text-[#1479D4]">
+              Crear mi marco <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
 
           <p {...reveal("up")} className="text-center text-sm text-slate-500 mt-12">
             ¿Te gustaría que agreguemos un tema?{" "}
