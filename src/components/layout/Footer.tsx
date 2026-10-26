@@ -117,6 +117,14 @@ export const Footer: React.FC = () => {
                   Ley 21.719 de Protección de Datos
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/herramientas/creador-de-marcos"
+                  className="text-slate-300 hover:text-white transition-colors duration-150"
+                >
+                  Creador de marcos para videos
+                </Link>
+              </li>
             </ul>
           </div>
 
