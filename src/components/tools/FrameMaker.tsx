@@ -64,6 +64,7 @@ interface FrameOptions {
   glow: boolean;
   lines: boolean;
   logo: HTMLImageElement | null;
+  logoScale: number; // 0.5 a 1.5 sobre el tamaño base del formato
   brandName: string;
   fontFamily: string;
 }
@@ -184,7 +185,8 @@ function drawFrame(ctx: CanvasRenderingContext2D, o: FrameOptions, preview: { sa
   }
 
   // Logo (o nombre de la marca) y texto inferior
-  const [maxW, maxH] = L.logoMax;
+  const maxW = L.logoMax[0] * o.logoScale;
+  const maxH = L.logoMax[1] * o.logoScale;
   let footY = L.logoY;
   if (o.logo && o.logo.naturalWidth) {
     const r = Math.min(maxW / o.logo.naturalWidth, maxH / o.logo.naturalHeight);
@@ -295,6 +297,7 @@ export function FrameMaker() {
   const [safe, setSafe] = useState(false);
   const [logo, setLogo] = useState<HTMLImageElement | null>(null);
   const [logoName, setLogoName] = useState("");
+  const [logoScale, setLogoScale] = useState(100);
   const [fontFamily, setFontFamily] = useState("sans-serif");
   const [fontReady, setFontReady] = useState(false);
 
@@ -311,8 +314,10 @@ export function FrameMaker() {
   }, []);
 
   const options = useCallback(
-    (): FrameOptions => ({ format, title, label, showLabel, foot, colors, glow, lines, logo, brandName, fontFamily }),
-    [format, title, label, showLabel, foot, colors, glow, lines, logo, brandName, fontFamily]
+    (): FrameOptions => ({
+      format, title, label, showLabel, foot, colors, glow, lines, logo, logoScale: logoScale / 100, brandName, fontFamily,
+    }),
+    [format, title, label, showLabel, foot, colors, glow, lines, logo, logoScale, brandName, fontFamily]
   );
 
   useEffect(() => {
@@ -450,6 +455,30 @@ export function FrameMaker() {
               <input value={brandName} onChange={(e) => setBrandName(e.target.value)} className={input} />
             </label>
           )}
+          <label className="block">
+            <span className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-1">
+              <span>Tamaño del {logo ? "logo" : "nombre"}</span>
+              <span className="font-mono text-[#1479D4]">{logoScale}%</span>
+            </span>
+            <span className="flex items-center gap-3">
+              <span className="text-xs text-slate-400" aria-hidden="true">A</span>
+              <input
+                type="range"
+                min={50}
+                max={150}
+                step={5}
+                value={logoScale}
+                onChange={(e) => setLogoScale(Number(e.target.value))}
+                className="w-full accent-[#1479D4]"
+              />
+              <span className="text-base text-slate-400" aria-hidden="true">A</span>
+              {logoScale !== 100 && (
+                <button type="button" onClick={() => setLogoScale(100)} className="text-xs font-medium text-[#1479D4] hover:underline">
+                  Restablecer
+                </button>
+              )}
+            </span>
+          </label>
         </fieldset>
 
         <fieldset className="rounded-2xl border border-slate-200 bg-white p-5 space-y-4">
