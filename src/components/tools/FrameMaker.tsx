@@ -49,6 +49,9 @@ const PRESETS: { name: string; colors: Colors }[] = [
   { name: "Verde natural", colors: { bg: "#0F2A1D", text: "#FFFFFF", highlight: "#4ADE80", accent: "#4ADE80", foot: "#A7C4B5" } },
   { name: "Morado creativo", colors: { bg: "#1E1033", text: "#FFFFFF", highlight: "#C084FC", accent: "#E879F9", foot: "#B9A8D0" } },
   { name: "Coral cálido", colors: { bg: "#2A1214", text: "#FFFFFF", highlight: "#FB7185", accent: "#FDBA74", foot: "#D6B3B0" } },
+  { name: "Turquesa océano", colors: { bg: "#053B3F", text: "#FFFFFF", highlight: "#2DD4BF", accent: "#67E8F9", foot: "#9CCFD0" } },
+  { name: "Amarillo vibrante", colors: { bg: "#FFD23F", text: "#111111", highlight: "#D62828", accent: "#111111", foot: "#3D3D3D" } },
+  { name: "Rosa pastel", colors: { bg: "#FDE7EF", text: "#3B0A23", highlight: "#DB2777", accent: "#DB2777", foot: "#8A5A6E" } },
 ];
 
 interface FrameOptions {
