@@ -456,21 +456,32 @@ export function FrameMaker() {
           <legend className={sectionTitle}>
             <Palette className="w-4 h-4 text-[#1479D4]" /> Colores
           </legend>
-          <div className="flex flex-wrap gap-2">
-            {PRESETS.map((p) => (
-              <button
-                key={p.name}
-                type="button"
-                onClick={() => setColors(p.colors)}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:border-slate-300"
-              >
-                <span className="flex">
-                  <span className="w-4 h-4 rounded-full border border-black/10" style={{ background: p.colors.bg }} />
-                  <span className="-ml-1.5 w-4 h-4 rounded-full border border-black/10" style={{ background: p.colors.highlight }} />
-                </span>
-                {p.name}
-              </button>
-            ))}
+          {/* 3 columnas solo cuando hay ancho suficiente para que los nombres no se corten */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-2">
+            {PRESETS.map((p) => {
+              const active = (Object.keys(p.colors) as (keyof Colors)[]).every(
+                (k) => p.colors[k].toLowerCase() === colors[k].toLowerCase()
+              );
+              return (
+                <button
+                  key={p.name}
+                  type="button"
+                  onClick={() => setColors(p.colors)}
+                  aria-pressed={active}
+                  className={`flex w-full items-center gap-2.5 rounded-lg border px-3 py-2 text-left text-xs font-medium transition-colors ${
+                    active
+                      ? "border-[#1479D4] bg-[#1479D4]/5 text-[#071A35]"
+                      : "border-slate-200 text-slate-700 hover:border-slate-300"
+                  }`}
+                >
+                  <span className="flex shrink-0">
+                    <span className="w-4 h-4 rounded-full border border-black/10" style={{ background: p.colors.bg }} />
+                    <span className="-ml-1.5 w-4 h-4 rounded-full border border-black/10" style={{ background: p.colors.highlight }} />
+                  </span>
+                  <span className="truncate">{p.name}</span>
+                </button>
+              );
+            })}
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             {colorFields.map((f) => (
