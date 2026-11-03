@@ -33,6 +33,8 @@ interface Layout {
   logoMax: [number, number]; // ancho y alto máximos del logo
   footSize: number;
   bottom: number; // nada se dibuja bajo esta línea (zona que tapa la app)
+  sideMargin: number; // margen lateral del título (en pantallas alargadas la app recorta los lados)
+  subsX: [number, number]; // ancho de la franja de subtítulos (en 9:16 evita los botones de la derecha)
 }
 
 const W = 1080;
@@ -52,19 +54,32 @@ const WINDOWS: { id: WindowId; label: string; hint: string; h: number }[] = [
 
 /**
  * Calcula dónde va cada elemento según el formato y el tamaño de la ventana.
- * En 9:16 respeta la interfaz de TikTok: ~150 px arriba y la descripción desde y=1640.
+ * En 9:16 respeta las zonas de TikTok, medidas en un iPhone (pantalla más alargada que 9:16: la app llena el
+ * alto, agranda el video ~4 % y recorta ~96 px de cada lado):
+ * - Arriba: 0..250 px ocupados por hora/estado y buscador ("Buscar contenido relacionado..."); el contenido parte en 265
+ * - Derecha: X = 860..1080, Y = 740..1580 ocupados por perfil, me gusta, comentarios, guardados y compartir
+ * - Abajo: 1430..1920 px ocupados por @usuario, descripción, promoción y barra inferior; nada se dibuja bajo 1420
+ * - Lados: ~96 px que se recortan en pantallas alargadas; el título deja 110 px de margen
  */
 function computeLayout(format: FormatId, win: WindowId): Layout {
   const v = format === "9:16"
-    ? { h: 1920, top: 160, bottom: 1630, logoBlock: 150, logoMax: [340, 100] as [number, number], foot: 38 }
-    : { h: 1350, top: 50, bottom: 1320, logoBlock: 120, logoMax: [300, 70] as [number, number], foot: 32 };
+    ? {
+        h: 1920, top: 265, bottom: 1420, logoBlock: 130, logoMax: [320, 85] as [number, number], foot: 34, gap: 28,
+        sideMargin: 110, subsX: [110, 850] as [number, number],
+      }
+    : {
+        h: 1350, top: 50, bottom: 1320, logoBlock: 120, logoMax: [300, 70] as [number, number], foot: 32, gap: 30,
+        sideMargin: 84, subsX: [80, 1000] as [number, number],
+      };
   const winH = WINDOWS.find((x) => x.id === win)?.h ?? 608;
-  const gap = 30;
-  const free = v.bottom - v.top - v.logoBlock - winH - gap * 3;
-  let titleH = Math.min(380, Math.max(200, Math.round(free * 0.55)));
+  const space = (g: number) => v.bottom - v.top - v.logoBlock - winH - g * 3;
+  // Con ventanas grandes se achican los espacios para que todo quepa sobre la zona que tapa la app
+  const gap = space(v.gap) >= 150 ? v.gap : 18;
+  const free = space(gap);
+  let titleH = Math.min(340, Math.max(190, Math.round(free * 0.56)));
   let subsH = free - titleH;
   if (subsH < 90) {
-    titleH = Math.max(170, free - 90);
+    titleH = Math.max(150, free - 90);
     subsH = free - titleH;
   }
   const winY = v.top + titleH + gap;
@@ -80,6 +95,8 @@ function computeLayout(format: FormatId, win: WindowId): Layout {
     logoMax: v.logoMax,
     footSize: v.foot,
     bottom: v.bottom,
+    sideMargin: v.sideMargin,
+    subsX: v.subsX,
   };
 }
 
@@ -207,13 +224,13 @@ function drawFrame(ctx: CanvasRenderingContext2D, o: FrameOptions, preview: Prev
   }
 
   // Título: se achica la letra hasta que quepa en su franja
-  const margin = 80;
+  const margin = L.sideMargin;
   const title = pick(o.title, EXAMPLES.title);
   const label = o.showLabel ? pick(o.label, EXAMPLES.label) : { text: "", ghost: false };
   const words = parseTitle(title.text);
-  const labelH = label.text ? 64 : 0;
+  const labelH = label.text ? 60 : 0;
   const bandH = L.title[1] - L.title[0] - labelH - 10;
-  let size = 96;
+  let size = 84;
   let lines: ReturnType<typeof wrap> = [];
   for (; size >= 44; size -= 4) {
     ctx.font = font(800, size);
@@ -356,26 +373,31 @@ function drawFrame(ctx: CanvasRenderingContext2D, o: FrameOptions, preview: Prev
 
   // Franja de subtítulos
   if (L.subs) {
+    const [subX, subEnd] = L.subsX;
     ctx.setLineDash([14, 10]);
     ctx.lineWidth = 3;
     ctx.strokeStyle = hexToRgba(o.colors.text, 0.35);
-    ctx.strokeRect(40, L.subs[0], W - 80, L.subs[1] - L.subs[0]);
+    ctx.strokeRect(subX, L.subs[0], subEnd - subX, L.subs[1] - L.subs[0]);
     ctx.setLineDash([]);
     ctx.font = font(600, 30);
     ctx.fillStyle = hexToRgba(o.colors.text, 0.45);
     const st = "Subtítulos aquí";
-    ctx.fillText(st, (W - ctx.measureText(st).width) / 2, (L.subs[0] + L.subs[1]) / 2 - 15);
+    ctx.fillText(st, (subX + subEnd - ctx.measureText(st).width) / 2, (L.subs[0] + L.subs[1]) / 2 - 15);
   }
 
   if (preview.safe && o.format === "9:16") {
+    // Mismas zonas que respeta computeLayout (ver comentario allí)
     ctx.fillStyle = "rgba(239, 68, 68, 0.28)";
-    ctx.fillRect(0, 0, W, 150); // barra superior de la app
-    ctx.fillRect(930, 760, 150, 760); // botones de me gusta, comentar, compartir
-    ctx.fillRect(0, 1640, W, 280); // nombre de usuario y descripción
+    ctx.fillRect(0, 0, W, 250); // barra de estado + buscador de TikTok
+    ctx.fillRect(860, 740, W - 860, 840); // avatar, me gusta, comentar, guardar, compartir
+    ctx.fillRect(0, 1430, W, H - 1430); // @usuario, descripción, promoción y barra inferior
+    ctx.fillStyle = "rgba(239, 68, 68, 0.14)";
+    ctx.fillRect(0, 250, 96, 1180); // lados que se recortan en pantallas alargadas
+    ctx.fillRect(W - 96, 250, 96, 490);
     ctx.font = font(700, 26);
     ctx.fillStyle = "#fff";
-    ctx.fillText("Zona de la app", 24, 60);
-    ctx.fillText("Descripción del video", 24, 1700);
+    ctx.fillText("Buscador de TikTok", 24, 110);
+    ctx.fillText("@usuario y descripción del video", 24, 1480);
   }
 }
 
