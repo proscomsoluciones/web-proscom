@@ -22,6 +22,12 @@ import {
 
 type FormatId = "9:16" | "4:5";
 type WindowId = "16:9" | "1.15" | "1.3" | "4:3";
+type WinPos = "subs" | "center";
+
+const POSITIONS: { id: WinPos; label: string; hint: string }[] = [
+  { id: "subs", label: "Más espacio para subtítulos", hint: "Video arriba, franja amplia bajo él" },
+  { id: "center", label: "Video centrado", hint: "Al medio de la pantalla" },
+];
 
 interface Layout {
   h: number;
@@ -58,13 +64,14 @@ const WINDOWS: { id: WindowId; label: string; hint: string; h: number }[] = [
  * alto, agranda el video ~4 % y recorta ~96 px de cada lado):
  * - Arriba: 0..250 px ocupados por hora/estado y buscador ("Buscar contenido relacionado..."); el contenido parte en 265
  * - Derecha: X = 860..1080, Y = 740..1580 ocupados por perfil, me gusta, comentarios, guardados y compartir
- * - Abajo: 1430..1920 px ocupados por @usuario, descripción, promoción y barra inferior; nada se dibuja bajo 1420
+ * - Abajo: 1510..1920 px ocupados por @usuario y la descripción (TikTok la corta en 2 líneas); nada se dibuja
+ *   bajo 1500. El banner "Maximiza la visibilidad…" que sube esta zona solo lo ve el dueño de la cuenta.
  * - Lados: ~96 px que se recortan en pantallas alargadas; el título deja 110 px de margen
  */
-function computeLayout(format: FormatId, win: WindowId): Layout {
+function computeLayout(format: FormatId, win: WindowId, pos: WinPos = "subs"): Layout {
   const v = format === "9:16"
     ? {
-        h: 1920, top: 265, bottom: 1420, logoBlock: 130, logoMax: [320, 85] as [number, number], foot: 34, gap: 28,
+        h: 1920, top: 265, bottom: 1500, logoBlock: 130, logoMax: [320, 85] as [number, number], foot: 34, gap: 28,
         sideMargin: 110, subsX: [110, 850] as [number, number],
       }
     : {
@@ -82,16 +89,31 @@ function computeLayout(format: FormatId, win: WindowId): Layout {
     titleH = Math.max(150, free - 90);
     subsH = free - titleH;
   }
-  const winY = v.top + titleH + gap;
+  let winY = v.top + titleH + gap;
+  let title: [number, number] = [v.top, v.top + titleH];
+  let logoY = winY + winH + gap + Math.max(subsH, 0) + gap;
+
+  // Video centrado: el centro de la ventana coincide con el de la pantalla (si cabe); el título va justo encima
+  // y el logo queda al fondo. Los subtítulos usan lo que sobre entre el video y el logo.
+  if (pos === "center") {
+    const minWinY = v.top + 150 + gap;
+    const maxWinY = v.bottom - v.logoBlock - gap * 2 - winH;
+    winY = Math.min(maxWinY, Math.max(minWinY, Math.round(v.h / 2 - winH / 2)));
+    titleH = Math.min(380, winY - gap - v.top);
+    title = [winY - gap - titleH, winY - gap];
+    logoY = v.bottom - v.logoBlock;
+    subsH = logoY - gap - (winY + winH + gap);
+  }
+
   const subsY = winY + winH + gap;
   const subs: [number, number] | null = subsH >= 60 ? [subsY, subsY + subsH] : null;
   return {
     h: v.h,
-    title: [v.top, v.top + titleH],
+    title,
     winY,
     winH,
     subs,
-    logoY: subsY + Math.max(subsH, 0) + gap,
+    logoY,
     logoMax: v.logoMax,
     footSize: v.foot,
     bottom: v.bottom,
@@ -131,6 +153,7 @@ const EXAMPLES = {
 interface FrameOptions {
   format: FormatId;
   win: WindowId;
+  pos: WinPos;
   title: string;
   label: string;
   showLabel: boolean;
@@ -194,7 +217,7 @@ function coverScale(vw: number, vh: number, winH: number) {
 }
 
 function drawFrame(ctx: CanvasRenderingContext2D, o: FrameOptions, preview: PreviewOptions | null) {
-  const L = computeLayout(o.format, o.win);
+  const L = computeLayout(o.format, o.win, o.pos);
   const H = L.h;
   const font = (weight: number, size: number) => `${weight} ${size}px ${o.fontFamily}`;
   // En la vista previa, los campos vacíos muestran el ejemplo atenuado; en el PNG se omiten.
@@ -390,14 +413,14 @@ function drawFrame(ctx: CanvasRenderingContext2D, o: FrameOptions, preview: Prev
     ctx.fillStyle = "rgba(239, 68, 68, 0.28)";
     ctx.fillRect(0, 0, W, 250); // barra de estado + buscador de TikTok
     ctx.fillRect(860, 740, W - 860, 840); // avatar, me gusta, comentar, guardar, compartir
-    ctx.fillRect(0, 1430, W, H - 1430); // @usuario, descripción, promoción y barra inferior
+    ctx.fillRect(0, 1510, W, H - 1510); // @usuario, descripción y barra inferior
     ctx.fillStyle = "rgba(239, 68, 68, 0.14)";
-    ctx.fillRect(0, 250, 96, 1180); // lados que se recortan en pantallas alargadas
+    ctx.fillRect(0, 250, 96, 1260); // lados que se recortan en pantallas alargadas
     ctx.fillRect(W - 96, 250, 96, 490);
     ctx.font = font(700, 26);
     ctx.fillStyle = "#fff";
     ctx.fillText("Buscador de TikTok", 24, 110);
-    ctx.fillText("@usuario y descripción del video", 24, 1480);
+    ctx.fillText("@usuario y descripción del video", 24, 1560);
   }
 }
 
@@ -418,6 +441,7 @@ const STORAGE_KEY = "proscom-creador-marcos-v1";
 interface Saved {
   format: FormatId;
   win: WindowId;
+  pos: WinPos;
   title: string;
   label: string;
   showLabel: boolean;
@@ -433,6 +457,7 @@ export function FrameMaker() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [format, setFormat] = useState<FormatId>("9:16");
   const [win, setWin] = useState<WindowId>("16:9");
+  const [pos, setPos] = useState<WinPos>("subs");
   const [title, setTitle] = useState("");
   const [label, setLabel] = useState("");
   const [showLabel, setShowLabel] = useState(true);
@@ -479,6 +504,7 @@ export function FrameMaker() {
           const s = JSON.parse(raw) as Partial<Saved>;
           if (s.format && s.format in { "9:16": 1, "4:5": 1 }) setFormat(s.format);
           if (s.win && WINDOWS.some((x) => x.id === s.win)) setWin(s.win);
+          if (s.pos && POSITIONS.some((x) => x.id === s.pos)) setPos(s.pos);
           if (typeof s.title === "string") setTitle(s.title);
           if (typeof s.label === "string") setLabel(s.label);
           if (typeof s.showLabel === "boolean") setShowLabel(s.showLabel);
@@ -500,19 +526,19 @@ export function FrameMaker() {
   // Guarda el diseño en cada cambio (después de haber recuperado el anterior)
   useEffect(() => {
     if (!restored) return;
-    const s: Saved = { format, win, title, label, showLabel, foot, brandName, colors, glow, lines, logoScale };
+    const s: Saved = { format, win, pos, title, label, showLabel, foot, brandName, colors, glow, lines, logoScale };
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
     } catch {
       /* ignorar */
     }
-  }, [restored, format, win, title, label, showLabel, foot, brandName, colors, glow, lines, logoScale]);
+  }, [restored, format, win, pos, title, label, showLabel, foot, brandName, colors, glow, lines, logoScale]);
 
   const options = useCallback(
     (): FrameOptions => ({
-      format, win, title, label, showLabel, foot, colors, glow, lines, logo, logoScale: logoScale / 100, brandName, fontFamily,
+      format, win, pos, title, label, showLabel, foot, colors, glow, lines, logo, logoScale: logoScale / 100, brandName, fontFamily,
     }),
-    [format, win, title, label, showLabel, foot, colors, glow, lines, logo, logoScale, brandName, fontFamily]
+    [format, win, pos, title, label, showLabel, foot, colors, glow, lines, logo, logoScale, brandName, fontFamily]
   );
 
   // Dibuja la vista previa; con un video cargado, redibuja en cada cuadro
@@ -521,7 +547,7 @@ export function FrameMaker() {
     const ctx = c?.getContext("2d");
     if (!c || !ctx || !fontReady) return;
     c.width = W;
-    c.height = computeLayout(format, win).h;
+    c.height = computeLayout(format, win, pos).h;
     const preview: PreviewOptions = { sample, safe, video, panX, panY };
     drawFrame(ctx, options(), preview);
     if (!video) return;
@@ -532,7 +558,7 @@ export function FrameMaker() {
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
-  }, [options, format, win, sample, safe, fontReady, video, panX, panY]);
+  }, [options, format, win, pos, sample, safe, fontReady, video, panX, panY]);
 
   // Libera el video al quitarlo o al salir de la página
   useEffect(() => {
@@ -597,7 +623,7 @@ export function FrameMaker() {
     setMissing(null);
     const c = document.createElement("canvas");
     c.width = W;
-    c.height = computeLayout(format, win).h;
+    c.height = computeLayout(format, win, pos).h;
     const ctx = c.getContext("2d");
     if (!ctx) return;
     drawFrame(ctx, options(), null);
@@ -613,7 +639,7 @@ export function FrameMaker() {
   };
 
   // Datos para ubicar el video en CapCut
-  const layout = computeLayout(format, win);
+  const layout = computeLayout(format, win, pos);
   const vw = videoSize?.[0] ?? 1920;
   const vh = videoSize?.[1] ?? 1080;
   const editorScale = Math.round((coverScale(vw, vh, layout.winH) * vw * 100) / W);
@@ -670,6 +696,15 @@ export function FrameMaker() {
             Una ventana más grande hace que tu grabación se lea mejor en el celular. El título, los subtítulos y tu marca
             se reacomodan solos para no quedar bajo los botones de la app.
           </p>
+          <span className="mt-4 block text-xs font-semibold text-slate-600">Ubicación del video</span>
+          <div className="mt-2 grid sm:grid-cols-2 gap-3">
+            {POSITIONS.map((p) => (
+              <button key={p.id} type="button" onClick={() => setPos(p.id)} aria-pressed={pos === p.id} className={choice(pos === p.id)}>
+                <span className="block font-bold text-[#071A35]">{p.label}</span>
+                <span className="block text-xs text-slate-500">{p.hint}</span>
+              </button>
+            ))}
+          </div>
         </fieldset>
 
         <fieldset className="rounded-2xl border border-slate-200 bg-white p-5 space-y-4">
