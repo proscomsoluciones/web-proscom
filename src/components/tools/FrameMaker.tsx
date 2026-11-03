@@ -64,14 +64,15 @@ const WINDOWS: { id: WindowId; label: string; hint: string; h: number }[] = [
  * alto, agranda el video ~4 % y recorta ~96 px de cada lado):
  * - Arriba: 0..250 px ocupados por hora/estado y buscador ("Buscar contenido relacionado..."); el contenido parte en 265
  * - Derecha: X = 860..1080, Y = 740..1580 ocupados por perfil, me gusta, comentarios, guardados y compartir
- * - Abajo: 1510..1920 px ocupados por @usuario y la descripción (TikTok la corta en 2 líneas); nada se dibuja
- *   bajo 1500. El banner "Maximiza la visibilidad…" que sube esta zona solo lo ve el dueño de la cuenta.
+ * - Abajo: 1560..1920 px ocupados por @usuario y la descripción; nada se dibuja bajo 1550. Con una descripción de
+ *   2 líneas (TikTok corta el resto con "… más") el @usuario sube hasta ~1580; sin descripción, ~1590.
+ *   El banner "Maximiza la visibilidad…" que sube esta zona solo lo ve el dueño de la cuenta.
  * - Lados: ~96 px que se recortan en pantallas alargadas; el título deja 110 px de margen
  */
 function computeLayout(format: FormatId, win: WindowId, pos: WinPos = "subs"): Layout {
   const v = format === "9:16"
     ? {
-        h: 1920, top: 265, bottom: 1500, logoBlock: 130, logoMax: [320, 85] as [number, number], foot: 34, gap: 28,
+        h: 1920, top: 265, bottom: 1550, logoBlock: 130, logoMax: [320, 85] as [number, number], foot: 34, gap: 28,
         sideMargin: 110, subsX: [110, 850] as [number, number],
       }
     : {
@@ -413,14 +414,14 @@ function drawFrame(ctx: CanvasRenderingContext2D, o: FrameOptions, preview: Prev
     ctx.fillStyle = "rgba(239, 68, 68, 0.28)";
     ctx.fillRect(0, 0, W, 250); // barra de estado + buscador de TikTok
     ctx.fillRect(860, 740, W - 860, 840); // avatar, me gusta, comentar, guardar, compartir
-    ctx.fillRect(0, 1510, W, H - 1510); // @usuario, descripción y barra inferior
+    ctx.fillRect(0, 1560, W, H - 1560); // @usuario, descripción y barra inferior
     ctx.fillStyle = "rgba(239, 68, 68, 0.14)";
-    ctx.fillRect(0, 250, 96, 1260); // lados que se recortan en pantallas alargadas
+    ctx.fillRect(0, 250, 96, 1310); // lados que se recortan en pantallas alargadas
     ctx.fillRect(W - 96, 250, 96, 490);
     ctx.font = font(700, 26);
     ctx.fillStyle = "#fff";
     ctx.fillText("Buscador de TikTok", 24, 110);
-    ctx.fillText("@usuario y descripción del video", 24, 1560);
+    ctx.fillText("@usuario y descripción del video", 24, 1610);
   }
 }
 
