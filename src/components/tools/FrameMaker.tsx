@@ -38,7 +38,7 @@ interface Layout {
   logoY: number;
   logoMax: [number, number]; // ancho y alto máximos del logo
   footSize: number;
-  bottom: number; // nada se dibuja bajo esta línea (zona que tapa la app)
+  bottom: number; // el logo y el texto inferior no bajan de esta línea
   sideMargin: number; // margen lateral del título (en pantallas alargadas la app recorta los lados)
   subsX: [number, number]; // ancho de la franja de subtítulos (en 9:16 evita los botones de la derecha)
 }
@@ -64,7 +64,8 @@ const WINDOWS: { id: WindowId; label: string; hint: string; h: number }[] = [
  * alto, agranda el video ~4 % y recorta ~96 px de cada lado):
  * - Arriba: 0..250 px ocupados por hora/estado y buscador ("Buscar contenido relacionado..."); el contenido parte en 265
  * - Derecha: X = 860..1080, Y = 740..1580 ocupados por perfil, me gusta, comentarios, guardados y compartir
- * - Abajo: 1560..1920 px ocupados por @usuario y la descripción; nada se dibuja bajo 1550. Con una descripción de
+ * - Abajo: 1560..1920 px ocupados por @usuario y la descripción; título, video y subtítulos terminan en 1550. El logo
+ *   y el texto inferior van al fondo (hasta 1880) aunque la app los tape, para dejar más alto a los subtítulos. Con una descripción de
  *   2 líneas (TikTok corta el resto con "… más") el @usuario sube hasta ~1580; sin descripción, ~1590.
  *   El banner "Maximiza la visibilidad…" que sube esta zona solo lo ve el dueño de la cuenta.
  * - Lados: ~96 px que se recortan en pantallas alargadas; el título deja 110 px de margen
@@ -73,14 +74,18 @@ function computeLayout(format: FormatId, win: WindowId, pos: WinPos = "subs"): L
   const v = format === "9:16"
     ? {
         h: 1920, top: 265, bottom: 1550, logoBlock: 130, logoMax: [320, 85] as [number, number], foot: 34, gap: 28,
-        sideMargin: 110, subsX: [110, 850] as [number, number],
+        sideMargin: 110, subsX: [110, 850] as [number, number], logoFloor: 1880,
       }
     : {
         h: 1350, top: 50, bottom: 1320, logoBlock: 120, logoMax: [300, 70] as [number, number], foot: 32, gap: 30,
-        sideMargin: 84, subsX: [80, 1000] as [number, number],
+        sideMargin: 84, subsX: [80, 1000] as [number, number], logoFloor: 0,
       };
   const winH = WINDOWS.find((x) => x.id === win)?.h ?? 608;
-  const space = (g: number) => v.bottom - v.top - v.logoBlock - winH - g * 3;
+  // logoFloor > 0: el logo va al fondo, fuera de la zona segura, y no le quita espacio a los subtítulos
+  const logoOut = v.logoFloor > 0;
+  const reserved = logoOut ? 0 : v.logoBlock;
+  const gaps = logoOut ? 2 : 3;
+  const space = (g: number) => v.bottom - v.top - reserved - winH - g * gaps;
   // Con ventanas grandes se achican los espacios para que todo quepa sobre la zona que tapa la app
   const gap = space(v.gap) >= 150 ? v.gap : 18;
   const free = space(gap);
@@ -92,18 +97,18 @@ function computeLayout(format: FormatId, win: WindowId, pos: WinPos = "subs"): L
   }
   let winY = v.top + titleH + gap;
   let title: [number, number] = [v.top, v.top + titleH];
-  let logoY = winY + winH + gap + Math.max(subsH, 0) + gap;
+  let logoY = logoOut ? v.logoFloor - v.logoBlock : winY + winH + gap + Math.max(subsH, 0) + gap;
 
   // Video centrado: el centro de la ventana coincide con el de la pantalla (si cabe); el título va justo encima
   // y el logo queda al fondo. Los subtítulos usan lo que sobre entre el video y el logo.
   if (pos === "center") {
     const minWinY = v.top + 150 + gap;
-    const maxWinY = v.bottom - v.logoBlock - gap * 2 - winH;
+    const maxWinY = v.bottom - reserved - gap * (gaps - 1) - winH;
     winY = Math.min(maxWinY, Math.max(minWinY, Math.round(v.h / 2 - winH / 2)));
     titleH = Math.min(380, winY - gap - v.top);
     title = [winY - gap - titleH, winY - gap];
-    logoY = v.bottom - v.logoBlock;
-    subsH = logoY - gap - (winY + winH + gap);
+    if (!logoOut) logoY = v.bottom - v.logoBlock;
+    subsH = (logoOut ? v.bottom : logoY - gap) - (winY + winH + gap);
   }
 
   const subsY = winY + winH + gap;
@@ -117,7 +122,7 @@ function computeLayout(format: FormatId, win: WindowId, pos: WinPos = "subs"): L
     logoY,
     logoMax: v.logoMax,
     footSize: v.foot,
-    bottom: v.bottom,
+    bottom: logoOut ? v.logoFloor : v.bottom,
     sideMargin: v.sideMargin,
     subsX: v.subsX,
   };
