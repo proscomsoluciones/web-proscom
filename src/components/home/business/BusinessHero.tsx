@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { reveal } from "@/components/motion/reveal";
 import { SmartPos } from "@/components/home/business/SmartPos";
-import { MessageCircle, ArrowRight, TrendingUp, CircleCheck } from "lucide-react";
+import { MessageCircle, ArrowRight, TrendingUp } from "lucide-react";
 
 const whatsappHref = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent(
   "Hola, vi la página de Proscom y me gustaría conversar sobre mi negocio"
@@ -86,54 +86,53 @@ export const BusinessHero: React.FC = () => {
 
           {/* Producto real: panel de ventas de un cliente */}
           <div {...reveal("left", 200)} className="lg:col-span-6 relative">
-            <div className="relative lg:ml-4 lg:mr-[-12%]">
-              <div className="rounded-2xl bg-white border border-slate-200 shadow-[0_40px_80px_-20px_rgba(7,26,53,0.25)] overflow-hidden">
-                {/* Barra de navegador */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-200">
-                  <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                  <span className="ml-3 flex-1 max-w-[240px] h-6 rounded-md bg-white border border-slate-200 text-[11px] text-slate-400 flex items-center px-3">
-                    Reporte de ventas
-                  </span>
+            <div className="relative lg:ml-6 pb-8 sm:pb-12">
+              {/* Notebook */}
+              <div className="relative w-[90%]">
+                {/* Pantalla */}
+                <div className="relative mx-auto w-[88%] rounded-t-[14px] sm:rounded-t-[18px] rounded-b-[3px] bg-[#0B0D12] p-[2%] pb-[2.6%] ring-1 ring-[#3B414C] shadow-[0_30px_60px_-25px_rgba(7,26,53,0.5)]">
+                  {/* Cámara */}
+                  <span className="absolute top-[0.8%] left-1/2 -translate-x-1/2 w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[#2A303A]" />
+                  <div className="relative rounded-[3px] overflow-hidden bg-white">
+                    <Image
+                      src="/images/hero/panel-ventas.png"
+                      alt="Panel de ventas y caja desarrollado por Proscom para un cliente"
+                      width={852}
+                      height={565}
+                      preload
+                      sizes="(max-width: 1024px) 90vw, 560px"
+                      className="w-full h-auto"
+                    />
+                    {/* Reflejo del vidrio */}
+                    <span className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent" />
+                  </div>
                 </div>
-                <Image
-                  src="/images/hero/panel-ventas.png"
-                  alt="Panel de ventas y caja desarrollado por Proscom para un cliente"
-                  width={852}
-                  height={565}
-                  preload
-                  sizes="(max-width: 1024px) 100vw, 640px"
-                  className="w-full h-auto"
-                />
+                {/* Base de aluminio */}
+                <div aria-hidden="true" className="relative h-2.5 sm:h-3.5 rounded-t-[2px] rounded-b-[16px] bg-gradient-to-b from-[#EEF0F3] via-[#D3D7DD] to-[#9EA5B0] shadow-[0_18px_30px_-12px_rgba(7,26,53,0.45)]">
+                  <span className="absolute top-0 left-1/2 -translate-x-1/2 w-[15%] h-[45%] rounded-b-md bg-[#BDC2CA]" />
+                </div>
               </div>
 
               {/* Tarjeta flotante: resultado */}
-              <div className="absolute -left-3 sm:-left-8 -bottom-8 sm:-bottom-10 rounded-2xl bg-white border border-slate-200 shadow-xl p-4 sm:p-5 w-[210px] sm:w-[240px]">
+              <div className="absolute -left-3 sm:-left-10 top-[14%] rounded-2xl bg-white/95 backdrop-blur border border-slate-200 shadow-xl p-4 sm:p-5 w-[190px] sm:w-[230px]">
                 <p className="text-xs font-medium text-slate-500">Ventas del mes</p>
-                <p className="mt-1 text-2xl font-extrabold text-[#071A35]">$7.055.220</p>
+                <p className="mt-1 text-xl sm:text-2xl font-extrabold text-[#071A35]">$7.055.220</p>
                 <p className="mt-1.5 inline-flex items-center gap-1 text-xs font-bold text-emerald-600">
-                  <TrendingUp className="w-3.5 h-3.5" /> Todo registrado, sin planillas
+                  <TrendingUp className="w-3.5 h-3.5" /> Sin planillas
                 </p>
               </div>
 
               {/* Máquina Smart POS cobrando en el local */}
-              <SmartPos className="absolute z-20 right-1 sm:right-4 lg:right-[13%] -bottom-16 sm:-bottom-20 w-[118px] sm:w-[150px] rotate-[5deg]" />
-
-              {/* Tarjeta flotante: caja */}
-              <div className="hidden sm:flex absolute -top-6 right-6 lg:right-[14%] items-center gap-3 rounded-2xl bg-[#071A35] text-white shadow-xl px-4 py-3">
-                <CircleCheck className="w-5 h-5 text-emerald-400" />
-                <div>
-                  <p className="text-sm font-semibold">Caja cerrada</p>
-                  <p className="text-xs text-slate-300">Sin diferencias</p>
-                </div>
-              </div>
+              <SmartPos
+                width={270}
+                className="absolute z-20 -right-4 sm:-right-6 bottom-0 origin-bottom-right scale-[0.6] sm:scale-[0.85] xl:scale-100"
+              />
             </div>
           </div>
         </div>
 
         {/* Cifras de respaldo */}
-        <div {...reveal("up", 300)} className="mt-32 lg:mt-36 grid grid-cols-2 lg:grid-cols-4 border-t border-slate-200">
+        <div {...reveal("up", 300)} className="mt-16 lg:mt-20 grid grid-cols-2 lg:grid-cols-4 border-t border-slate-200">
           {STATS.map((stat, idx) => (
             <div
               key={stat.label}
