@@ -22,7 +22,6 @@ const whatsappHref = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponen
 
 const CLIENTS = [
   { src: "/images/clientes/marquee/cliente-lega-firma.png", name: "LegalFirma" },
-  { src: "/images/clientes/marquee/cliente-fichalo.png", name: "Fíchalo.cl" },
   { src: "/images/clientes/marquee/cliente-san-jose.png", name: "Colegio San José" },
   { src: "/images/clientes/marquee/cliente-lyc.png", name: "Distribuidora LyC" },
   { src: "/images/clientes/marquee/cliente-eleam.png", name: "Hnas. Hospitalarias" },

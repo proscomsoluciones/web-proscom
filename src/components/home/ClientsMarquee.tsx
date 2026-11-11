@@ -4,7 +4,6 @@ import { reveal } from "@/components/motion/reveal";
 
 const CLIENTS = [
   { src: "/images/clientes/marquee/cliente-lega-firma.png", name: "LegalFirma", subtitle: "Gestoría Vehicular" },
-  { src: "/images/clientes/marquee/cliente-fichalo.png", name: "Fíchalo.cl", subtitle: "Fútbol Formativo" },
   { src: "/images/clientes/marquee/cliente-san-jose.png", name: "Colegio San José", subtitle: "Educación Básica" },
   { src: "/images/clientes/marquee/cliente-lyc.png", name: "Distribuidora LyC", subtitle: "Logística y Distribución" },
   { src: "/images/clientes/marquee/cliente-eleam.png", name: "Hnas. Hospitalarias", subtitle: "Gestión Asistencial" },
