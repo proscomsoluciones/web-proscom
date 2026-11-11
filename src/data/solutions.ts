@@ -276,7 +276,7 @@ export const solutionsData: Solution[] = [
       {
         question: "¿Se puede integrar con sistemas de facturación o ERP existentes?",
         answer:
-          "Sí, RoutePay cuenta con arquitectura modular y APIs REST para sincronizarse con sistemas contables, ERPs y plataformas de comercio electrónico.",
+          "Sí, RoutePay se puede conectar con tu sistema contable, de facturación o tu tienda online para que la información pase sola de uno a otro.",
       },
     ],
     image: "/images/projects/routepay.png",

@@ -102,17 +102,6 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) =>
                   {project.shortDescription}
                 </p>
 
-                {/* Tech chips */}
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-100">
-                  {project.technologies.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="text-[11px] px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
 
@@ -122,7 +111,7 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) =>
                 href={`/proyectos/${project.slug}`}
                 className="w-full text-center py-2.5 px-4 rounded-xl text-xs font-bold bg-[#F3F6FA] hover:bg-[#1479D4] text-[#071A35] hover:text-white transition-all duration-200 inline-flex items-center justify-center gap-1.5 group-hover:shadow-sm"
               >
-                <span>Ver ficha técnica y caso de estudio</span>
+                <span>Ver el caso completo</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

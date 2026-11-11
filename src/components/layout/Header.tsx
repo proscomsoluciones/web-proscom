@@ -42,8 +42,8 @@ export const Header: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#071A35]/95 backdrop-blur-md shadow-lg shadow-black/20 border-b border-white/10 py-3"
-          : "bg-[#071A35] border-b border-white/10 py-4"
+          ? "bg-white/95 backdrop-blur-md shadow-md shadow-slate-200/60 border-b border-slate-200 py-3"
+          : "bg-white border-b border-slate-100 py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,12 +51,12 @@ export const Header: React.FC = () => {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-white rounded-md"
+            className="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-[#1373C9] rounded-md"
             aria-label="Proscom - Ir a página de inicio"
           >
             <div className="relative h-10 w-36 sm:h-11 sm:w-44 transition-transform group-hover:scale-[1.02]">
               <Image
-                src="/brand/logotipo-light.png"
+                src="/brand/logotipo.png"
                 alt="Proscom - Soluciones de control y gestión"
                 fill
                 preload
@@ -81,13 +81,13 @@ export const Header: React.FC = () => {
                   href={item.href}
                   className={`relative px-3 xl:px-3.5 py-2 text-sm whitespace-nowrap font-medium rounded-lg transition-colors duration-200 ${
                     active
-                      ? "text-white font-semibold"
-                      : "text-slate-300 hover:text-white hover:bg-white/5"
+                      ? "text-[#1373C9] font-semibold"
+                      : "text-slate-600 hover:text-[#071A35] hover:bg-slate-100"
                   }`}
                 >
                   {item.name}
                   {active && (
-                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#19C6E6] rounded-full shadow-[0_0_8px_#19C6E6]" />
+                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#1373C9] rounded-full" />
                   )}
                 </Link>
               );
@@ -103,7 +103,7 @@ export const Header: React.FC = () => {
               icon={<MessageSquare className="w-4 h-4" />}
               className="whitespace-nowrap"
             >
-              Cotiza tu proyecto
+              Conversemos
             </Button>
           </div>
 
@@ -112,7 +112,7 @@ export const Header: React.FC = () => {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white"
+              className="p-2 rounded-lg text-slate-700 hover:text-[#071A35] hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-[#1373C9]"
               aria-controls="mobile-menu"
               aria-expanded={mobileMenuOpen}
               aria-label={mobileMenuOpen ? "Cerrar menú principal" : "Abrir menú principal"}
@@ -131,7 +131,7 @@ export const Header: React.FC = () => {
       {mobileMenuOpen && (
         <div
           id="mobile-menu"
-          className="lg:hidden fixed inset-x-0 top-[61px] bottom-0 bg-[#071A35]/98 backdrop-blur-xl border-t border-white/10 px-6 py-6 flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200"
+          className="lg:hidden fixed inset-x-0 top-[61px] bottom-0 bg-white backdrop-blur-xl border-t border-slate-200 px-6 py-6 flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200"
         >
           <nav aria-label="Menú móvil" className="flex flex-col gap-2">
             {siteConfig.navigation.map((item) => {
@@ -143,8 +143,8 @@ export const Header: React.FC = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-colors ${
                     active
-                      ? "bg-white/10 text-white font-semibold border-l-4 border-[#19C6E6]"
-                      : "text-slate-200 hover:bg-white/5 hover:text-white"
+                      ? "bg-[#1373C9]/10 text-[#1373C9] font-semibold border-l-4 border-[#1373C9]"
+                      : "text-slate-700 hover:bg-slate-100 hover:text-[#071A35]"
                   }`}
                 >
                   <span>{item.name}</span>
@@ -154,7 +154,7 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          <div className="pt-6 border-t border-white/10 flex flex-col gap-3">
+          <div className="pt-6 border-t border-slate-200 flex flex-col gap-3">
             <Button
               href="/contacto"
               variant="primary"
@@ -162,7 +162,7 @@ export const Header: React.FC = () => {
               className="w-full text-center"
               icon={<MessageSquare className="w-5 h-5" />}
             >
-              Cotiza tu proyecto
+              Conversemos
             </Button>
             <Button
               href={siteConfig.contact.whatsappUrl}
@@ -173,7 +173,7 @@ export const Header: React.FC = () => {
             >
               Contactar por WhatsApp
             </Button>
-            <p className="text-center text-xs text-slate-400 mt-2">
+            <p className="text-center text-xs text-slate-500 mt-2">
               {siteConfig.location.full} • {siteConfig.contact.phone}
             </p>
           </div>

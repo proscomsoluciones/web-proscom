@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
               {siteConfig.slogan}
             </p>
             <p className="text-sm text-slate-300 leading-relaxed max-w-sm">
-              Empresa chilena especializada en desarrollo de software a medida, aplicaciones web, móviles y sistemas de gestión para optimizar procesos en empresas y organizaciones.
+              Ayudamos a negocios y organizaciones de Chile a vender más, cobrar fácil y ordenar su día a día, sin que tengan que saber de computación.
             </p>
             <div className="pt-2 text-xs text-slate-400 space-y-1">
               <p className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export const Footer: React.FC = () => {
                   href="/proyectos"
                   className="text-slate-300 hover:text-white transition-colors duration-150 font-medium text-white flex items-center gap-1"
                 >
-                  <span>Proyectos a Medida</span>
+                  <span>Casos de éxito</span>
                   <ArrowUpRight className="w-3 h-3 text-[#19C6E6]" />
                 </Link>
               </li>
@@ -115,6 +115,14 @@ export const Footer: React.FC = () => {
                   className="text-slate-300 hover:text-white transition-colors duration-150"
                 >
                   Ley 21.719 de Protección de Datos
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/aprende"
+                  className="text-slate-300 hover:text-white transition-colors duration-150"
+                >
+                  Aprende: guías simples
                 </Link>
               </li>
               <li>

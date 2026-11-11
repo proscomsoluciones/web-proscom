@@ -33,11 +33,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Proscom | Soluciones de Control, Gestión y Desarrollo de Software",
+    default: "Proscom | Soluciones para tu negocio: páginas web, ventas online y sistemas de gestión",
     template: "%s | Proscom",
   },
   description:
-    "Desarrollamos software a medida, aplicaciones móviles, sitios web y plataformas de gestión que ayudan a empresas y organizaciones a optimizar sus procesos y crecer en toda la Región de Valparaíso y Chile.",
+    "Ayudamos a negocios de Chile a vender por internet, cobrar fácil y ordenar ventas, stock y caja. Páginas web, tiendas online y sistemas de gestión sin tecnicismos.",
   keywords: [
     "Desarrollo de software a medida Chile",
     "Desarrollo web Región de Valparaíso",

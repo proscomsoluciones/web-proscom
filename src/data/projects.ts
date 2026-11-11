@@ -11,17 +11,17 @@ export const projectsData: Project[] = [
     shortDescription:
       "Plataforma integral para distribuidoras de gas: panel de pedidos y despacho, app móvil en terminales POS con impresora y cuadratura automática de cilindros.",
     detailedDescription:
-      "WOW Gas centraliza todo el ciclo operativo de una distribuidora de gas licuado en tres componentes integrados: un panel web administrativo de oficina para venta express, despacho y reportes; una app móvil para choferes en terminales POS Sunmi con impresora térmica para cobro y emisión de ticket en ruta; y un backend multiempresa sincronizado en tiempo real. Cada camión parte con una carga inicial registrada y, al finalizar la jornada, el sistema cruza automáticamente los cilindros llenos y vacíos devueltos contra el efectivo recaudado, eliminando cualquier descuadre.",
+      "WOW Gas centraliza todo el ciclo operativo de una distribuidora de gas licuado en tres componentes integrados: un panel web administrativo de oficina para venta express, despacho y reportes; una app para choferes en equipos de cobro con impresora para cobrar y entregar el ticket en ruta; y un sistema central que mantiene todo al día al instante. Cada camión parte con una carga inicial registrada y, al finalizar la jornada, el sistema cruza automáticamente los cilindros llenos y vacíos devueltos contra el efectivo recaudado, eliminando cualquier descuadre.",
     problem:
       "Los pedidos llegaban por teléfono y WhatsApp y se anotaban a mano en cuadernos. No existía forma clara de controlar qué cilindros llevaba cada camión, cuántos envases vacíos retornaban ni cuánto dinero debía rendir cada chofer al cierre del turno. La cuadratura se hacía manualmente en planillas con constantes descuadres, el stock entre sucursales se movía sin trazabilidad y no se conocía la ubicación de los repartidores en tiempo real.",
     solution:
-      "Construimos una plataforma integral con panel de despacho para oficina, una aplicación móvil para choferes en terminales POS con impresora integrada para cobro y emisión de tickets en el acto, y un backend central multiempresa. Cada camión registra su carga inicial y el sistema compara automáticamente cilindros llenos, vacíos y recaudación contra las ventas del día, con seguimiento de flota en mapa.",
+      "Construimos una plataforma integral con panel de despacho para oficina, una aplicación móvil para choferes en terminales POS con impresora integrada para cobro y emisión de tickets en el acto, y un sistema central que ordena la información de todas las bases. Cada camión registra su carga inicial y el sistema compara automáticamente cilindros llenos, vacíos y recaudación contra las ventas del día, con seguimiento de flota en mapa.",
     features: [
       "Venta express en mesón y pedidos a domicilio con asignación y notificación push a choferes.",
       "Seguimiento de flota en mapa interactivo con visualización en tiempo real de camiones repartidores.",
       "Cuadratura automática de chofer: cruce exacto de carga inicial, ventas, envases vacíos y dinero rendido.",
       "Control de stock de cilindros (5, 11, 15 y 45 kg), ingresos de proveedores, recargas y traspasos entre bases.",
-      "App móvil en terminales POS Sunmi con cobro con tarjeta, efectivo e impresión térmica de tickets en ruta.",
+      "App para choferes en equipos de cobro portátiles: tarjeta, efectivo e impresión de tickets en ruta.",
       "Arquitectura multiempresa con roles (Administradores, Cajeros y Choferes) y acceso por PIN de seguridad.",
       "Historial de ventas, cartera de clientes y reportes consolidados exportables a Excel.",
     ],
@@ -112,9 +112,9 @@ export const projectsData: Project[] = [
     detailedDescription:
       "Legal Firma es una plataforma web desarrollada a medida para modernizar la tramitación notarial y vehicular de Carvacal SpA. Centraliza cerca de 1.000 clientes, 650 vehículos y 680 contratos, automatizando la emisión de contratos de compraventa y mandatos en PDF, la conexión electrónica firmada digitalmente con los 7 servicios del Registro Civil (STEV) para transferencias en línea, y el cobro digital con pasarela SumUp mediante enlaces de pago por WhatsApp y correo.",
     problem:
-      "Cada compraventa exigía llenar a mano contratos y mandatos notariales, duplicando datos una y otra vez. Las transferencias se tramitaban manualmente una a una en el sitio del Registro Civil sin trazabilidad del estado ni control del cobro, y la plataforma previa estaba dividida en frontend y API desvinculados que volvían lento y costoso cualquier mantenimiento.",
+      "Cada compraventa exigía llenar a mano contratos y mandatos notariales, duplicando datos una y otra vez. Las transferencias se tramitaban manualmente una a una en el sitio del Registro Civil sin trazabilidad del estado ni control del cobro, y el sistema anterior era lento y caro de mantener.",
     solution:
-      "Construimos una aplicación web unificada de alta velocidad que cubre el flujo completo: registro estructurado de partes (personas naturales, representadas y empresas), generación inmediata de contratos y mandatos en PDF, integración SOAP con WS-Security para transferir en línea ante el Registro Civil con reintentos automáticos, cobro con SumUp y panel financiero con balance en PDF y Excel.",
+      "Construimos un sistema rápido y en un solo lugar que cubre el flujo completo: registro estructurado de partes (personas naturales, representadas y empresas), generación inmediata de contratos y mandatos en PDF, transferencias en línea directo con el Registro Civil, que se reintentan solas si algo falla, cobro con SumUp y panel financiero con balance en PDF y Excel.",
     features: [
       "Contratos y mandatos notariales en PDF listos para firmar con datos autocompletados.",
       "Integración directa STEV con el Registro Civil: consulta de vigencia, envío de solicitud, seguimiento y comprobante oficial.",
@@ -213,14 +213,14 @@ export const projectsData: Project[] = [
     problem:
       "La información de clientes, contratos y pagos se encontraba fragmentada en múltiples planillas con miles de registros históricos sin normalizar. No existía forma centralizada de identificar cuotas vencidas, conciliar la recaudación de caja por rango de fechas ni generar contratos y comprobantes de ingreso de manera uniforme y segura.",
     solution:
-      "Construimos una plataforma web empresarial que calcula y gestiona planes de cuotas automáticos, registra pagos multicanal con arqueo de caja en tiempo real, genera contratos y recibos con membrete oficial en PDF, e incorporó comandos de migración masiva que preservaron los identificadores legacy_id originales con autenticación de dos factores (2FA y passkeys).",
+      "Construimos una plataforma web empresarial que calcula y gestiona planes de cuotas automáticos, registra pagos multicanal con arqueo de caja en tiempo real, genera contratos y recibos con membrete oficial en PDF. Además traspasamos toda la información del sistema anterior sin perder datos, y reforzamos el acceso con verificación en dos pasos.",
     features: [
       "Contratos con plan de cuotas automático: cálculo inteligente según pie y cuotas sin alterar pagos históricos.",
       "Documentos oficiales en PDF con membrete: contratos de servicios integrales y comprobantes de ingreso con líneas de firma.",
       "Reportes de caja consolidados: filtros por fecha y desglose de recaudación (efectivo en oficina vs transferencias y PAC).",
       "Selector ultra liviano de contratos por RUT/nombre para cobro rápido sobre miles de registros.",
       "Panel de control ejecutivo: KPIs de contratos vigentes, recaudación mensual, cuotas pendientes y tasa de cumplimiento.",
-      "Seguridad de nivel bancario: autenticación con Laravel Fortify, verificación en dos pasos (2FA) y soporte para passkeys.",
+      "Seguridad de nivel bancario: verificación en dos pasos al iniciar sesión y acceso con huella o rostro.",
       "Importador masivo de datos históricos: migración íntegra de clientes, contratos y pagos conservando el legacy_id.",
     ],
     technologies: ["Laravel 13", "PHP 8.3", "React 19", "Inertia.js 2", "Tailwind CSS 4", "Radix UI", "DomPDF", "Laravel Fortify"],
@@ -230,7 +230,7 @@ export const projectsData: Project[] = [
     isFeatured: true,
     metaTitle: "Senderoo | Sistema de Contratos y Cobranza para Previsión - Proscom",
     metaDescription:
-      "Caso de estudio: plataforma para Sendero Otoñal con contratos en cuotas, recaudación en caja y banco, comprobantes en PDF y 2FA con passkeys.",
+      "Caso de estudio: plataforma para Sendero Otoñal con contratos en cuotas, recaudación en caja y banco, comprobantes en PDF y acceso seguro.",
   },
   {
     id: "wowpos",

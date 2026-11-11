@@ -21,7 +21,7 @@ export const siteConfig = {
     email: "contacto@proscom.cl",
     whatsappUrl: "https://wa.me/56975610245",
     whatsappDefaultMessage:
-      "Hola, vi la página de Proscom y me gustaría recibir información sobre el desarrollo de un proyecto tecnológico para mi empresa",
+      "Hola, vi la página de Proscom y me gustaría conversar sobre cómo pueden ayudar a mi negocio",
   },
   social: {
     linkedin: "https://www.linkedin.com/company/proscom-cl",
@@ -31,13 +31,10 @@ export const siteConfig = {
   navigation: [
     { name: "Inicio", href: "/" },
     { name: "Servicios", href: "/servicios" },
-    { name: "Soluciones", href: "/soluciones" },
-    { name: "Proyectos", href: "/proyectos" },
-    { name: "Aprende", href: "/aprende" },
-    { name: "Ley 21.719", href: "/ley-proteccion-datos-chile" },
+    { name: "Sistemas listos", href: "/soluciones" },
+    { name: "Casos de éxito", href: "/proyectos" },
     { name: "Nosotros", href: "/nosotros" },
     { name: "Contacto", href: "/contacto" },
-  ],
-};
+  ],};
 
 export type SiteConfig = typeof siteConfig;

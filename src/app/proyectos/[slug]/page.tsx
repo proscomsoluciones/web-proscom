@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/Button";
 import {
   ChevronRight,
   Shield,
-  Cpu,
   ArrowRight,
   MessageCircle,
   CheckCircle2,
@@ -240,26 +239,21 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               </div>
             </div>
 
-            {/* Technologies Box */}
+            {/* Recuadro de respaldo (sin términos técnicos) */}
             <div className="lg:col-span-5 bg-[#071A35] text-white rounded-3xl p-8 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#19C6E6] uppercase tracking-wider mb-4">
-                  <Cpu className="w-4 h-4" />
-                  <span>Stack Tecnológico</span>
+                  <Shield className="w-4 h-4" />
+                  <span>Hecho a la medida</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-4">
-                  Tecnologías utilizadas
+                  Pensado para la forma de trabajar del cliente
                 </h3>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/10"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                  No usamos un sistema genérico: lo construimos a partir de cómo
+                  trabaja cada cliente y lo seguimos acompañando una vez que está
+                  funcionando.
+                </p>
 
                 <div className="pt-4 border-t border-white/10 space-y-2 text-xs text-slate-300">
                   <p className="flex items-center gap-2">
