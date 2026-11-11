@@ -1,56 +1,60 @@
 // Textos de la portada: escritos para dueños de negocios, sin términos técnicos.
 
-export const homePains = [
-  { icon: "NotebookPen", text: "Anotas las ventas en un cuaderno o en planillas que nadie entiende." },
-  { icon: "PackageSearch", text: "No sabes con certeza cuánto stock te queda ni qué se vende más." },
-  { icon: "CreditCard", text: "Tus clientes quieren pagar con tarjeta o transferencia y se te complica." },
-  { icon: "Search", text: "Te buscan en Google y no apareces, o aparece tu competencia." },
-  { icon: "Clock", text: "Pierdes horas cada semana cuadrando caja, cobrando y haciendo informes." },
-  { icon: "MessageCircleQuestion", text: "Los pedidos llegan por WhatsApp, teléfono y correo, y alguno se pierde." },
-];
-
-export const homeNeeds = [
-  {
-    icon: "Store",
-    title: "Que te encuentren en internet",
-    description: "Una página web profesional que muestre lo que haces y te traiga clientes nuevos.",
-    href: "/servicios/desarrollo-web",
-  },
+/** Qué hacemos: tres áreas fáciles de entender, cada una con sus servicios */
+export const homePillars = [
   {
     icon: "ShoppingBag",
-    title: "Vende por internet las 24 horas",
-    description: "Tu tienda online abierta todo el día, con despacho a todo Chile.",
-    href: "/servicios/ecommerce",
-  },
-  {
-    icon: "CreditCard",
-    title: "Cobra fácil y seguro",
-    description: "Recibe pagos con tarjeta, cuotas o link de pago. El dinero llega a tu cuenta.",
-    href: "/servicios/medios-de-pago",
+    title: "Te ayudamos a vender más",
+    question: "¿Tus clientes no te encuentran o no pueden comprarte por internet?",
+    services: [
+      { label: "Página web profesional", href: "/servicios/desarrollo-web" },
+      { label: "Tienda online con despacho", href: "/servicios/ecommerce" },
+      { label: "Pagos con tarjeta y link de pago", href: "/servicios/medios-de-pago" },
+    ],
   },
   {
     icon: "ClipboardCheck",
-    title: "Ordena tu negocio",
-    description: "Ventas, stock, caja y clientes en un solo lugar. Sabes cómo vas, sin planillas.",
-    href: "/servicios/sistemas-de-gestion",
-  },
-  {
-    icon: "Puzzle",
-    title: "Un sistema hecho a tu medida",
-    description: "Si tu forma de trabajar es única, armamos la herramienta que se adapta a ti.",
-    href: "/servicios/software-a-medida",
-  },
-  {
-    icon: "Smartphone",
-    title: "Tu negocio en el celular",
-    description: "Una app para tus clientes o tu equipo en terreno: pedidos, cobros y avisos al instante.",
-    href: "/servicios/aplicaciones-moviles",
+    title: "Ordenamos tu negocio",
+    question: "¿Ventas en cuaderno, stock a ojo y una caja que no cuadra?",
+    services: [
+      { label: "Sistema de ventas, stock y caja", href: "/servicios/sistemas-de-gestion" },
+      { label: "Sistema hecho a tu medida", href: "/servicios/software-a-medida" },
+      { label: "App para tu equipo o tus clientes", href: "/servicios/aplicaciones-moviles" },
+    ],
   },
   {
     icon: "HeartHandshake",
-    title: "Nosotros nos encargamos",
-    description: "Mantenemos todo funcionando y te ayudamos cuando lo necesites. Tú dedícate a tu negocio.",
-    href: "/servicios/soporte-tecnologico",
+    title: "Te acompañamos siempre",
+    question: "¿No tienes a quién llamar cuando algo falla o tienes una duda?",
+    services: [
+      { label: "Soporte y mantenimiento", href: "/servicios/soporte-tecnologico" },
+      { label: "Asesoría para elegir bien", href: "/contacto" },
+      { label: "Capacitación para tu equipo", href: "/contacto" },
+    ],
+  },
+];
+
+/** Cómo trabajamos: cada paso dice qué recibe el cliente */
+export const homeSteps = [
+  {
+    title: "Conversamos",
+    description: "Nos cuentas cómo funciona tu negocio y qué te complica. En palabras simples.",
+    result: "Entiendes qué te conviene y qué no",
+  },
+  {
+    title: "Te proponemos",
+    description: "Te explicamos qué haríamos, cuánto cuesta y cuánto demora.",
+    result: "Propuesta por escrito con precio y plazos",
+  },
+  {
+    title: "Lo construimos contigo",
+    description: "Te mostramos avances para que opines antes de que esté listo.",
+    result: "Revisas y apruebas cada etapa",
+  },
+  {
+    title: "Lo ponemos en marcha",
+    description: "Capacitamos a tu equipo y seguimos contigo después de lanzar.",
+    result: "Tu equipo usándolo desde el primer día",
   },
 ];
 
@@ -81,30 +85,12 @@ export const homeStories = [
   },
 ];
 
-export const homeSteps = [
-  {
-    title: "Conversamos",
-    description: "Nos cuentas cómo funciona tu negocio y qué te complica. En palabras simples, sin tecnicismos.",
-  },
-  {
-    title: "Te proponemos",
-    description: "Te explicamos qué haríamos, cuánto cuesta y cuánto demora. Sin letra chica.",
-  },
-  {
-    title: "Lo construimos contigo",
-    description: "Te mostramos avances para que opines antes de que esté listo.",
-  },
-  {
-    title: "Te acompañamos",
-    description: "Te enseñamos a usarlo y seguimos ahí cuando nos necesites.",
-  },
-];
-
+/** Quiénes somos: razones para confiar */
 export const homeReasons = [
-  { icon: "Users", title: "Hablas con personas", text: "Trato directo con quienes hacen tu proyecto, sin call centers ni intermediarios." },
-  { icon: "Smile", title: "No necesitas saber de computación", text: "Nosotros nos encargamos de la parte técnica. Tú solo nos cuentas qué necesitas." },
-  { icon: "BadgeCheck", title: "Experiencia comprobada", text: "Más de 15 años de experiencia de nuestro fundador creando sistemas para negocios." },
-  { icon: "MapPin", title: "Estamos en Chile", text: "Oficina en Vitacura y clientes en todo Chile. Conocemos cómo se trabaja aquí." },
+  { icon: "Users", title: "Hablas con personas", text: "Trato directo con quienes hacen tu proyecto, sin intermediarios." },
+  { icon: "Smile", title: "Sin tecnicismos", text: "Te explicamos todo en simple. No necesitas saber de computación." },
+  { icon: "BadgeCheck", title: "Experiencia comprobada", text: "Más de 15 años de experiencia de nuestro fundador creando sistemas." },
+  { icon: "MapPin", title: "Empresa chilena", text: "Oficina en Vitacura y clientes a lo largo de todo Chile." },
 ];
 
 export const homeFaqs = [

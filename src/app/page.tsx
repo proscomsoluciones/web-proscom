@@ -2,10 +2,10 @@ import React from "react";
 import { BusinessHero } from "@/components/home/business/BusinessHero";
 import {
   TrustedBy,
-  PainPoints,
-  NeedsGrid,
-  Stories,
+  WhatWeDo,
   HowWeWork,
+  Stories,
+  AboutUs,
   HomeFaq,
   FinalCta,
 } from "@/components/home/business/BusinessSections";
@@ -19,17 +19,17 @@ export default function HomePage() {
       {/* 2. Clientes que confían en nosotros */}
       <TrustedBy />
 
-      {/* 3. Problemas cotidianos con los que se identifica el cliente */}
-      <PainPoints />
+      {/* 3. Qué hacemos: tres áreas con sus servicios */}
+      <WhatWeDo />
 
-      {/* 4. Servicios agrupados por necesidad */}
-      <NeedsGrid />
+      {/* 4. Cómo trabajamos: pasos y lo que recibe el cliente */}
+      <HowWeWork />
 
       {/* 5. Casos reales contados como antes / ahora */}
       <Stories />
 
-      {/* 6. Cómo trabajamos y por qué elegirnos */}
-      <HowWeWork />
+      {/* 6. Quiénes somos */}
+      <AboutUs />
 
       {/* 7. Preguntas frecuentes en lenguaje simple */}
       <HomeFaq />

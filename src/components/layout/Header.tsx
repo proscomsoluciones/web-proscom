@@ -98,7 +98,7 @@ export const Header: React.FC = () => {
           <div className="hidden lg:flex items-center gap-3">
             <Button
               href="/contacto"
-              variant="primary"
+              variant="whatsapp"
               size="sm"
               icon={<MessageSquare className="w-4 h-4" />}
               className="whitespace-nowrap"

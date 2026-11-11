@@ -66,10 +66,10 @@ export const BusinessHero: React.FC = () => {
               <Button
                 href={whatsappHref}
                 external
-                variant="primary"
+                variant="whatsapp"
                 size="lg"
                 icon={<MessageCircle className="w-5 h-5" />}
-                className="w-full sm:w-auto whitespace-nowrap px-7 py-4 rounded-xl shadow-lg shadow-[#1479D4]/25"
+                className="w-full sm:w-auto whitespace-nowrap px-7 py-4 rounded-xl shadow-lg shadow-emerald-500/30"
               >
                 Hablemos de tu negocio
               </Button>

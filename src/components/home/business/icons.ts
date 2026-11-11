@@ -1,15 +1,6 @@
 import {
-  NotebookPen,
-  PackageSearch,
-  CreditCard,
-  Search,
-  Clock,
-  MessageCircleQuestion,
-  Store,
   ShoppingBag,
   ClipboardCheck,
-  Puzzle,
-  Smartphone,
   HeartHandshake,
   Users,
   Smile,
@@ -20,17 +11,8 @@ import {
 
 // Íconos que usan los textos de src/data/home.ts (referenciados por nombre)
 export const homeIcons: Record<string, LucideIcon> = {
-  NotebookPen,
-  PackageSearch,
-  CreditCard,
-  Search,
-  Clock,
-  MessageCircleQuestion,
-  Store,
   ShoppingBag,
   ClipboardCheck,
-  Puzzle,
-  Smartphone,
   HeartHandshake,
   Users,
   Smile,
