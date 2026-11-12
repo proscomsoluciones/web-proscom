@@ -86,7 +86,7 @@ export const BusinessHero: React.FC = () => {
 
           {/* Producto real: panel de ventas de un cliente */}
           <div {...reveal("left", 200)} className="lg:col-span-6 relative">
-            <div className="relative lg:ml-6 pb-8 sm:pb-12">
+            <div className="relative max-w-xl mx-auto lg:max-w-none lg:mx-0 lg:ml-6 pt-6 sm:pt-0 pb-8 sm:pb-12">
               {/* Notebook */}
               <div className="relative w-[90%]">
                 {/* Pantalla */}
@@ -114,10 +114,10 @@ export const BusinessHero: React.FC = () => {
               </div>
 
               {/* Tarjeta flotante: resultado */}
-              <div className="absolute -left-3 sm:-left-10 top-[14%] rounded-2xl bg-white/95 backdrop-blur border border-slate-200 shadow-xl p-4 sm:p-5 w-[190px] sm:w-[230px]">
-                <p className="text-xs font-medium text-slate-500">Ventas del mes</p>
-                <p className="mt-1 text-xl sm:text-2xl font-extrabold text-[#071A35]">$7.055.220</p>
-                <p className="mt-1.5 inline-flex items-center gap-1 text-xs font-bold text-emerald-600">
+              <div className="absolute -left-1 -top-6 sm:-left-10 sm:top-[14%] rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur border border-slate-200 shadow-xl px-3 py-2.5 sm:p-5 w-[148px] sm:w-[230px]">
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500">Ventas del mes</p>
+                <p className="mt-0.5 sm:mt-1 text-lg sm:text-2xl font-extrabold text-[#071A35]">$7.055.220</p>
+                <p className="mt-1 sm:mt-1.5 inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-emerald-600">
                   <TrendingUp className="w-3.5 h-3.5" /> Sin planillas
                 </p>
               </div>
@@ -125,7 +125,7 @@ export const BusinessHero: React.FC = () => {
               {/* Máquina Smart POS cobrando en el local */}
               <SmartPos
                 width={270}
-                className="absolute z-20 -right-4 sm:-right-6 bottom-0 origin-bottom-right scale-[0.6] sm:scale-[0.85] xl:scale-100"
+                className="absolute z-20 right-0 sm:-right-6 bottom-0 origin-bottom-right scale-[0.6] sm:scale-[0.85] xl:scale-100"
               />
             </div>
           </div>

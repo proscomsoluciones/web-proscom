@@ -33,6 +33,11 @@ html {
   html { font-size: 125%; }
 }
 
+/* Ningún adorno puede provocar desplazamiento lateral en celulares */
+html {
+  overflow-x: clip;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -217,8 +222,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .js [data-reveal="up"]    { transform: translate3d(0, 36px, 0); }
 .js [data-reveal="down"]  { transform: translate3d(0, -24px, 0); }
-.js [data-reveal="left"]  { transform: translate3d(-48px, 0, 0); }
-.js [data-reveal="right"] { transform: translate3d(48px, 0, 0); }
+.js [data-reveal="left"]  { transform: translate3d(-32px, 0, 0); }
+.js [data-reveal="right"] { transform: translate3d(32px, 0, 0); }
 .js [data-reveal="zoom"]  { transform: scale(0.92); }
 .js [data-reveal="blur"]  { transform: translate3d(0, 16px, 0); filter: blur(10px); }
 
@@ -607,4 +612,11 @@ h1, h2, h3, h4, h5, h6 {
   /* No reservar capas de GPU por adelantado en decenas de elementos */
   .js [data-reveal], [data-tilt] { will-change: auto; }
   .js [data-reveal="blur"] { filter: none; }
+
+}
+
+/* Celulares y tablets: las entradas laterales suben en vez de deslizarse, así no ensanchan la página */
+@media (max-width: 1023px) {
+  .js [data-reveal="left"],
+  .js [data-reveal="right"] { transform: translate3d(0, 28px, 0); }
 }

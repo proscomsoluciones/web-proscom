@@ -14,7 +14,7 @@ const LEGAL_LINKS = [
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#071A35] text-white pt-12 pb-8">
+    <footer className="bg-[#071A35] text-white pt-12 pb-24 sm:pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 pb-10 border-b border-white/10">
           {/* Marca */}

@@ -35,7 +35,7 @@ export const StoriesShowcase: React.FC = () => {
       <div
         role="tablist"
         aria-label="Casos por rubro"
-        className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:justify-center [scrollbar-width:none]"
+        className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center sm:overflow-visible [scrollbar-width:none]"
       >
         {homeStories.map((item, idx) => {
           const Icon = SECTOR_ICONS[item.icon];
