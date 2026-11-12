@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/Button";
 import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { reveal } from "@/components/motion/reveal";
 import { homeIcons } from "@/components/home/business/icons";
+import { StoriesShowcase } from "@/components/home/business/StoriesShowcase";
 import {
   homePillars,
-  homeStories,
   homeSteps,
   homeReasons,
   homeFaqs,
 } from "@/data/home";
-import { ArrowRight, MessageCircle, Phone, X, Check, CircleCheck, MapPin } from "lucide-react";
+import { ArrowRight, MessageCircle, Phone, Check, CircleCheck, MapPin } from "lucide-react";
 
 const whatsappHref = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent(
   "Hola, vi la página de Proscom y me gustaría conversar sobre mi negocio"
@@ -200,51 +200,10 @@ export const Stories: React.FC = () => (
       <SectionTitle
         eyebrow="Casos reales"
         title="Negocios como el tuyo que ya dieron el paso"
+        text="Elige un rubro y mira cómo cambió su día a día."
       />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {homeStories.map((story, idx) => (
-          <article
-            key={story.slug}
-            {...reveal("up", idx * 100)}
-            className="flex flex-col rounded-3xl bg-white overflow-hidden shadow-lg shadow-orange-900/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
-          >
-            <div className="relative aspect-[16/10] bg-[#F3F7FC]">
-              <Image
-                src={story.image}
-                alt={story.client}
-                fill
-                sizes="(max-width: 1024px) 100vw, 33vw"
-                className="object-cover"
-              />
-              <span className="absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded-full bg-orange-500 text-white shadow-md">
-                {story.client}
-              </span>
-            </div>
-            <div className="flex flex-col flex-1 p-6">
-              <h3 className="text-xl font-bold text-[#071A35] leading-snug">{story.title}</h3>
-              <div className="mt-5 space-y-3 flex-1">
-                <p className="flex gap-3 text-[15px] text-slate-600 leading-relaxed">
-                  <span className="mt-0.5 p-1 h-fit rounded-full bg-rose-50 text-rose-500 shrink-0">
-                    <X className="w-3.5 h-3.5" />
-                  </span>
-                  <span><strong className="text-slate-800">Antes:</strong> {story.before}</span>
-                </p>
-                <p className="flex gap-3 text-[15px] text-slate-600 leading-relaxed">
-                  <span className="mt-0.5 p-1 h-fit rounded-full bg-emerald-50 text-emerald-600 shrink-0">
-                    <Check className="w-3.5 h-3.5" />
-                  </span>
-                  <span><strong className="text-slate-800">Ahora:</strong> {story.after}</span>
-                </p>
-              </div>
-              <Link
-                href={`/proyectos/${story.slug}`}
-                className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-[#1373C9] hover:text-[#1688F5]"
-              >
-                Conoce la historia completa <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </article>
-        ))}
+      <div {...reveal("up")}>
+        <StoriesShowcase />
       </div>
       <div {...reveal("up")} className="mt-12 text-center">
         <Button href="/proyectos" variant="outline" size="lg" icon={<ArrowRight className="w-5 h-5" />} className="bg-white border-orange-500 text-orange-600 hover:bg-orange-50">

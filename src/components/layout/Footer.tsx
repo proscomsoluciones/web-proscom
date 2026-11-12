@@ -2,205 +2,104 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/config/site";
-import { servicesData } from "@/data/services";
-import { solutionsData } from "@/data/solutions";
 import { CurrentYear } from "@/components/ui/CurrentYear";
-import { MapPin, Phone, Mail, MessageCircle, ArrowUpRight } from "lucide-react";
+import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+
+const LEGAL_LINKS = [
+  { name: "Política de Privacidad", href: "/politica-de-privacidad" },
+  { name: "Términos y Condiciones", href: "/terminos-y-condiciones" },
+  { name: "Ley 21.719", href: "/ley-proteccion-datos-chile" },
+  { name: "Aprende", href: "/aprende" },
+];
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#071A35] text-white border-t border-white/10 pt-16 pb-12">
+    <footer className="bg-[#071A35] text-white pt-12 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-white/10">
-          {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link
-              href="/"
-              className="inline-block"
-              aria-label="Proscom - Soluciones de control y gestión"
-            >
-              <div className="relative h-11 w-48">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 pb-10 border-b border-white/10">
+          {/* Marca */}
+          <div className="sm:col-span-2 lg:col-span-5 space-y-4">
+            <Link href="/" className="inline-block" aria-label="Proscom - Ir a la página de inicio">
+              <div className="relative h-10 w-44">
                 <Image
                   src="/brand/logotipo-light.png"
-                  alt="Proscom - Soluciones de control y gestión"
+                  alt="Proscom"
                   fill
-                  sizes="192px"
+                  sizes="176px"
                   className="object-contain object-left"
                 />
               </div>
             </Link>
-            <p className="text-sm font-medium text-[#19C6E6]">
-              {siteConfig.slogan}
-            </p>
             <p className="text-sm text-slate-300 leading-relaxed max-w-sm">
-              Ayudamos a negocios y organizaciones de Chile a vender más, cobrar fácil y ordenar su día a día, sin que tengan que saber de computación.
+              Ayudamos a negocios de Chile a vender más, cobrar fácil y ordenar su día a día.
             </p>
-            <div className="pt-2 text-xs text-slate-400 space-y-1">
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-                <span>Experiencia técnica de más de 15 años de su fundador</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#19C6E6] shrink-0" />
-                <span>Cobertura en Región de Valparaíso y todo Chile</span>
-              </p>
-            </div>
+            <a
+              href={siteConfig.contact.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#25D366] hover:bg-[#20ba59] px-4 py-2.5 text-sm font-semibold text-white transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Escríbenos por WhatsApp
+            </a>
           </div>
 
-          {/* Services Column */}
-          <div>
-            <h3 className="text-sm font-semibold tracking-wider uppercase text-white mb-4">
-              Servicios
-            </h3>
+          {/* Navegación */}
+          <nav aria-label="Navegación del pie de página" className="lg:col-span-3">
+            <h3 className="text-sm font-semibold text-white mb-4">Navegación</h3>
             <ul className="space-y-2.5 text-sm">
-              {servicesData.map((service) => (
-                <li key={service.slug}>
-                  <Link
-                    href={`/servicios/${service.slug}`}
-                    className="text-slate-300 hover:text-white transition-colors duration-150 flex items-center justify-between group"
-                  >
-                    <span>{service.title}</span>
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  href="/servicios"
-                  className="text-xs font-semibold text-[#19C6E6] hover:underline pt-1 inline-flex items-center gap-1"
-                >
-                  Ver todos los servicios
-                  <ArrowUpRight className="w-3 h-3" />
-                </Link>
-              </li>
+              {siteConfig.navigation
+                .filter((item) => item.href !== "/")
+                .map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="text-slate-300 hover:text-white transition-colors">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Solutions & Projects Column */}
-          <div>
-            <h3 className="text-sm font-semibold tracking-wider uppercase text-white mb-4">
-              Soluciones & Casos
-            </h3>
-            <ul className="space-y-2.5 text-sm">
-              {solutionsData.map((solution) => (
-                <li key={solution.slug}>
-                  <Link
-                    href={`/soluciones/${solution.slug}`}
-                    className="text-slate-300 hover:text-white transition-colors duration-150"
-                  >
-                    {solution.name}
-                  </Link>
-                </li>
-              ))}
-              <li className="pt-2">
-                <Link
-                  href="/proyectos"
-                  className="text-slate-300 hover:text-white transition-colors duration-150 font-medium text-white flex items-center gap-1"
-                >
-                  <span>Casos de éxito</span>
-                  <ArrowUpRight className="w-3 h-3 text-[#19C6E6]" />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/nosotros"
-                  className="text-slate-300 hover:text-white transition-colors duration-150"
-                >
-                  Sobre Proscom
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/ley-proteccion-datos-chile"
-                  className="text-slate-300 hover:text-white transition-colors duration-150"
-                >
-                  Ley 21.719 de Protección de Datos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/aprende"
-                  className="text-slate-300 hover:text-white transition-colors duration-150"
-                >
-                  Aprende: guías simples
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/herramientas/creador-de-marcos"
-                  className="text-slate-300 hover:text-white transition-colors duration-150"
-                >
-                  Creador de marcos para videos
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Information Column */}
-          <div>
-            <h3 className="text-sm font-semibold tracking-wider uppercase text-white mb-4">
-              Contacto Directo
-            </h3>
+          {/* Contacto */}
+          <div className="lg:col-span-4">
+            <h3 className="text-sm font-semibold text-white mb-4">Contacto</h3>
             <ul className="space-y-3 text-sm text-slate-300">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#19C6E6] shrink-0 mt-0.5" />
-                <span>{siteConfig.location.full}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
-                <a
-                  href={siteConfig.contact.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors font-medium text-white"
-                >
+              <li>
+                <a href={`tel:+${siteConfig.contact.phoneRaw}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
+                  <Phone className="w-4 h-4 text-[#19C6E6] shrink-0" />
                   {siteConfig.contact.phone}
                 </a>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#1479D4] shrink-0" />
-                <span>{siteConfig.contact.phone}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#1479D4] shrink-0" />
-                <a
-                  href={`mailto:${siteConfig.contact.email}`}
-                  className="hover:text-white transition-colors"
-                >
+              <li>
+                <a href={`mailto:${siteConfig.contact.email}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
+                  <Mail className="w-4 h-4 text-[#19C6E6] shrink-0" />
                   {siteConfig.contact.email}
                 </a>
               </li>
+              <li className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-[#19C6E6] shrink-0 mt-0.5" />
+                <span>
+                  {siteConfig.location.address}, {siteConfig.location.city}
+                </span>
+              </li>
             </ul>
-            <div className="mt-5">
-              <Link
-                href="/contacto"
-                className="inline-block text-xs font-semibold px-3.5 py-2 rounded-lg bg-[#1373C9] hover:bg-[#1688F5] text-white transition-colors"
-              >
-                Formulario de Cotización
-              </Link>
-            </div>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Legal */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400 text-center md:text-left">
+        {/* Barra inferior */}
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>
-            © <CurrentYear /> PROSCOM SPA — Av. Presidente Kennedy N° 5.600, Of. 507, Vitacura, Región Metropolitana. Todos los derechos reservados.
+            © <CurrentYear /> {siteConfig.legalName}. Todos los derechos reservados.
           </p>
-          <div className="flex items-center gap-6 shrink-0">
-            <Link
-              href="/politica-de-privacidad"
-              className="hover:text-slate-200 transition-colors"
-            >
-              Política de Privacidad
-            </Link>
-            <Link
-              href="/terminos-y-condiciones"
-              className="hover:text-slate-200 transition-colors"
-            >
-              Términos y Condiciones
-            </Link>
-          </div>
+          <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            {LEGAL_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="hover:text-slate-200 transition-colors">
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>

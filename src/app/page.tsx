@@ -9,6 +9,7 @@ import {
   HomeFaq,
   FinalCta,
 } from "@/components/home/business/BusinessSections";
+import { DataLawBanner } from "@/components/home/business/DataLawBanner";
 
 export default function HomePage() {
   return (
@@ -24,6 +25,9 @@ export default function HomePage() {
 
       {/* 4. Cómo trabajamos: pasos y lo que recibe el cliente */}
       <HowWeWork />
+
+      {/* 4b. Banner Ley 21.719 de Protección de Datos */}
+      <DataLawBanner />
 
       {/* 5. Casos reales contados como antes / ahora */}
       <Stories />
