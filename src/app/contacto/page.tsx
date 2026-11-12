@@ -16,9 +16,9 @@ import { reveal } from "@/components/motion/reveal";
 import { PageHeroFx } from "@/components/motion/PageHeroFx";
 import { SplitWords } from "@/components/motion/SplitWords";
 export const metadata: Metadata = {
-  title: "Contacto y Cotización de Proyectos | Proscom",
+  title: "Contacto | Proscom: hablemos de tu negocio",
   description:
-    "Contáctanos para evaluar tu proyecto de desarrollo de software, páginas web o sistemas de gestión en Chile. WhatsApp comercial: +56 9 7561 0245.",
+    "Cuéntanos qué necesita tu negocio: página web, ventas online, cobros o un sistema para ordenar ventas y stock. WhatsApp comercial: +56 9 7561 0245.",
   alternates: {
     canonical: `${siteConfig.url}/contacto`,
   },
@@ -41,13 +41,13 @@ export default function ContactPage() {
 
         <div {...reveal("blur")} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
           <Badge variant="cyan" className="mb-4">
-            Atención Comercial
+            Hablemos de tu negocio
           </Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-            <SplitWords text="Conversemos sobre tu proyecto tecnológico" delay={200} />
+            <SplitWords text="Cuéntanos qué necesita tu negocio" delay={200} />
           </h1>
           <p className="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
-            Estamos disponibles para responder tus consultas, evaluar requerimientos técnicos y preparar una propuesta adaptada a tu empresa.
+            Escríbenos por WhatsApp, llámanos o déjanos tus datos. Te orientamos en simple y te decimos qué te conviene.
           </p>
         </div>
       </section>
@@ -61,7 +61,7 @@ export default function ContactPage() {
               <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
                 <div>
                   <h2 className="text-xl font-bold text-[#071A35]">
-                    Canales Directos de Atención
+                    La forma más rápida
                   </h2>
                   <p className="text-xs text-slate-500 mt-1">
                     Elige el medio más cómodo para comunicarte con nosotros
@@ -112,7 +112,7 @@ export default function ContactPage() {
                       {siteConfig.contact.email}
                     </p>
                     <p className="text-xs text-slate-600 mt-1">
-                      Envío de bases técnicas, requerimientos o licitaciones.
+                      Para enviar documentos, cotizaciones o licitaciones.
                     </p>
                   </div>
                 </a>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                   <span>Confidencialidad Garantizada</span>
                 </div>
                 <p className="leading-relaxed">
-                  Toda la información entregada sobre tu empresa, procesos o requerimientos es tratada con estricta reserva y nunca será compartida con terceros.
+                  Todo lo que nos cuentes sobre tu negocio es tratada con estricta reserva y nunca será compartida con terceros.
                 </p>
               </div>
             </div>

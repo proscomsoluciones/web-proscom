@@ -30,37 +30,36 @@ function getTransporter() {
 export async function sendContactEmail(data: ContactFormData) {
   const to = process.env.CONTACT_TO_EMAIL || "jcornejo@proscom.cl";
   const from = process.env.SMTP_USER;
+  const rows: [string, string][] = [
+    ["Nombre", data.name],
+    ["Teléfono / WhatsApp", data.phone],
+    ["Correo", data.email || "No indicado"],
+    ["Negocio", data.company || "No indicado"],
+    ["Qué necesita", data.need],
+    ["Mensaje", data.message || "Sin mensaje"],
+  ];
 
   const html = `
-    <h2>Nueva solicitud de cotización — Proscom.cl</h2>
+    <h2>Nuevo contacto desde Proscom.cl</h2>
     <table cellpadding="6" style="border-collapse:collapse;font-family:sans-serif;font-size:14px;">
-      <tr><td><strong>Nombre</strong></td><td>${escapeHtml(data.name)}</td></tr>
-      <tr><td><strong>Empresa</strong></td><td>${escapeHtml(data.company)}</td></tr>
-      <tr><td><strong>Correo</strong></td><td>${escapeHtml(data.email)}</td></tr>
-      <tr><td><strong>Teléfono</strong></td><td>${escapeHtml(data.phone || "No especificado")}</td></tr>
-      <tr><td><strong>Tipo de proyecto</strong></td><td>${escapeHtml(data.projectType)}</td></tr>
-      <tr><td><strong>Presupuesto estimado</strong></td><td>${escapeHtml(data.estimatedBudget || "No especificado")}</td></tr>
-      <tr><td valign="top"><strong>Descripción</strong></td><td>${escapeHtml(data.description).replace(/\n/g, "<br/>")}</td></tr>
+      ${rows
+        .map(
+          ([label, value]) =>
+            `<tr><td valign="top"><strong>${label}</strong></td><td>${escapeHtml(value).replace(/\n/g, "<br/>")}</td></tr>`
+        )
+        .join("\n      ")}
     </table>
   `;
 
-  const text = `Nueva solicitud de cotización — Proscom.cl
+  const text = `Nuevo contacto desde Proscom.cl
 
-Nombre: ${data.name}
-Empresa: ${data.company}
-Correo: ${data.email}
-Teléfono: ${data.phone || "No especificado"}
-Tipo de proyecto: ${data.projectType}
-Presupuesto estimado: ${data.estimatedBudget || "No especificado"}
-
-Descripción:
-${data.description}`;
+${rows.map(([label, value]) => `${label}: ${value}`).join("\n")}`;
 
   await getTransporter().sendMail({
     from: `"Formulario Proscom.cl" <${from}>`,
     to,
-    replyTo: data.email,
-    subject: `Nueva cotización: ${data.company} — ${data.projectType}`,
+    ...(data.email ? { replyTo: data.email } : {}),
+    subject: `Nuevo contacto: ${data.company || data.name} — ${data.need}`,
     text,
     html,
   });

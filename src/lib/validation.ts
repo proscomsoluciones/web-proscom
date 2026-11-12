@@ -1,63 +1,61 @@
 import { z } from "zod";
 
+/** Opciones del formulario en palabras del cliente, no en términos técnicos */
+export const contactNeeds = [
+  "Vender por internet (página web o tienda online)",
+  "Ordenar ventas, stock y caja",
+  "Cobrar con tarjeta o link de pago",
+  "Un sistema hecho a la medida de mi negocio",
+  "Una app para mi equipo o mis clientes",
+  "Un sistema listo (club, colegio, junta de vecinos…)",
+  "Adaptarme a la Ley de Datos Personales",
+  "Ayuda con algo que ya tengo",
+  "Aún no lo sé, quiero que me orienten",
+] as const;
+
+/** Tiempo mínimo que una persona tarda en llenar el formulario (los robots lo envían al instante) */
+export const MIN_FILL_MS = 3000;
+
 export const contactFormSchema = z.object({
   name: z
     .string()
-    .min(2, { message: "El nombre debe tener al menos 2 caracteres." })
+    .trim()
+    .min(2, { message: "Escribe tu nombre." })
     .max(100, { message: "El nombre no puede exceder 100 caracteres." }),
-  company: z
-    .string()
-    .min(2, { message: "Por favor indica tu empresa u organización." })
-    .max(120, { message: "El nombre de la empresa es demasiado largo." }),
-  email: z
-    .string()
-    .email({ message: "Ingresa un correo electrónico válido." })
-    .max(150, { message: "El correo es demasiado largo." }),
   phone: z
     .string()
+    .trim()
     .max(25, { message: "El teléfono no puede exceder 25 caracteres." })
+    .refine((val) => val.replace(/\D/g, "").length >= 8, {
+      message: "Escribe un teléfono o WhatsApp para poder contactarte.",
+    }),
+  email: z
+    .string()
+    .trim()
+    .email({ message: "Revisa que el correo esté bien escrito." })
+    .max(150, { message: "El correo es demasiado largo." })
     .optional()
     .or(z.literal("")),
-  projectType: z.enum(
-    [
-      "Software a medida",
-      "Página web",
-      "Aplicación móvil",
-      "Sistema de gestión",
-      "Integración",
-      "Consultoría",
-      "Otro",
-    ],
-    { message: "Por favor selecciona un tipo de proyecto válido." }
-  ),
-  estimatedBudget: z
+  company: z
     .string()
-    .max(60, { message: "Presupuesto no puede exceder 60 caracteres." })
+    .trim()
+    .max(120, { message: "El nombre del negocio es demasiado largo." })
     .optional()
     .or(z.literal("")),
-  description: z
+  need: z.enum(contactNeeds, { message: "Elige una opción." }),
+  message: z
     .string()
-    .min(10, { message: "Por favor describe brevemente tu requerimiento (mínimo 10 caracteres)." })
-    .max(2000, { message: "La descripción no puede exceder 2000 caracteres." }),
+    .trim()
+    .max(2000, { message: "El mensaje no puede exceder 2000 caracteres." })
+    .optional()
+    .or(z.literal("")),
   privacyConsent: z.boolean().refine((val) => val === true, {
     message: "Debes aceptar la política de privacidad para enviar el formulario.",
   }),
-  // Honeypot field for anti-bot protection
+  // Campo trampa invisible (anti-robots)
   website_hp: z.string().max(0, { message: "Spam detectado" }).optional().or(z.literal("")),
-  // Captcha matemático simple (anti-bot): a + b = captchaAnswer
-  captchaA: z.coerce.number(),
-  captchaB: z.coerce.number(),
-  captchaAnswer: z.coerce.number({
-    message: "Resuelve la operación para continuar.",
-  }),
-}).superRefine((data, ctx) => {
-  if (data.captchaAnswer !== data.captchaA + data.captchaB) {
-    ctx.addIssue({
-      code: "custom",
-      path: ["captchaAnswer"],
-      message: "La respuesta no es correcta. Intenta nuevamente.",
-    });
-  }
+  // Momento en que se abrió el formulario (anti-robots)
+  startedAt: z.coerce.number(),
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;

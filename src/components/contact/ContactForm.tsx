@@ -3,40 +3,40 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactFormSchema, ContactFormData } from "@/lib/validation";
+import { contactFormSchema, contactNeeds, ContactFormData } from "@/lib/validation";
+import { siteConfig } from "@/config/site";
+import { trackEvent } from "@/lib/track";
 import { Button } from "@/components/ui/Button";
-import {
-  Send,
-  CheckCircle2,
-  AlertCircle,
-  Loader2,
-  Building2,
-  Mail,
-  User,
-  Phone,
-  FileText,
-  DollarSign,
-  Calculator,
-} from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, Loader2, Mail, User, Phone, Store, MessageCircle } from "lucide-react";
 
-function makeCaptcha() {
-  return {
-    a: Math.floor(Math.random() * 8) + 1,
-    b: Math.floor(Math.random() * 8) + 1,
-  };
-}
+const inputClass = (hasError: boolean) =>
+  `w-full px-4 py-3 rounded-xl border text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors ${
+    hasError
+      ? "border-red-400 focus:border-red-500 bg-red-50/20"
+      : "border-slate-300 focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4]"
+  }`;
+
+/** Momento actual; fuera del componente porque solo se usa en efectos y eventos */
+const now = () => Date.now();
+
+const labelClass = "block text-sm font-semibold text-[#071A35] mb-2";
+
+/** Mensaje de WhatsApp con lo que la persona alcanzó a escribir, para no perder el contacto */
+const whatsappFallback = (data: ContactFormData) => {
+  const lines = [
+    `Hola, soy ${data.name}${data.company ? ` de ${data.company}` : ""}.`,
+    `Me interesa: ${data.need}.`,
+    data.message ? data.message : "",
+  ].filter(Boolean);
+  return `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent(lines.join("\n"))}`;
+};
 
 export const ContactForm: React.FC = () => {
   const [serverState, setServerState] = useState<{
     status: "idle" | "loading" | "success" | "error";
     message: string;
-  }>({
-    status: "idle",
-    message: "",
-  });
-  // Valores fijos en el primer render (servidor y cliente deben coincidir);
-  // se aleatorizan recién al montar en el navegador, evitando errores de hidratación.
-  const [captcha, setCaptcha] = useState({ a: 0, b: 0 });
+    fallbackHref?: string;
+  }>({ status: "idle", message: "" });
 
   const {
     register,
@@ -48,36 +48,24 @@ export const ContactForm: React.FC = () => {
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
-      company: "",
-      email: "",
       phone: "",
-      projectType: "Software a medida",
-      estimatedBudget: "",
-      description: "",
+      email: "",
+      company: "",
+      need: contactNeeds[0],
+      message: "",
       privacyConsent: false,
       website_hp: "",
-      captchaA: 0,
-      captchaB: 0,
-      captchaAnswer: undefined as unknown as number,
+      startedAt: 0,
     },
   });
 
-  const renewCaptcha = () => {
-    const next = makeCaptcha();
-    setCaptcha(next);
-    setValue("captchaA", next.a);
-    setValue("captchaB", next.b);
-    setValue("captchaAnswer", undefined as unknown as number);
-  };
-
+  // El tiempo de inicio se fija al montar en el navegador (no en el servidor)
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    renewCaptcha();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setValue("startedAt", now());
+  }, [setValue]);
 
   const onSubmit = async (data: ContactFormData) => {
-    setServerState({ status: "loading", message: "Enviando solicitud..." });
+    setServerState({ status: "loading", message: "Enviando..." });
 
     try {
       const response = await fetch("/api/contact", {
@@ -85,32 +73,28 @@ export const ContactForm: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
       const result = await response.json();
 
       if (response.ok && result.success) {
+        trackEvent("form_submit", { need: data.need, page: window.location.pathname });
         setServerState({
           status: "success",
-          message:
-            result.message ||
-            "¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo dentro de las próximas 24 horas hábiles.",
+          message: result.message || "¡Gracias! Recibimos tu mensaje y te contactaremos a la brevedad.",
         });
         reset();
-        renewCaptcha();
+        setValue("startedAt", now());
       } else {
-        renewCaptcha();
         setServerState({
           status: "error",
-          message:
-            result.message ||
-            "No pudimos procesar tu mensaje. Por favor intenta nuevamente o contáctanos por WhatsApp.",
+          message: result.message || "No pudimos enviar tu mensaje. Envíalo por WhatsApp con el botón de abajo.",
+          fallbackHref: whatsappFallback(data),
         });
       }
     } catch {
       setServerState({
         status: "error",
-        message:
-          "Ocurrió un error de conexión al enviar el formulario. Puedes comunicarte directamente al WhatsApp +56 9 7561 0245.",
+        message: "Hubo un problema de conexión. Envíanos tu mensaje por WhatsApp con el botón de abajo.",
+        fallbackHref: whatsappFallback(data),
       });
     }
   };
@@ -118,11 +102,9 @@ export const ContactForm: React.FC = () => {
   return (
     <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-xl">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-[#071A35]">
-          Formulario de Cotización y Contacto
-        </h2>
+        <h2 className="text-2xl font-bold text-[#071A35]">Cuéntanos qué necesitas</h2>
         <p className="text-sm text-slate-500 mt-1">
-          Cuéntanos sobre tu idea y evaluaremos la mejor solución técnica sin costo ni compromiso.
+          Toma menos de un minuto. Te llamamos o escribimos para conversar, sin compromiso.
         </p>
       </div>
 
@@ -131,12 +113,8 @@ export const ContactForm: React.FC = () => {
           <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-8 h-8" />
           </div>
-          <h3 className="text-xl font-bold text-emerald-900">
-            ¡Mensaje Recibido!
-          </h3>
-          <p className="text-sm text-emerald-700 max-w-md mx-auto leading-relaxed">
-            {serverState.message}
-          </p>
+          <h3 className="text-xl font-bold text-emerald-900">¡Mensaje recibido!</h3>
+          <p className="text-sm text-emerald-700 max-w-md mx-auto leading-relaxed">{serverState.message}</p>
           <div className="pt-2">
             <Button
               type="button"
@@ -151,235 +129,145 @@ export const ContactForm: React.FC = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
           {serverState.status === "error" && (
-            <div className="p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-sm text-red-700 animate-in fade-in">
-              <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-              <span>{serverState.message}</span>
+            <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-sm text-red-700 animate-in fade-in space-y-3">
+              <p className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                <span>{serverState.message}</span>
+              </p>
+              {serverState.fallbackHref && (
+                <a
+                  href={serverState.fallbackHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#25D366] hover:bg-[#20ba59] px-4 py-2.5 text-sm font-semibold text-white transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Enviar por WhatsApp
+                </a>
+              )}
             </div>
           )}
 
-          {/* Honeypot field for anti-bot protection */}
+          {/* Campo trampa invisible (anti-robots) */}
           <div className="hidden" aria-hidden="true">
             <label htmlFor="website_hp">No llenar este campo</label>
-            <input
-              id="website_hp"
-              type="text"
-              tabIndex={-1}
-              autoComplete="off"
-              {...register("website_hp")}
-            />
+            <input id="website_hp" type="text" tabIndex={-1} autoComplete="off" {...register("website_hp")} />
+          </div>
+          <input type="hidden" {...register("startedAt")} />
+
+          {/* Qué necesita */}
+          <div>
+            <label htmlFor="need" className={labelClass}>
+              ¿En qué te podemos ayudar? *
+            </label>
+            <select
+              id="need"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm text-slate-800 focus:outline-none focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4] transition-colors bg-white cursor-pointer"
+              {...register("need")}
+            >
+              {contactNeeds.map((need) => (
+                <option key={need} value={need}>
+                  {need}
+                </option>
+              ))}
+            </select>
+            {errors.need && <p className="text-xs text-red-600 mt-1">{errors.need.message}</p>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {/* Nombre */}
             <div>
-              <label
-                htmlFor="name"
-                className="block text-xs font-bold text-[#071A35] uppercase tracking-wider mb-2"
-              >
-                Tu Nombre *
+              <label htmlFor="name" className={labelClass}>
+                Tu nombre *
               </label>
               <div className="relative">
                 <input
                   id="name"
                   type="text"
+                  autoComplete="name"
                   placeholder="Ej: Rodrigo Tapia"
-                  className={`w-full px-4 py-3 rounded-xl border text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors ${
-                    errors.name
-                      ? "border-red-400 focus:border-red-500 bg-red-50/20"
-                      : "border-slate-300 focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4]"
-                  }`}
+                  className={inputClass(Boolean(errors.name))}
                   {...register("name")}
                 />
                 <User className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
               </div>
-              {errors.name && (
-                <p className="text-xs text-red-600 mt-1">{errors.name.message}</p>
-              )}
-            </div>
-
-            {/* Empresa */}
-            <div>
-              <label
-                htmlFor="company"
-                className="block text-xs font-bold text-[#071A35] uppercase tracking-wider mb-2"
-              >
-                Empresa u Organización *
-              </label>
-              <div className="relative">
-                <input
-                  id="company"
-                  type="text"
-                  placeholder="Ej: Comercial Andina SpA"
-                  className={`w-full px-4 py-3 rounded-xl border text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors ${
-                    errors.company
-                      ? "border-red-400 focus:border-red-500 bg-red-50/20"
-                      : "border-slate-300 focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4]"
-                  }`}
-                  {...register("company")}
-                />
-                <Building2 className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
-              </div>
-              {errors.company && (
-                <p className="text-xs text-red-600 mt-1">
-                  {errors.company.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-xs font-bold text-[#071A35] uppercase tracking-wider mb-2"
-              >
-                Correo Electrónico *
-              </label>
-              <div className="relative">
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="contacto@tuempresa.cl"
-                  className={`w-full px-4 py-3 rounded-xl border text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors ${
-                    errors.email
-                      ? "border-red-400 focus:border-red-500 bg-red-50/20"
-                      : "border-slate-300 focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4]"
-                  }`}
-                  {...register("email")}
-                />
-                <Mail className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
-              </div>
-              {errors.email && (
-                <p className="text-xs text-red-600 mt-1">{errors.email.message}</p>
-              )}
+              {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name.message}</p>}
             </div>
 
             {/* Teléfono */}
             <div>
-              <label
-                htmlFor="phone"
-                className="block text-xs font-bold text-[#071A35] uppercase tracking-wider mb-2"
-              >
-                Teléfono o WhatsApp <span className="text-slate-400 font-normal">(Opcional)</span>
+              <label htmlFor="phone" className={labelClass}>
+                Teléfono o WhatsApp *
               </label>
               <div className="relative">
                 <input
                   id="phone"
                   type="tel"
+                  autoComplete="tel"
+                  inputMode="tel"
                   placeholder="+56 9 1234 5678"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4] transition-colors"
+                  className={inputClass(Boolean(errors.phone))}
                   {...register("phone")}
                 />
                 <Phone className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
               </div>
+              {errors.phone && <p className="text-xs text-red-600 mt-1">{errors.phone.message}</p>}
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {/* Tipo de Proyecto */}
+            {/* Correo */}
             <div>
-              <label
-                htmlFor="projectType"
-                className="block text-xs font-bold text-[#071A35] uppercase tracking-wider mb-2"
-              >
-                Tipo de Proyecto *
-              </label>
-              <select
-                id="projectType"
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm text-slate-800 focus:outline-none focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4] transition-colors bg-white cursor-pointer"
-                {...register("projectType")}
-              >
-                <option value="Software a medida">Software a medida</option>
-                <option value="Página web">Página web corporativa</option>
-                <option value="Aplicación móvil">Aplicación móvil (iOS/Android)</option>
-                <option value="Sistema de gestión">Sistema de gestión (ERP / POS)</option>
-                <option value="Integración">Integración de APIs y pasarelas</option>
-                <option value="Consultoría">Consultoría y asesoría técnica</option>
-                <option value="Otro">Otro requerimiento</option>
-              </select>
-            </div>
-
-            {/* Presupuesto Estimado */}
-            <div>
-              <label
-                htmlFor="estimatedBudget"
-                className="block text-xs font-bold text-[#071A35] uppercase tracking-wider mb-2"
-              >
-                Presupuesto Estimado <span className="text-slate-400 font-normal">(Opcional)</span>
+              <label htmlFor="email" className={labelClass}>
+                Correo <span className="text-slate-400 font-normal">(opcional)</span>
               </label>
               <div className="relative">
                 <input
-                  id="estimatedBudget"
-                  type="text"
-                  placeholder="Ej: Menos de $1.5M / Por definir"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4] transition-colors"
-                  {...register("estimatedBudget")}
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="tu@correo.cl"
+                  className={inputClass(Boolean(errors.email))}
+                  {...register("email")}
                 />
-                <DollarSign className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
+                <Mail className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
               </div>
+              {errors.email && <p className="text-xs text-red-600 mt-1">{errors.email.message}</p>}
+            </div>
+
+            {/* Negocio */}
+            <div>
+              <label htmlFor="company" className={labelClass}>
+                Nombre de tu negocio <span className="text-slate-400 font-normal">(opcional)</span>
+              </label>
+              <div className="relative">
+                <input
+                  id="company"
+                  type="text"
+                  autoComplete="organization"
+                  placeholder="Ej: Ferretería Los Andes"
+                  className={inputClass(Boolean(errors.company))}
+                  {...register("company")}
+                />
+                <Store className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
+              </div>
+              {errors.company && <p className="text-xs text-red-600 mt-1">{errors.company.message}</p>}
             </div>
           </div>
 
-          {/* Descripción del requerimiento */}
+          {/* Mensaje */}
           <div>
-            <label
-              htmlFor="description"
-              className="block text-xs font-bold text-[#071A35] uppercase tracking-wider mb-2"
-            >
-              Descripción de lo que necesitas *
+            <label htmlFor="message" className={labelClass}>
+              Cuéntanos un poco más <span className="text-slate-400 font-normal">(opcional)</span>
             </label>
-            <div className="relative">
-              <textarea
-                id="description"
-                rows={4}
-                placeholder="Cuéntanos sobre tu negocio, qué procesos deseas resolver o qué funciones principales te gustaría que tenga la solución..."
-                className={`w-full px-4 py-3 rounded-xl border text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors ${
-                  errors.description
-                    ? "border-red-400 focus:border-red-500 bg-red-50/20"
-                    : "border-slate-300 focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4]"
-                }`}
-                {...register("description")}
-              />
-              <FileText className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
-            </div>
-            {errors.description && (
-              <p className="text-xs text-red-600 mt-1">
-                {errors.description.message}
-              </p>
-            )}
-          </div>
-
-          {/* Captcha matemático (anti-bot) */}
-          <div>
-            <input type="hidden" {...register("captchaA")} />
-            <input type="hidden" {...register("captchaB")} />
-            <label
-              htmlFor="captchaAnswer"
-              className="block text-xs font-bold text-[#071A35] uppercase tracking-wider mb-2"
-            >
-              Verificación: ¿Cuánto es {captcha.a} + {captcha.b}? *
-            </label>
-            <div className="relative max-w-[200px]">
-              <input
-                id="captchaAnswer"
-                type="number"
-                inputMode="numeric"
-                placeholder="Resultado"
-                className={`w-full px-4 py-3 rounded-xl border text-sm text-slate-800 placeholder-slate-400 focus:outline-none transition-colors ${
-                  errors.captchaAnswer
-                    ? "border-red-400 focus:border-red-500 bg-red-50/20"
-                    : "border-slate-300 focus:border-[#1479D4] focus:ring-1 focus:ring-[#1479D4]"
-                }`}
-                {...register("captchaAnswer")}
-              />
-              <Calculator className="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none" />
-            </div>
-            {errors.captchaAnswer && (
-              <p className="text-xs text-red-600 mt-1">
-                {errors.captchaAnswer.message}
-              </p>
-            )}
+            <textarea
+              id="message"
+              rows={3}
+              placeholder="Ej: Tengo una botillería y quiero dejar de anotar las ventas en un cuaderno."
+              className={inputClass(Boolean(errors.message))}
+              {...register("message")}
+            />
+            {errors.message && <p className="text-xs text-red-600 mt-1">{errors.message.message}</p>}
           </div>
 
           {/* Consentimiento de privacidad */}
@@ -391,7 +279,7 @@ export const ContactForm: React.FC = () => {
                 {...register("privacyConsent")}
               />
               <span className="text-xs text-slate-600 leading-normal">
-                He leído y acepto la{" "}
+                Acepto la{" "}
                 <a
                   href="/politica-de-privacidad"
                   target="_blank"
@@ -399,17 +287,12 @@ export const ContactForm: React.FC = () => {
                 >
                   política de privacidad
                 </a>{" "}
-                y autorizo el tratamiento de mis datos exclusivamente para responder a esta solicitud comercial.
+                y que usen mis datos solo para responder esta consulta.
               </span>
             </label>
-            {errors.privacyConsent && (
-              <p className="text-xs text-red-600 mt-1">
-                {errors.privacyConsent.message}
-              </p>
-            )}
+            {errors.privacyConsent && <p className="text-xs text-red-600 mt-1">{errors.privacyConsent.message}</p>}
           </div>
 
-          {/* Submit Button */}
           <div className="pt-2">
             <Button
               type="submit"
@@ -417,15 +300,9 @@ export const ContactForm: React.FC = () => {
               size="lg"
               className="w-full text-center"
               disabled={isSubmitting}
-              icon={
-                isSubmitting ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <Send className="w-5 h-5" />
-                )
-              }
+              icon={isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
             >
-              {isSubmitting ? "Enviando cotización..." : "Enviar requerimiento para cotización"}
+              {isSubmitting ? "Enviando..." : "Quiero que me contacten"}
             </Button>
           </div>
         </form>

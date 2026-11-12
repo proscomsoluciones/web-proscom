@@ -12,19 +12,6 @@ export const WhatsAppButton: React.FC = () => {
   );
   const whatsappUrl = `${siteConfig.contact.whatsappUrl}?text=${encodedMessage}`;
 
-  const handleClick = () => {
-    // Analytics tracking (GA4 event dispatch if window.gtag is available)
-    if (typeof window !== "undefined") {
-      const win = window as unknown as { gtag?: (...args: unknown[]) => void };
-      if (typeof win.gtag === "function") {
-        win.gtag("event", "whatsapp_click", {
-          event_category: "Conversion",
-          event_label: "Floating WhatsApp Button",
-        });
-      }
-    }
-  };
-
   return (
     <aside
       aria-label="Atención directa por WhatsApp"
@@ -38,7 +25,7 @@ export const WhatsAppButton: React.FC = () => {
         >
           <div className="flex items-start justify-between gap-2 mb-1">
             <span className="font-semibold text-[#19C6E6]">
-              ¿Tienes dudas sobre tu proyecto?
+              ¿Quieres ordenar o hacer crecer tu negocio?
             </span>
             <button
               type="button"
@@ -50,13 +37,12 @@ export const WhatsAppButton: React.FC = () => {
             </button>
           </div>
           <p className="text-slate-300 leading-normal mb-2">
-            Escríbenos directamente por WhatsApp y evaluemos tu idea técnica.
+            Escríbenos por WhatsApp y te orientamos sin compromiso.
           </p>
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={handleClick}
             className="inline-flex items-center gap-1.5 font-semibold text-emerald-400 hover:text-emerald-300"
           >
             Iniciar conversación →
@@ -69,7 +55,6 @@ export const WhatsAppButton: React.FC = () => {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={handleClick}
         onMouseEnter={() => setShowTooltip(true)}
         aria-label="Conversar por WhatsApp con Proscom (+56 9 7561 0245)"
         className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/30 hover:shadow-2xl hover:shadow-[#25D366]/50 hover:scale-105 active:scale-95 transition-all duration-200 focus-visible:outline-4 focus-visible:outline-[#25D366]"

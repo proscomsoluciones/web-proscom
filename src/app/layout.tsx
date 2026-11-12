@@ -9,6 +9,7 @@ import { getOrganizationSchema } from "@/lib/schema";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { Analytics } from "@vercel/analytics/next";
+import { ConversionTracking } from "@/components/analytics/ConversionTracking";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -141,6 +142,9 @@ export default function RootLayout({
 
         {/* Vercel Analytics: visitas y páginas vistas */}
         <Analytics />
+
+        {/* Google Analytics y medición de clics en WhatsApp, teléfono y correo */}
+        <ConversionTracking />
 
         {/* JSON-LD Organization Structured Data */}
         <script

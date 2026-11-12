@@ -75,7 +75,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   );
 
   const whatsappUrl = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent(
-    `Hola, vi su servicio de "${service.title}" en la web de Proscom y me gustaría solicitar una evaluación técnica para mi empresa.`
+    `Hola, vi su servicio de "${service.title}" en la web de Proscom y me gustaría conversar sobre cómo puede ayudar a mi negocio.`
   )}`;
 
   return (
@@ -118,7 +118,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           </nav>
 
           <div className="max-w-3xl space-y-4">
-            <Badge variant="cyan">Servicio Especializado</Badge>
+            <Badge variant="cyan">Servicio para tu negocio</Badge>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
               {service.title}
             </h1>
@@ -133,7 +133,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 size="md"
                 icon={<ArrowRight className="w-4 h-4" />}
               >
-                Cotizar este servicio
+                Quiero que me contacten
               </Button>
               <Button
                 href={whatsappUrl}
@@ -161,10 +161,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-[#071A35]">
-                    Problemas habituales que resolvemos
+                    ¿Te pasa esto?
                   </h2>
                   <p className="text-xs text-slate-500">
-                    Situaciones operativas comunes antes de implementar esta solución
+                    Lo que nos cuentan nuestros clientes antes de trabajar con nosotros
                   </p>
                 </div>
               </div>
@@ -189,10 +189,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-[#071A35]">
-                    Beneficios directos para tu empresa
+                    Lo que gana tu negocio
                   </h2>
                   <p className="text-xs text-slate-500">
-                    Impacto en control, tiempo y rentabilidad operativa
+                    Más orden, más tiempo y más ventas
                   </p>
                 </div>
               </div>
@@ -219,12 +219,12 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             {/* Features (col 7) */}
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-2">
-                <Badge variant="blue">Capacidades</Badge>
+                <Badge variant="blue">Qué incluye</Badge>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A35]">
-                  Funcionalidades habituales que implementamos
+                  Lo que normalmente incluye
                 </h2>
                 <p className="text-sm text-slate-600">
-                  Cada proyecto se diseña a medida, pero estas son las características más solicitadas por nuestros clientes:
+                  Cada negocio es distinto, pero esto es lo que más nos piden:
                 </p>
               </div>
 
@@ -250,7 +250,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   <Building2 className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-bold text-[#071A35]">
-                  ¿A quién va dirigido este servicio?
+                  ¿Para quién es?
                 </h3>
               </div>
               <ul className="space-y-3">
@@ -266,7 +266,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               </ul>
 
               <div className="mt-8 pt-6 border-t border-slate-200 text-xs text-slate-500">
-                ¿No estás seguro de si tu rubro aplica? Contáctanos y analizamos la viabilidad sin costo.
+                ¿No ves tu rubro? Escríbenos y te decimos si te sirve, sin costo.
               </div>
             </div>
           </div>
@@ -277,9 +277,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       <section className="py-16 bg-[#071A35] text-white border-b border-white/10">
         <div {...reveal("up")} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
-            <Badge variant="cyan">Proceso de Trabajo</Badge>
+            <Badge variant="cyan">Cómo trabajamos</Badge>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-              ¿Cómo implementamos este servicio?
+              Así lo hacemos, paso a paso
             </h2>
           </div>
 
@@ -314,14 +314,14 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   Proyectos relacionados
                 </h2>
                 <p className="text-sm text-slate-600 mt-1">
-                  Casos de desarrollo afines a este servicio
+                  Negocios que ya lo usan
                 </p>
               </div>
               <Link
                 href="/proyectos"
                 className="text-xs sm:text-sm font-semibold text-[#1479D4] hover:underline flex items-center gap-1"
               >
-                <span>Ver portafolio completo</span>
+                <span>Ver todos los casos</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -346,7 +346,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                       {project.isClientProject && (
                         <div className="flex items-center gap-1.5 text-[10px] text-[#1479D4] font-semibold mb-1.5">
                           <Shield className="w-3 h-3" />
-                          <span>Desarrollo a medida</span>
+                          <span>Hecho a la medida</span>
                         </div>
                       )}
                       <h3 className="text-base font-bold text-[#071A35] mb-1">
@@ -361,7 +361,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                         href={`/proyectos/${project.slug}`}
                         className="text-xs font-bold text-[#1479D4] hover:text-[#1688F5] inline-flex items-center gap-1"
                       >
-                        <span>Ver detalles del proyecto</span>
+                        <span>Ver el caso</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
@@ -379,7 +379,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           <div className="text-center mb-10 space-y-2">
             <Badge variant="blue">Preguntas Frecuentes</Badge>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A35]">
-              Dudas habituales sobre este servicio
+              Lo que más nos preguntan
             </h2>
           </div>
           <FaqAccordion faqs={service.faqs} />
@@ -390,14 +390,14 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       <section className="py-16 bg-slate-50">
         <div {...reveal("up")} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#071A35]">
-            ¿Listo para iniciar tu proyecto de {service.title}?
+            ¿Conversamos sobre tu negocio?
           </h2>
           <p className="text-slate-600 max-w-xl mx-auto text-sm sm:text-base">
-            Conversemos sobre tus requerimientos y planifiquemos una solución técnica sólida y accesible.
+            Cuéntanos qué necesitas y te decimos en simple qué te conviene, cuánto cuesta y cuánto demora.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Button href="/contacto" variant="primary" size="lg">
-              Solicitar cotización personalizada
+              Quiero que me contacten
             </Button>
             <Button
               href={whatsappUrl}

@@ -22,9 +22,9 @@ import { reveal } from "@/components/motion/reveal";
 import { PageHeroFx } from "@/components/motion/PageHeroFx";
 import { SplitWords } from "@/components/motion/SplitWords";
 export const metadata: Metadata = {
-  title: "Servicios de Desarrollo de Software y Soluciones Tecnológicas",
+  title: "Servicios para tu negocio: páginas web, ventas online y sistemas de gestión",
   description:
-    "Conoce nuestros servicios de software a medida, desarrollo web, e-commerce, integración de medios de pago, aplicaciones móviles, sistemas de gestión, integraciones de APIs y soporte técnico en Chile.",
+    "Páginas web, tiendas online, cobros con tarjeta, sistemas de ventas y stock, apps y soporte para negocios en Chile. Te explicamos todo en simple.",
   alternates: {
     canonical: "https://www.proscom.cl/servicios",
   },
@@ -65,13 +65,13 @@ export default function ServicesPage() {
         />
         <div {...reveal("blur")} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
           <Badge variant="cyan" className="mb-4">
-            Catálogo de Servicios
+            Nuestros servicios
           </Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-            <SplitWords text="Servicios tecnológicos para empresas que buscan crecer" delay={200} />
+            <SplitWords text="Todo lo que tu negocio necesita para vender más y ordenarse" delay={200} />
           </h1>
           <p className="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
-            Desde la digitalización de procesos administrativos hasta plataformas de alta disponibilidad y aplicaciones móviles. Soluciones a la medida de tu realidad.
+            Desde tu primera página web hasta un sistema completo de ventas, stock y caja. Elige lo que necesitas o déjanos orientarte.
           </p>
         </div>
       </section>
@@ -105,7 +105,7 @@ export default function ServicesPage() {
 
                   <div className="space-y-2 mb-6">
                     <p className="text-xs font-bold text-[#071A35] uppercase tracking-wider">
-                      Beneficios destacados:
+                      Lo que ganas:
                     </p>
                     {service.benefits.slice(0, 2).map((benefit, i) => (
                       <div
@@ -124,7 +124,7 @@ export default function ServicesPage() {
                     href={`/servicios/${service.slug}`}
                     className="text-sm font-bold text-[#1479D4] group-hover:text-[#1688F5] inline-flex items-center gap-1.5"
                   >
-                    <span>Ver servicio completo y metodología</span>
+                    <span>Ver más</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
@@ -141,14 +141,14 @@ export default function ServicesPage() {
             <HelpCircle className="w-6 h-6" />
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-[#071A35]">
-            ¿No estás seguro de qué servicio se ajusta mejor a tu necesidad?
+            ¿No sabes cuál necesitas?
           </h2>
           <p className="text-base text-slate-600 max-w-xl mx-auto">
-            Te orientamos técnicamente sin compromiso. Analizamos la situación actual de tu empresa y te recomendamos el camino más eficiente.
+            Es lo más normal. Cuéntanos cómo funciona tu negocio y te recomendamos qué hacer primero, sin compromiso.
           </p>
           <div className="pt-2">
             <Button href="/contacto" variant="primary" size="lg">
-              Solicitar orientación técnica gratuita
+              Quiero que me orienten
             </Button>
           </div>
         </div>
