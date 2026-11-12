@@ -5,6 +5,7 @@ import {
   WhatWeDo,
   HowWeWork,
   Stories,
+  Testimonials,
   AboutUs,
   HomeFaq,
   FinalCta,
@@ -31,6 +32,9 @@ export default function HomePage() {
 
       {/* 5. Casos reales contados como antes / ahora */}
       <Stories />
+
+      {/* 5b. Testimonios de clientes */}
+      <Testimonials />
 
       {/* 6. Quiénes somos */}
       <AboutUs />

@@ -101,6 +101,34 @@ export const homeStories = [
   },
 ];
 
+/** Testimonios de clientes, con su nombre y organización */
+export const homeTestimonials = [
+  {
+    quote:
+      "Trabajar con Proscom nos ha permitido tener una página web institucional a la altura de nuestro colegio. Y cada vez que necesitamos ayuda, ahí están con su soporte.",
+    name: "Julio Herrera",
+    role: "Director, Escuela San José de los Andes",
+    service: "Página web y soporte",
+    href: "/proyectos/san-jose-de-los-andes",
+  },
+  {
+    quote:
+      "Con el sistema Proscom Org ordenamos las finanzas de la junta de vecinos y ahora entregamos los certificados de residencia de forma rápida y profesional.",
+    name: "Carolina Vázquez",
+    role: "Secretaria, Junta de Vecinos",
+    service: "Sistema Proscom Org",
+    href: "/soluciones/proscom-org",
+  },
+  {
+    quote:
+      "Proscom ha sido nuestro aliado tecnológico. Con su plataforma de gestión creamos los contratos de compraventa de vehículos de forma ordenada y sin papeleo.",
+    name: "Rut Mora",
+    role: "Gerente general, LegalFirma",
+    service: "Plataforma de gestión",
+    href: "/proyectos/legalfirma",
+  },
+];
+
 /** Quiénes somos: razones para confiar */
 export const homeReasons = [
   { icon: "Users", title: "Hablas con personas", text: "Trato directo con quienes hacen tu proyecto, sin intermediarios." },

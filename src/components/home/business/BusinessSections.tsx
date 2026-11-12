@@ -12,8 +12,9 @@ import {
   homeSteps,
   homeReasons,
   homeFaqs,
+  homeTestimonials,
 } from "@/data/home";
-import { ArrowRight, MessageCircle, Phone, Check, CircleCheck, MapPin } from "lucide-react";
+import { ArrowRight, MessageCircle, Phone, Check, CircleCheck, MapPin, Quote } from "lucide-react";
 
 const whatsappHref = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent(
   "Hola, vi la página de Proscom y me gustaría conversar sobre mi negocio"
@@ -210,6 +211,64 @@ export const Stories: React.FC = () => (
           Ver más casos de éxito
         </Button>
       </div>
+    </div>
+  </section>
+);
+
+// Colores de los avatares de testimonios, en la misma línea de los pilares
+const AVATAR_COLORS = ["from-[#1373C9] to-[#1688F5]", "from-emerald-500 to-teal-500", "from-orange-500 to-amber-500"];
+
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+/** Lo que dicen nuestros clientes */
+export const Testimonials: React.FC = () => (
+  <section className="relative py-20 sm:py-28 bg-white overflow-hidden">
+    <div aria-hidden="true" className={`absolute inset-0 opacity-[0.07] ${DOTS} [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)] pointer-events-none`} />
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionTitle
+        eyebrow="Lo que dicen nuestros clientes"
+        title="Personas reales, resultados reales"
+        text="Colegios, organizaciones y empresas que ya confían en nosotros."
+      />
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {homeTestimonials.map((item, idx) => (
+          <li key={item.name} {...reveal("up", idx * 100)} className="h-full">
+            <figure className="relative h-full flex flex-col rounded-[28px] bg-[#F3F7FC] border border-slate-200/70 p-7 sm:p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <Quote aria-hidden="true" className="absolute top-6 right-6 w-10 h-10 text-[#1373C9]/15 fill-[#1373C9]/10" />
+              <span className="inline-flex self-start items-center rounded-full bg-white border border-slate-200 px-3 py-1 text-xs font-bold text-[#1373C9]">
+                {item.service}
+              </span>
+              <blockquote className="mt-5 flex-1 text-[17px] leading-relaxed text-slate-700">
+                “{item.quote}”
+              </blockquote>
+              <figcaption className="mt-7 pt-6 border-t border-slate-200 flex items-center gap-4">
+                <span
+                  aria-hidden="true"
+                  className={`shrink-0 w-12 h-12 rounded-full bg-gradient-to-br ${AVATAR_COLORS[idx % AVATAR_COLORS.length]} flex items-center justify-center text-sm font-extrabold text-white shadow-lg`}
+                >
+                  {initials(item.name)}
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-bold text-[#071A35]">{item.name}</span>
+                  <span className="block text-sm text-slate-500">{item.role}</span>
+                </span>
+              </figcaption>
+              <Link
+                href={item.href}
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-[#1373C9] hover:text-[#0B4F96] transition-colors"
+              >
+                Ver lo que hicimos <ArrowRight className="w-4 h-4" />
+              </Link>
+            </figure>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 );
