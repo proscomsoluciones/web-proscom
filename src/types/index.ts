@@ -12,6 +12,8 @@ export interface Service {
   methodology: { step: number; title: string; description: string }[];
   faqs: { question: string; answer: string }[];
   relatedProjectSlugs: string[];
+  /** Guías de /aprende para quien no sabe de estos temas */
+  guides?: { slug: string; label: string }[];
   metaTitle: string;
   metaDescription: string;
 }

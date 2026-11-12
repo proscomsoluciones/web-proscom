@@ -15,17 +15,18 @@ import {
   Trophy,
   GraduationCap,
   FileSignature,
+  Globe,
   type LucideIcon,
 } from "lucide-react";
 
-const SECTOR_ICONS: Record<string, LucideIcon> = { Flame, Trophy, GraduationCap, FileSignature };
+const SECTOR_ICONS: Record<string, LucideIcon> = { Flame, Trophy, GraduationCap, FileSignature, Globe };
 
 /** Vitrina de casos reales: el visitante elige un rubro y ve el antes y el después */
 export const StoriesShowcase: React.FC = () => {
   const [active, setActive] = useState(0);
   const story = homeStories[active];
   const whatsappHref = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent(
-    `Hola, vi el caso de ${story.sector.toLowerCase()} en la página de Proscom y me gustaría algo así para mi negocio`
+    `Hola, vi el caso "${story.title}" en la página de Proscom y me gustaría algo así para mi negocio`
   )}`;
 
   return (

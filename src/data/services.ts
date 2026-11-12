@@ -57,6 +57,7 @@ export const servicesData: Service[] = [
       },
     ],
     relatedProjectSlugs: ["wow-gas", "tesoreria-deportiva", "legalfirma", "routepay"],
+    guides: [{ slug: "software-a-medida-o-comprado", label: "¿Sistema a medida o uno ya hecho?" }],
     metaTitle: "Sistema a la medida para tu negocio en Chile | Proscom",
     metaDescription:
       "Creamos sistemas a la medida para negocios y organizaciones en Chile. Deja las planillas y ordena tu negocio con un sistema propio.",
@@ -109,8 +110,33 @@ export const servicesData: Service[] = [
         answer:
           "Dejamos la página preparada para que Google la entienda y la muestre. Aparecer primero también depende de la competencia y del tiempo, y te explicamos qué más puedes hacer.",
       },
+      {
+        question: "No sé qué es un dominio ni un hosting, ¿es un problema?",
+        answer:
+          "Para nada. El dominio es el nombre de tu página (por ejemplo, tunegocio.cl) y el hosting es el lugar donde queda guardada en internet. Te lo explicamos en simple y te guiamos para dejar todo listo.",
+      },
+      {
+        question: "¿Voy a poder cambiar textos y fotos yo mismo?",
+        answer:
+          "Depende de lo que prefieras: una página que tú actualizas desde un panel simple, o una que actualizamos nosotros cuando nos avisas. Te explicamos cuál te conviene según tu negocio.",
+      },
+      {
+        question: "¿Qué tengo que tener listo antes de pedir mi página?",
+        answer:
+          "Solo ganas de conversar. Si tienes logo, fotos o textos, nos sirven, pero si no los tienes te orientamos para prepararlos.",
+      },
+      {
+        question: "¿Cuánto se demora?",
+        answer: "Depende de cuántas secciones tenga. Antes de partir te damos una fecha estimada en la propuesta.",
+      },
     ],
     relatedProjectSlugs: ["san-jose-de-los-andes", "fundacion-gamboa-gestion"],
+    guides: [
+      { slug: "que-necesito-antes-de-pedir-mi-web", label: "Qué necesito antes de pedir mi página" },
+      { slug: "que-tipo-de-web-necesito", label: "¿Qué tipo de página necesito?" },
+      { slug: "dominio-hosting-y-web", label: "Dominio y hosting, explicado fácil" },
+      { slug: "correo-del-dominio", label: "Correo con el nombre de tu negocio" },
+    ],
     metaTitle: "Página web profesional para tu negocio en Chile | Proscom",
     metaDescription:
       "Páginas web para negocios en Chile: rápidas, que se ven bien en el celular, aparecen en Google y hacen que tus clientes te escriban.",
@@ -164,8 +190,27 @@ export const servicesData: Service[] = [
         answer:
           "Puede calcularse solo según el peso y la comuna, o puedes usar una tarifa fija o despacho gratis sobre cierto monto. Tú eliges.",
       },
+      {
+        question: "¿Necesito tener un local para vender por internet?",
+        answer: "No. Puedes vender solo por internet, o sumar la tienda online a tu local para vender por los dos lados.",
+      },
+      {
+        question: "¿Cómo me llega el dinero de las ventas?",
+        answer:
+          "Tus clientes pagan con tarjeta o transferencia y el dinero se deposita en la cuenta de tu negocio, en los plazos de la empresa de pagos que elijas (Webpay, Mercado Pago, Flow u otra).",
+      },
+      {
+        question: "¿Puedo partir con pocos productos?",
+        answer: "Sí. Puedes empezar con pocos y agregar más tú mismo cuando quieras.",
+      },
     ],
-    relatedProjectSlugs: ["wow-gas", "senderoo", "wowpos"],
+    relatedProjectSlugs: [],
+    guides: [
+      { slug: "que-necesito-antes-de-pedir-mi-web", label: "Qué necesito antes de empezar" },
+      { slug: "pasarela-de-pago", label: "Cómo funcionan los pagos con tarjeta" },
+      { slug: "dominio-hosting-y-web", label: "Dominio y hosting, explicado fácil" },
+      { slug: "seo-como-me-encuentran-en-google", label: "Cómo me encuentran en Google" },
+    ],
     metaTitle: "Tienda online para tu negocio en Chile | Proscom",
     metaDescription:
       "Creamos tu tienda online en Chile: pagos con tarjeta, despacho a todo el país y un panel simple para manejar productos y stock.",
@@ -222,6 +267,7 @@ export const servicesData: Service[] = [
       },
     ],
     relatedProjectSlugs: ["routepay", "senderoo", "wow-ticket", "tesoreria-deportiva"],
+    guides: [{ slug: "pasarela-de-pago", label: "Cómo funcionan los pagos con tarjeta" }],
     metaTitle: "Cobros con tarjeta y link de pago para tu negocio en Chile | Proscom",
     metaDescription:
       "Recibe pagos con Webpay, Mercado Pago o Flow en tu página, tu sistema o por WhatsApp. Cada pago confirmado al instante.",
@@ -273,6 +319,7 @@ export const servicesData: Service[] = [
       },
     ],
     relatedProjectSlugs: ["routepay", "wow-ticket"],
+    guides: [{ slug: "app-nativa-o-web", label: "¿App para descargar o página web?" }],
     metaTitle: "App para tu negocio en Chile | Android y iPhone - Proscom",
     metaDescription:
       "Apps para tu equipo en terreno o para tus clientes, en Android y iPhone. Simples, conectadas con tu negocio y fáciles de usar.",
@@ -429,6 +476,10 @@ export const servicesData: Service[] = [
       },
     ],
     relatedProjectSlugs: ["asociacion-futbol-catemu", "legalfirma"],
+    guides: [
+      { slug: "seguridad-de-contrasenas", label: "Cómo tener contraseñas seguras" },
+      { slug: "seguridad-https", label: "Por qué tu página debe tener candado" },
+    ],
     metaTitle: "Soporte y mantenimiento para tu negocio en Chile | Proscom",
     metaDescription:
       "Soporte y mantenimiento de páginas web y sistemas para negocios en Chile. Respaldos, seguridad y ayuda directa por WhatsApp.",

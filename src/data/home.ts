@@ -60,6 +60,16 @@ export const homeSteps = [
 
 export const homeStories = [
   {
+    slug: "san-jose-de-los-andes",
+    icon: "Globe",
+    sector: "Página web",
+    title: "Una página web para que las familias estén siempre informadas",
+    before: "Los avisos importantes llegaban tarde y por muchos grupos de mensajería distintos, sin un lugar oficial donde encontrarlos.",
+    after: "Las familias entran a la página del colegio y encuentran noticias, calendario, circulares y a quién contactar, incluso con mala señal.",
+    highlights: ["Noticias y calendario siempre al día", "Circulares y reglamentos para descargar", "Rápida incluso con mala señal en el celular"],
+    image: "/images/projects/san-jose.jpg",
+  },
+  {
     slug: "wow-gas",
     icon: "Flame",
     sector: "Distribuidora de gas",
@@ -142,6 +152,11 @@ export const homeFaqs = [
     question: "No sé nada de computación, ¿igual puedo trabajar con ustedes?",
     answer:
       "Sí, y es lo más común. La mayoría de nuestros clientes son dueños de negocios, directivas y administradores, no informáticos. Tú nos cuentas cómo trabajas y nosotros nos encargamos del resto.",
+  },
+  {
+    question: "¿Necesito una página web, una tienda online o un sistema?",
+    answer:
+      "Si quieres que te conozcan y te contacten, una página web. Si quieres vender y cobrar por internet, una tienda online. Si quieres ordenar ventas, stock y caja, un sistema. Si no lo tienes claro, cuéntanos tu negocio y te decimos qué te conviene.",
   },
   {
     question: "¿Cuánto cuesta?",

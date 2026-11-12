@@ -18,6 +18,7 @@ import {
   Layers,
   ChevronRight,
   Shield,
+  BookOpen,
 } from "lucide-react";
 
 import { reveal } from "@/components/motion/reveal";
@@ -383,6 +384,32 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             </h2>
           </div>
           <FaqAccordion faqs={service.faqs} />
+
+          {/* Guías en simple para quien no sabe de estos temas */}
+          {service.guides && service.guides.length > 0 && (
+            <div className="mt-10 rounded-2xl bg-[#EAF2FC] border border-[#1373C9]/15 p-6 sm:p-8">
+              <p className="flex items-center gap-2 text-base font-bold text-[#071A35]">
+                <BookOpen className="w-5 h-5 text-[#1373C9]" />
+                ¿Es tu primera vez? Te lo explicamos en simple
+              </p>
+              <p className="mt-1 text-sm text-slate-600">
+                Guías cortas, sin palabras técnicas, para que llegues a la conversación con todo claro.
+              </p>
+              <ul className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {service.guides.map((guide) => (
+                  <li key={guide.slug}>
+                    <Link
+                      href={`/aprende/${guide.slug}`}
+                      className="flex items-center justify-between gap-3 rounded-xl bg-white border border-slate-200 px-4 py-3 text-sm font-semibold text-[#071A35] hover:border-[#1373C9] hover:text-[#1373C9] transition-colors"
+                    >
+                      {guide.label}
+                      <ArrowRight className="w-4 h-4 shrink-0" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </section>
 
