@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/Header";
@@ -11,16 +11,18 @@ import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { Analytics } from "@vercel/analytics/next";
 import { ConversionTracking } from "@/components/analytics/ConversionTracking";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+// Fuentes incluidas en el proyecto (versión variable, caracteres latinos con tildes y ñ):
+// así la compilación no depende de descargarlas desde Google.
+const montserrat = localFont({
+  src: "./fonts/montserrat-variable.woff2",
+  weight: "100 900",
   variable: "--font-montserrat",
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const inter = localFont({
+  src: "./fonts/inter-variable.woff2",
+  weight: "100 900",
   variable: "--font-inter",
   display: "swap",
 });
