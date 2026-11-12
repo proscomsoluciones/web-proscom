@@ -58,4 +58,7 @@ export const contactFormSchema = z.object({
   startedAt: z.coerce.number(),
 });
 
-export type ContactFormData = z.infer<typeof contactFormSchema>;
+/** Valores tal como los escribe la persona en el formulario */
+export type ContactFormInput = z.input<typeof contactFormSchema>;
+/** Valores ya validados que se envían al servidor */
+export type ContactFormData = z.output<typeof contactFormSchema>;

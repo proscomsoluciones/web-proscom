@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactFormSchema, contactNeeds, ContactFormData } from "@/lib/validation";
+import { contactFormSchema, contactNeeds, ContactFormData, ContactFormInput } from "@/lib/validation";
 import { siteConfig } from "@/config/site";
 import { trackEvent } from "@/lib/track";
 import { Button } from "@/components/ui/Button";
@@ -44,7 +44,7 @@ export const ContactForm: React.FC = () => {
     reset,
     setValue,
     formState: { errors, isSubmitting },
-  } = useForm<ContactFormData>({
+  } = useForm<ContactFormInput, unknown, ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
