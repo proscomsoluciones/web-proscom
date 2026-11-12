@@ -11,9 +11,9 @@ import { reveal } from "@/components/motion/reveal";
 import { PageHeroFx } from "@/components/motion/PageHeroFx";
 import { SplitWords } from "@/components/motion/SplitWords";
 export const metadata: Metadata = {
-  title: "Soluciones de Software Propias | Proscom",
+  title: "Sistemas listos para usar | Proscom",
   description:
-    "Descubre las plataformas tecnológicas desarrolladas por Proscom: Proscom Org, Tesorería Deportiva, Asistencia Escolar, Pitazo Final, RoutePay y QueBuenDato.",
+    "Sistemas listos para juntas de vecinos, asociaciones deportivas, colegios y empresas de reparto: Proscom Org, Tesorería Deportiva, Asistencia Escolar, Pitazo Final, RoutePay y QueBuenDato.",
   alternates: {
     canonical: `${siteConfig.url}/soluciones`,
   },
@@ -32,13 +32,13 @@ export default function SolutionsPage() {
 
         <div {...reveal("blur")} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
           <Badge variant="cyan" className="mb-4">
-            Plataformas Propias
+            Sistemas listos
           </Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-            <SplitWords text="Soluciones de software listas para impulsar tu gestión" delay={200} />
+            <SplitWords text="Sistemas listos para usar, hechos para tu rubro" delay={200} />
           </h1>
           <p className="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
-            Herramientas operativas desarrolladas por Proscom con funcionalidades reales, diseñadas para resolver problemáticas específicas en diversos sectores.
+            Juntas de vecinos, clubes, colegios y empresas de reparto ya los usan todos los días. Los dejamos funcionando con tus datos y te enseñamos a usarlos.
           </p>
         </div>
       </section>
@@ -100,7 +100,7 @@ export default function SolutionsPage() {
                       {/* Confirmed features */}
                       <div className="space-y-2.5 mb-6">
                         <p className="text-xs font-bold text-[#071A35] uppercase tracking-wider">
-                          Capacidades confirmadas:
+                          Lo que incluye:
                         </p>
                         {solution.confirmedFeatures.slice(0, 4).map((feat, i) => (
                           <div
@@ -121,7 +121,7 @@ export default function SolutionsPage() {
                         size="md"
                         icon={<ArrowRight className="w-4 h-4" />}
                       >
-                        Ver detalles completos
+                        Ver más
                       </Button>
                       <span className="text-xs text-slate-500">
                         Modalidad: {solution.commercialModel}
@@ -139,10 +139,10 @@ export default function SolutionsPage() {
       <section className="py-16 bg-white border-t border-slate-200">
         <div {...reveal("up")} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#071A35]">
-            ¿Te interesa implementar alguna de nuestras soluciones?
+            ¿Te gustaría ver alguno funcionando?
           </h2>
           <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
-            Te explicamos cómo adaptarla a tu institución o negocio, los plazos de puesta en marcha y el acompañamiento incluido.
+            Te mostramos el sistema, te explicamos cuánto demora dejarlo listo y cómo te acompañamos después.
           </p>
           <div className="pt-2">
             <Button
@@ -151,7 +151,7 @@ export default function SolutionsPage() {
               size="lg"
               icon={<MessageCircle className="w-5 h-5" />}
             >
-              Solicitar demostración o información comercial
+              Quiero ver una demostración
             </Button>
           </div>
         </div>

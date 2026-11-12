@@ -22,7 +22,7 @@ export const projectsData: Project[] = [
       "Cuadratura automática de chofer: cruce exacto de carga inicial, ventas, envases vacíos y dinero rendido.",
       "Control de stock de cilindros (5, 11, 15 y 45 kg), ingresos de proveedores, recargas y traspasos entre bases.",
       "App para choferes en equipos de cobro portátiles: tarjeta, efectivo e impresión de tickets en ruta.",
-      "Arquitectura multiempresa con roles (Administradores, Cajeros y Choferes) y acceso por PIN de seguridad.",
+      "Sirve para varias empresas a la vez, con perfiles para administradores, cajeros y choferes, y acceso con clave PIN.",
       "Historial de ventas, cartera de clientes y reportes consolidados exportables a Excel.",
     ],
     technologies: ["Laravel 12", "PHP 8.2", "React 19", "React Native", "TypeScript", "Tailwind CSS", "MySQL", "Leaflet"],
@@ -87,9 +87,9 @@ export const projectsData: Project[] = [
       "Comodatos con contrato en PDF: emisión en pocos clics, asignación por escáner QR/NFC y control de devoluciones con reposición automática.",
       "Inventario multisede: control de stock por sucursal con número de serie, estado, traslados entre sedes e impresión de etiquetas QR.",
       "Gestión de beneficiarios: expediente digital con documentos (cédula) e historial completo de préstamos exportable a PDF.",
-      "Finanzas, reportes y documentos: registro de ingresos y egresos por categoría, panel con gráficos y repositorio documental.",
+      "Finanzas, reportes y documentos: registro de ingresos y egresos por categoría, panel con gráficos y archivo de documentos.",
       "Sitio público administrable: noticias, avisos, calendario, voluntarios con WhatsApp directo, donaciones y transparencia.",
-      "Roles y permisos: niveles Superadministrador, Administrador y Operaciones con permisos específicos por módulo.",
+      "Roles y permisos: niveles Superadministrador, Administrador y Operaciones con permisos para cada sección.",
     ],
     technologies: ["Laravel (PHP 8.3)", "React", "Inertia.js", "Filament", "Tailwind CSS", "MySQL", "Chart.js", "DomPDF"],
     image: "/images/projects/fundacion-gamboa-gestion.png",
@@ -118,11 +118,11 @@ export const projectsData: Project[] = [
     features: [
       "Contratos y mandatos notariales en PDF listos para firmar con datos autocompletados.",
       "Integración directa STEV con el Registro Civil: consulta de vigencia, envío de solicitud, seguimiento y comprobante oficial.",
-      "Módulo de limitaciones al dominio: registro y consulta de estado ante el Registro Civil.",
+      "Limitaciones al dominio: registro y consulta de estado ante el Registro Civil.",
       "Cobro digital con SumUp: generación de link público de pago para envío rápido a compradores vía WhatsApp.",
       "Panel financiero: recaudación, ganancias y reportes de cobros con exportación en PDF y Excel.",
-      "Dashboard analítico: clientes por personería, flota vehicular con/sin contrato y trámites ante el Registro Civil.",
-      "Seguridad y permisos: roles Super Admin, Admin y Ejecutivos con control granular por acción sobre cada módulo.",
+      "Pantalla de resumen: clientes por personería, flota vehicular con/sin contrato y trámites ante el Registro Civil.",
+      "Seguridad y permisos: roles Super Admin, Admin y Ejecutivos donde se decide qué puede hacer cada persona en cada sección.",
     ],
     technologies: ["Laravel 13", "PHP 8.3", "React 19", "Inertia.js 3", "Tailwind CSS 4", "SOAP WS-Security", "SumUp", "MySQL", "DomPDF"],
     image: "/images/projects/legalfirma.png",
@@ -187,7 +187,7 @@ export const projectsData: Project[] = [
       "Comité de Ética: expedientes con folio único (investigación, citación, inhabilitación y resolución).",
       "Fondo Solidario: registro de jugadores lesionados, diagnóstico médico, montos de cobertura asignados y estado del trámite.",
       "Gestión de torneos y fixture: configuración de campeonatos por fases, series y fechas de juego.",
-      "Dashboard analítico: indicadores de sanciones vigentes/cumplidas, ranking de clubes y gráficos con Recharts.",
+      "Pantalla de resumen: indicadores de sanciones vigentes/cumplidas, ranking de clubes y gráficos.",
       "Auditoría inmutable: bitácora de cada creación, edición o baja con registro de usuario, rol, IP y fecha.",
     ],
     technologies: ["Laravel 13", "PHP 8.3", "React 18", "Inertia.js 2", "Tailwind CSS", "Recharts", "DomPDF", "MySQL"],
@@ -246,7 +246,7 @@ export const projectsData: Project[] = [
     problem:
       "Los sistemas comerciales evaluados por el cliente eran excesivamente complejos para los cajeros, presentaban cobros recurrentes elevados y no ofrecían flexibilidad para conectar con sus impresoras térmicas existentes.",
     solution:
-      "Diseñamos un sistema POS liviano, veloz y robusto, con sincronización centralizada en la nube, módulo de apertura y cierre de caja ciego para evitar discrepancias y reportes automáticos al cierre de jornada.",
+      "Diseñamos un sistema POS liviano, veloz y robusto, con la información de todos los locales reunida en internet, apertura y cierre de caja ciego para evitar discrepancias y reportes automáticos al cierre de jornada.",
     features: [
       "Venta rápida con lector de código de barras o búsqueda táctil.",
       "Compatibilidad con impresoras térmicas de tickets y boletas.",
@@ -267,7 +267,7 @@ export const projectsData: Project[] = [
     id: "wow-ticket",
     slug: "wow-ticket",
     name: "WOW Ticket",
-    category: "Software a medida",
+    category: "Sistema a medida",
     clientOrSector: "Eventos, Espectáculos y Control de Acceso",
     isClientProject: true,
     shortDescription:
@@ -341,7 +341,7 @@ export const projectsData: Project[] = [
     solution:
       "Desarrollamos una web escolar clara, liviana y estructurada, con descarga directa de documentos oficiales, noticias por ciclo educativo y canales de contacto directo.",
     features: [
-      "Repositorio de circulares y reglamentos descargables en PDF.",
+      "Biblioteca de circulares y reglamentos descargables en PDF.",
       "Noticias y calendario escolar actualizado.",
       "Directorio de contactos por departamento y secretaría.",
       "Alta velocidad de carga en zonas con conectividad móvil variable.",
@@ -373,7 +373,7 @@ export const projectsData: Project[] = [
     features: [
       "Registro y asignación de órdenes de despacho a transportistas.",
       "Trazabilidad de estados de entrega en ruta.",
-      "Módulo de liquidación y conciliación de pagos a choferes.",
+      "Cálculo y cuadratura de los pagos a choferes.",
       "Exportación de reportes operativos y contables.",
     ],
     technologies: ["PHP / Laravel", "PostgreSQL", "Vue.js", "Docker"],

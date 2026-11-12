@@ -40,13 +40,14 @@ export const metadata: Metadata = {
   description:
     "Ayudamos a negocios de Chile a vender por internet, cobrar fácil y ordenar ventas, stock y caja. Páginas web, tiendas online y sistemas de gestión sin tecnicismos.",
   keywords: [
-    "Desarrollo de software a medida Chile",
+    "Página web para mi negocio",
+    "Tienda online Chile",
+    "Sistema de ventas y stock",
+    "Sistema de caja para negocio",
+    "Cobros con tarjeta y link de pago",
+    "Sistema para junta de vecinos",
+    "Sistema a medida Chile",
     "Desarrollo web Región de Valparaíso",
-    "Empresas de desarrollo de software Chile",
-    "Sistemas de gestión para empresas",
-    "Desarrollo de aplicaciones móviles Chile",
-    "Desarrollo de software Valparaíso",
-    "Desarrollo de sistemas empresariales",
     "Proscom Chile",
   ],
   authors: [{ name: "Proscom SpA", url: siteConfig.url }],
@@ -68,23 +69,23 @@ export const metadata: Metadata = {
     locale: "es_CL",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: "Proscom | Soluciones de Control y Gestión",
+    title: "Proscom | Tu negocio ordenado, vendiendo más",
     description:
-      "Transformamos ideas en soluciones tecnológicas. Software a medida, plataformas de gestión y desarrollo web profesional en Chile.",
+      "Páginas web, tiendas online, cobros con tarjeta y sistemas de ventas, stock y caja para negocios de Chile. Te explicamos todo en simple.",
     images: [
       {
         url: "/images/hero/header-hero.png",
         width: 1200,
         height: 630,
-        alt: "Proscom - Transformamos ideas en soluciones tecnológicas",
+        alt: "Proscom - Tu negocio ordenado, vendiendo más",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Proscom | Soluciones de Control y Gestión",
+    title: "Proscom | Tu negocio ordenado, vendiendo más",
     description:
-      "Desarrollo de software a medida, aplicaciones móviles y sistemas de gestión para empresas en Chile.",
+      "Páginas web, tiendas online, cobros con tarjeta y sistemas de ventas, stock y caja para negocios de Chile.",
     images: ["/images/hero/header-hero.png"],
   },
   alternates: {

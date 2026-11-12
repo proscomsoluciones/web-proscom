@@ -42,12 +42,13 @@ export function getOrganizationSchema() {
     priceRange: "$$",
     sameAs: [siteConfig.social.linkedin, siteConfig.social.instagram],
     knowsAbout: [
-      "Desarrollo de software a medida",
-      "Aplicaciones web",
+      "Páginas web para negocios",
+      "Tiendas online",
+      "Sistemas de ventas, stock y caja",
+      "Cobros con tarjeta y link de pago",
+      "Sistemas a medida",
       "Aplicaciones móviles",
-      "Sistemas de gestión empresarial",
-      "Punto de Venta POS",
-      "Integración de APIs",
+      "Soporte y mantenimiento",
     ],
   };
 }

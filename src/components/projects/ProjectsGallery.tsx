@@ -15,7 +15,7 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) =>
 
   const categories = [
     "Todos",
-    "Software a medida",
+    "Sistema a medida",
     "Sistemas de Gestión",
     "Desarrollo web",
     "Punto de Venta",
@@ -88,7 +88,7 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) =>
                 {project.isClientProject && (
                   <div className="flex items-center gap-1.5 text-xs text-[#1479D4] font-semibold mb-2">
                     <Shield className="w-3.5 h-3.5" />
-                    <span>Proyecto desarrollado a medida para cliente</span>
+                    <span>Hecho a la medida de este cliente</span>
                   </div>
                 )}
 

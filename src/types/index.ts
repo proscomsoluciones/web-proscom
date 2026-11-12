@@ -39,7 +39,7 @@ export interface Project {
   id: string;
   slug: string;
   name: string;
-  category: "Software a medida" | "Sistemas de Gestión" | "Desarrollo web" | "Punto de Venta" | "Gestión Deportiva" | "Gestión Documental" | "Logística";
+  category: "Sistema a medida" | "Sistemas de Gestión" | "Desarrollo web" | "Punto de Venta" | "Gestión Deportiva" | "Gestión Documental" | "Logística";
   clientOrSector: string;
   isClientProject: boolean;
   shortDescription: string;

@@ -2,9 +2,9 @@ export const siteConfig = {
   name: "Proscom",
   legalName: "PROSCOM SPA",
   slogan: "Soluciones de control y gestión",
-  headline: "Transformamos ideas en soluciones tecnológicas",
+  headline: "Tu negocio ordenado, vendiendo más",
   description:
-    "Desarrollamos software a medida, aplicaciones móviles, sitios web y plataformas de gestión que ayudan a empresas y organizaciones a optimizar sus procesos y crecer.",
+    "Ayudamos a negocios y organizaciones de Chile a vender más y ordenarse: páginas web, tiendas online, cobros con tarjeta y sistemas de ventas, stock y caja. Te explicamos todo en simple.",
   url: "https://www.proscom.cl",
   founderExperienceYears: "15+",
   location: {

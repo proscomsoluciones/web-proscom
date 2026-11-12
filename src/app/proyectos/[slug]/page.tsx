@@ -74,7 +74,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   }
 
   const whatsappUrl = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent(
-    `Hola, estuve revisando el caso de desarrollo "${project.name}" en la web de Proscom y me gustaría consultar por un proyecto similar para mi empresa.`
+    `Hola, vi el caso "${project.name}" en la web de Proscom y me gustaría algo así para mi negocio.`
   )}`;
 
   return (
@@ -122,7 +122,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 {project.isClientProject && (
                   <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-[#1479D4]/20 text-[#19C6E6] border border-[#1479D4]/40">
                     <Shield className="w-3.5 h-3.5" />
-                    <span>Proyecto desarrollado a medida para cliente</span>
+                    <span>Hecho a la medida de este cliente</span>
                   </span>
                 )}
               </div>
@@ -146,7 +146,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   size="md"
                   icon={<ArrowRight className="w-4 h-4" />}
                 >
-                  Cotizar proyecto similar
+                  Quiero algo así
                 </Button>
                 <Button
                   href={whatsappUrl}
@@ -189,7 +189,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 El Desafío
               </span>
               <h2 className="text-xl font-bold text-[#071A35] mb-4">
-                Problema u oportunidad identificada
+                Lo que necesitaba
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
                 {project.problem}
@@ -202,7 +202,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 Nuestra Solución
               </span>
               <h2 className="text-xl font-bold text-[#071A35] mb-4">
-                Implementación técnica desarrollada
+                Lo que hicimos
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
                 {project.solution}
@@ -219,9 +219,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             {/* Features list */}
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-2">
-                <Badge variant="blue">Funcionalidades</Badge>
+                <Badge variant="blue">Qué incluye</Badge>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A35]">
-                  Módulos y funciones clave implementadas
+                  Lo que hoy puede hacer
                 </h2>
               </div>
               <div className="space-y-3 pt-2">
@@ -262,7 +262,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   </p>
                   <p className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-emerald-400" />
-                    <span>Desarrollo exclusivo a la medida</span>
+                    <span>Hecho a la medida</span>
                   </p>
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   size="md"
                   className="w-full text-center"
                 >
-                  Consultar por un desarrollo similar
+                  Quiero algo así para mi negocio
                 </Button>
               </div>
             </div>

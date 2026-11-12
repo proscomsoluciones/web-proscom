@@ -38,7 +38,7 @@ export async function generateMetadata({
   const solution = solutionsData.find((s) => s.slug === slug);
 
   if (!solution) {
-    return { title: "Solución no encontrada" };
+    return { title: "Sistema no encontrado" };
   }
 
   return {
@@ -75,7 +75,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
   }
 
   const whatsappUrl = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent(
-    `Hola, me interesa conocer más información sobre la plataforma "${solution.name}" de Proscom.`
+    `Hola, me interesa el sistema "${solution.name}" de Proscom y me gustaría ver una demostración.`
   )}`;
 
   return (
@@ -119,7 +119,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-4">
               <div className="flex items-center gap-2.5">
-                <Badge variant="cyan">Solución Propia Proscom</Badge>
+                <Badge variant="cyan">Sistema listo para usar</Badge>
                 <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                   {solution.commercialStatus}
                 </span>
@@ -144,7 +144,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
                   size="md"
                   icon={<ArrowRight className="w-4 h-4" />}
                 >
-                  Solicitar demostración
+                  Quiero ver una demostración
                 </Button>
                 <Button
                   href={whatsappUrl}
@@ -189,10 +189,10 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-[#071A35]">
-                    Público objetivo y aplicación
+                    ¿Para quién es?
                   </h2>
                   <p className="text-xs text-slate-500">
-                    A quién está dirigida esta solución
+                    Organizaciones y negocios que lo aprovechan
                   </p>
                 </div>
               </div>
@@ -217,10 +217,10 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-[#071A35]">
-                    Problemas reales que soluciona
+                    ¿Te pasa esto?
                   </h2>
                   <p className="text-xs text-slate-500">
-                    Dificultades operativas que elimina
+                    Lo que deja de ser un problema
                   </p>
                 </div>
               </div>
@@ -246,12 +246,12 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-2">
-                <Badge variant="blue">Funcionalidades</Badge>
+                <Badge variant="blue">Qué incluye</Badge>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A35]">
-                  Capacidades operativas confirmadas
+                  Todo lo que puedes hacer
                 </h2>
                 <p className="text-sm text-slate-600">
-                  Módulos y herramientas incluidas en la versión comercial de la plataforma:
+                  Esto viene incluido en el sistema:
                 </p>
               </div>
 
@@ -275,7 +275,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
               <div>
                 <div className="flex items-center gap-2 text-xs font-semibold text-[#19C6E6] uppercase tracking-wider mb-4">
                   <CalendarCheck className="w-4 h-4" />
-                  <span>Modelo de Adquisición</span>
+                  <span>¿Cómo se contrata?</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">
                   Modalidad Comercial
@@ -285,10 +285,10 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
                 </p>
 
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 space-y-2 mb-6">
-                  <p className="font-semibold text-white">¿Qué incluye la implementación?</p>
-                  <p>• Configuración inicial y parametrización de datos.</p>
-                  <p>• Capacitación para administradores y operadores.</p>
-                  <p>• Soporte técnico y respaldos periódicos.</p>
+                  <p className="font-semibold text-white">¿Qué incluye la puesta en marcha?</p>
+                  <p>• Dejamos el sistema listo con tus datos.</p>
+                  <p>• Te enseñamos a ti y a tu equipo a usarlo.</p>
+                  <p>• Soporte y respaldo de tu información.</p>
                 </div>
               </div>
 
@@ -299,7 +299,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
                   size="md"
                   className="w-full text-center"
                 >
-                  Solicitar cotización personalizada
+                  Quiero que me contacten
                 </Button>
               </div>
             </div>
@@ -311,9 +311,9 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
       <section className="py-16 bg-[#F3F6FA] border-b border-slate-200">
         <div {...reveal("up")} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10 space-y-2">
-            <Badge variant="blue">Preguntas Frecuentes</Badge>
+            <Badge variant="blue">Preguntas frecuentes</Badge>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A35]">
-              Dudas sobre {solution.name}
+              Lo que más nos preguntan sobre {solution.name}
             </h2>
           </div>
           <FaqAccordion faqs={solution.faqs} />

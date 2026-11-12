@@ -4,43 +4,43 @@ export const methodologyData: MethodologyStep[] = [
   {
     step: 1,
     title: "Conversemos",
-    subtitle: "Entendemos tu necesidad",
+    subtitle: "Te escuchamos",
     description:
-      "Escuchamos tus desafíos, objetivos y la dinámica operativa de tu negocio para tener claridad sobre lo que realmente necesitas resolver.",
+      "Nos cuentas cómo funciona tu negocio y qué te complica. Así tenemos claro qué necesitas de verdad.",
   },
   {
     step: 2,
-    title: "Analizamos",
-    subtitle: "Planificación técnica",
+    title: "Te proponemos",
+    subtitle: "Precio y plazos claros",
     description:
-      "Evaluamos la arquitectura técnica, definimos los requerimientos funcionales y proponemos la solución más eficiente y rentable.",
+      "Te explicamos qué haríamos, cuánto cuesta y cuánto demora, para que decidas con toda la información.",
   },
   {
     step: 3,
     title: "Diseñamos",
-    subtitle: "Experiencia y flujos",
+    subtitle: "Cómo se verá",
     description:
-      "Estructuramos interfaces limpias, intuitivas y responsivas, asegurando que cada pantalla sea fácil de usar para tu equipo y tus clientes.",
+      "Te mostramos cómo se verá cada pantalla antes de construirla, para que sea fácil de usar para tu equipo y tus clientes.",
   },
   {
     step: 4,
-    title: "Desarrollamos",
-    subtitle: "Código de producción",
+    title: "Lo construimos",
+    subtitle: "Avances para que opines",
     description:
-      "Programamos con tecnologías modernas, estándares de seguridad robustos y código ordenado para garantizar velocidad y escalabilidad.",
+      "Lo construimos de forma segura y rápida, y te mostramos avances para que pidas cambios a tiempo.",
   },
   {
     step: 5,
-    title: "Implementamos",
-    subtitle: "Puesta en marcha",
+    title: "Lo ponemos en marcha",
+    subtitle: "Listo para usar",
     description:
-      "Desplegamos tu sistema en servidores confiables, migramos tus datos y capacitamos a tu equipo para un inicio sin tropiezos.",
+      "Lo dejamos funcionando, traspasamos tu información y enseñamos a tu equipo a usarlo.",
   },
   {
     step: 6,
     title: "Acompañamos",
-    subtitle: "Soporte y evolución",
+    subtitle: "Siempre a tu lado",
     description:
-      "Mantenemos un canal de contacto directo para monitoreo preventivo, respaldos regulares y nuevas funcionalidades a medida que creces.",
+      "Seguimos contigo: resolvemos dudas, respaldamos tu información y agregamos mejoras a medida que tu negocio crece.",
   },
 ];

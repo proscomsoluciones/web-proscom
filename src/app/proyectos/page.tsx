@@ -11,9 +11,9 @@ import { reveal } from "@/components/motion/reveal";
 import { PageHeroFx } from "@/components/motion/PageHeroFx";
 import { SplitWords } from "@/components/motion/SplitWords";
 export const metadata: Metadata = {
-  title: "Portafolio de Proyectos y Casos Reales | Proscom",
+  title: "Casos de éxito | Proscom",
   description:
-    "Conoce nuestros proyectos de software a medida, sistemas POS, plataformas de gestión deportiva, educacional y logística desarrollados en Chile.",
+    "Negocios y organizaciones de Chile que ya trabajan con Proscom: distribuidoras, colegios, asociaciones deportivas, gestorías y más.",
   alternates: {
     canonical: `${siteConfig.url}/proyectos`,
   },
@@ -35,13 +35,13 @@ export default function ProjectsPage() {
 
         <div {...reveal("blur")} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
           <Badge variant="cyan" className="mb-4">
-            Portafolio Real
+            Casos de éxito
           </Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-            <SplitWords text="Proyectos reales, soluciones a medida" delay={200} />
+            <SplitWords text="Negocios reales que ya dieron el paso" delay={200} />
           </h1>
           <p className="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
-            Casos de desarrollo implementados para clientes corporativos, instituciones públicas, entidades comunitarias y emprendimientos en Chile.
+            Empresas, colegios, organizaciones y emprendedores de Chile que hoy venden más y trabajan más ordenados.
           </p>
         </div>
       </section>
@@ -57,10 +57,10 @@ export default function ProjectsPage() {
       <section className="py-16 bg-white border-t border-slate-200">
         <div {...reveal("up")} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#071A35]">
-            ¿Tienes un proyecto similar que deseas cotizar?
+            ¿Quieres algo así para tu negocio?
           </h2>
           <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
-            Evaluamos tu flujo de trabajo y diseñamos una propuesta técnica adaptada al tamaño y presupuesto de tu empresa.
+            Cuéntanos cómo trabajas y te proponemos una solución a la medida de tu negocio y tu presupuesto.
           </p>
           <div className="pt-2">
             <Button
@@ -69,7 +69,7 @@ export default function ProjectsPage() {
               size="lg"
               icon={<MessageSquare className="w-5 h-5" />}
             >
-              Cotizar un proyecto a medida
+              Quiero que me contacten
             </Button>
           </div>
         </div>
